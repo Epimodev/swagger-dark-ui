@@ -1,4 +1,4 @@
-interface MethodDocumentation {
+export interface MethodDocumentation {
   readonly method: HttpMethod;
   readonly path: string;
 }
@@ -6,7 +6,7 @@ interface MethodDocumentation {
 export interface DocumentationState {
   name: string;
   version: string;
-  basePath: string;
+  baseUrl: string;
   methods: MethodDocumentation[];
   status: 'LOADING' | 'LOADED' | 'ERROR';
 }
