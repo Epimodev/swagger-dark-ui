@@ -1,0 +1,29 @@
+# OS X
+.DS_Store*
+._*
+Icon?
+!/src/icons
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+.directory
+*~
+
+# npm
+node_modules
+*.log
+*.gz
+
+# vim
+*.swp
+
+# environment
+/environments/*
+!/environments/example
+
+# build
+dist

@@ -1,0 +1,11 @@
+@import "fonts";
+@import "app-colors";
+
+body {
+  font-family: 'open-sans';
+}
+
+.container {
+  display: flex;
+  align-items: top;
+}

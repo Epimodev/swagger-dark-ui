@@ -1,0 +1,22 @@
+@mixin resetButton {
+  padding: 0;
+  border: none;
+  background: none;
+  outline: none;
+  font: inherit;
+  cursor: pointer;
+}
+
+@mixin resetInput {
+  padding: 0;
+  border: none;
+  background: none;
+  outline: none;
+  font: inherit;
+}
+
+@mixin ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
