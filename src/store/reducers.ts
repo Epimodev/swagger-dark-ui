@@ -1,11 +1,13 @@
 // import { combineReducers } from 'redux';
+import { DocumentationState, DocumentationAction } from 'src/App/types';
+import AppReducer from 'src/App/reducer';
 
-interface StoreState {}
+interface StoreState extends DocumentationState {}
 
-type Action = 'NO ACTION';
+type Action = DocumentationAction;
 
 // const reducers = combineReducers<StoreState>({});
-const reducers = (state: StoreState) => state;
+const reducers = AppReducer;
 
 export default reducers;
 export { StoreState, Action };

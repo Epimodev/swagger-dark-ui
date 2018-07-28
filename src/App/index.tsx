@@ -1,15 +1,29 @@
 import { h } from 'preact';
-import Hello from 'src/pages/Hello';
-import * as style from './style.scss';
+import { connect } from 'preact-redux';
+import { StoreState } from 'src/store';
+import AppView from './view';
+import { fetchApiDocumentation } from './actions';
 
-interface Props {}
-
-function App(props: Props) {
-  return (
-    <div className={style.container}>
-      <Hello />
-    </div>
-  );
+interface StoreProps {
+  status: 'LOADING' | 'LOADED' | 'ERROR';
 }
 
-export default App;
+interface DispatchProps {
+  fetchApiDocumentation: () => void;
+}
+
+function mapStateToProps(state: StoreState): StoreProps {
+  return {
+    status: state.status,
+  };
+}
+
+const dispatchToProps: DispatchProps = {
+  fetchApiDocumentation,
+};
+
+function render(props: StoreProps & DispatchProps) {
+  return <AppView {...props} />;
+}
+
+export default connect(mapStateToProps, dispatchToProps)(render);

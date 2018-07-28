@@ -36,13 +36,14 @@
     "svg-sprite-html-webpack": "^2.1.0",
     "tslint": "^5.10.0",
     "tslint-config-airbnb": "^5.8.0",
-    "typescript": "^2.8.3",
+    "typescript": "^2.9.2",
     "webpack": "^4.7.0",
     "webpack-dev-server": "^3.1.4",
     "webpack-merge": "^4.1.2",
     "webpackbar": "^2.6.1"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "preact": "^8.2.9",
     "preact-redux": "^2.0.3",
     "redux": "^3.7.2",
