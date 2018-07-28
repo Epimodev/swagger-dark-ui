@@ -1,11 +1,11 @@
 import { DocumentationState, DocumentationAction } from './types';
-import { getBaseUrl, getMethods } from './utils';
+import { getBaseUrl, getOperations } from './utils';
 
 const initialState: DocumentationState = {
   name: '',
   version: '',
   baseUrl: '',
-  methods: [],
+  operations: [],
   status: 'LOADED',
 };
 
@@ -26,7 +26,7 @@ function reducer(
         name: action.payload.info.title,
         version: action.payload.info.version,
         baseUrl: getBaseUrl(action.payload),
-        methods: getMethods(action.payload),
+        operations: getOperations(action.payload),
       };
     case 'FETCH_SWAGGER_FAIL':
       return {

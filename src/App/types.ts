@@ -1,13 +1,24 @@
-export interface MethodDocumentation {
+interface MethodResponse {
+  code: number;
+  description: string;
+  schema: ResponseSchema;
+  example: any;
+}
+export interface OperationDocumentation {
+  readonly id: string;
+  readonly summary: string;
+  readonly description: string;
   readonly method: HttpMethod;
   readonly path: string;
+  readonly params: HttpParameter[];
+  readonly responses: MethodResponse[];
 }
 
 export interface DocumentationState {
   name: string;
   version: string;
   baseUrl: string;
-  methods: MethodDocumentation[];
+  operations: OperationDocumentation[];
   status: 'LOADING' | 'LOADED' | 'ERROR';
 }
 

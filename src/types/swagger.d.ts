@@ -18,7 +18,7 @@ type ParamIn = 'header' | 'query' | 'path' | 'body';
 
 type ParamType = 'string' | 'integer' | 'number' | 'object' | 'array' | 'boolean';
 
-interface Parameter {
+interface HttpParameter {
   name: string;
   in: ParamIn;
   required: boolean;
@@ -28,23 +28,23 @@ interface Parameter {
 
 type ArraySchema = {
   type: 'array';
-  items: Schema;
+  items: ResponseSchema;
 };
 
 type ObjectSchema = {
   type: 'object';
-  properties: Schema;
+  properties: ResponseSchema;
 };
 
 type PrimitiveSchema = {
   type: 'string' | 'integer' | 'number' | 'boolean';
 };
 
-type Schema = ArraySchema | ObjectSchema | PrimitiveSchema;
+declare type ResponseSchema = ArraySchema | ObjectSchema | PrimitiveSchema;
 
 interface Response {
   description: string;
-  schema: Schema;
+  schema: ResponseSchema;
   examples: {
     ['application/json']: {
       data: object | array<any>;
@@ -60,7 +60,7 @@ interface ApiPaths {
       tags: string[];
       description: string[];
       produces: string[];
-      parameters: Parameter[];
+      parameters: HttpParameter[];
       responses: {
         [x: string]: Response;
       };
