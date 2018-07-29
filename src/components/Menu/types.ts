@@ -2,6 +2,9 @@ export interface MenuRessource {
   name: string;
   operations: {
     id: string;
-    value: string;
+    value: {
+      method: HttpMethod;
+      path: string;
+    };
   }[];
 }

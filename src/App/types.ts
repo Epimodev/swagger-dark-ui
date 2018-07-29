@@ -5,13 +5,13 @@ interface MethodResponse {
   example: any;
 }
 export interface OperationDocumentation {
-  readonly id: string;
-  readonly summary: string;
-  readonly description: string;
-  readonly method: HttpMethod;
-  readonly path: string;
-  readonly params: HttpParameter[];
-  readonly responses: MethodResponse[];
+  id: string;
+  summary: string;
+  description: string;
+  method: HttpMethod;
+  path: string;
+  params: HttpParameter[];
+  responses: MethodResponse[];
 }
 
 export interface DocumentationState {
