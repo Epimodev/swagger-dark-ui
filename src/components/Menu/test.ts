@@ -11,6 +11,38 @@ const operationBase: OperationDocumentation = {
   responses: [],
 };
 
+describe('filterOperations', () => {
+  const operations: OperationDocumentation[] = [
+    { ...operationBase, id: 'get_streams', path: '/streams' },
+    { ...operationBase, id: 'get_stream_by_id', path: '/streams/{id}' },
+    { ...operationBase, id: 'get_score', path: '/games/score' },
+    { ...operationBase, id: 'get_game_by_id', path: '/games/{id}' },
+    { ...operationBase, id: 'get_calendar', path: '/games/calendar' },
+  ];
+
+  test('Should return the same list as input', () => {
+    expect(utils.filterOperations('', operations)).toBe(operations);
+  });
+
+  test('Should return only `score` operation', () => {
+    const expectedResult = [operations[2]];
+
+    expect(utils.filterOperations('scr', operations)).toEqual(expectedResult);
+  });
+
+  test('Should return only `streams` operations', () => {
+    const expectedResult = [operations[0], operations[1]];
+
+    expect(utils.filterOperations('strm', operations)).toEqual(expectedResult);
+  });
+
+  test('Should return only `{id}` operations', () => {
+    const expectedResult = [operations[1], operations[3]];
+
+    expect(utils.filterOperations('{id}', operations)).toEqual(expectedResult);
+  });
+});
+
 describe('getMenuRessources', () => {
   test('Should return empty list', () => {
     const operations: OperationDocumentation[] = [];
