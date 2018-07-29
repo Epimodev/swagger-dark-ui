@@ -88,7 +88,6 @@ function getMenuRessources(operations: OperationDocumentation[]): MenuRessource[
     },
     [] as MenuRessource[],
   );
-  return [];
 }
 
 const selectOperations = createSelector(

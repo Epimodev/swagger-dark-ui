@@ -1,5 +1,6 @@
 import { h, Component } from 'preact';
 import Menu from 'src/components/Menu';
+import DocDetails from 'src/pages/DocDetails';
 import * as style from './style.scss';
 
 interface Props {
@@ -21,7 +22,14 @@ class AppView extends Component<Props, State> {
       <div className={style.container}>
         {status === 'ERROR' && <div>Loading error</div>}
         {status === 'LOADING' && <div>Loading</div>}
-        {status === 'LOADED' && <Menu />}
+        {status === 'LOADED' && (
+          <div>
+            <Menu />
+            <div className={style.detailsContainer}>
+              <DocDetails />
+            </div>
+          </div>
+        )}
       </div>
     );
   }

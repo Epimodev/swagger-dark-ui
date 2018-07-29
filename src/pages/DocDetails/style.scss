@@ -1,0 +1,9 @@
+@import 'app-colors';
+
+.container {
+  width: 640px;
+  padding: 15px;
+  background-color: $cardBackground;
+  border-radius: 5px;
+  overflow: auto;
+}
