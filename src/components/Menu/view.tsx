@@ -1,4 +1,4 @@
-import { h } from 'preact';
+import { createElement, SyntheticEvent } from 'react';
 import { MenuRessource } from './types';
 import Ressource from './components/Ressource';
 import * as style from './style.scss';
@@ -8,7 +8,7 @@ export interface Props {
   docVersion: string;
   ressources: MenuRessource[];
   filterValue: string;
-  setFilter: (event: Event) => void;
+  setFilter: (event: SyntheticEvent<HTMLInputElement>) => void;
 }
 
 function Menu(props: Props) {
@@ -23,7 +23,7 @@ function Menu(props: Props) {
       <input
         type="text"
         value={filterValue}
-        onInput={setFilter}
+        onChange={setFilter}
         placeholder="Filter endpoints"
         className={style.filterInput}
       />

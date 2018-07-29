@@ -1,4 +1,4 @@
-import { h } from 'preact';
+import { createElement } from 'react';
 import * as classnames from 'classnames';
 import * as style from './style.scss';
 

@@ -1,4 +1,5 @@
-import { connect } from 'preact-redux';
+import { SyntheticEvent } from 'react';
+import { connect } from 'react-redux';
 import { StoreState } from 'src/store';
 import MenuView from './view';
 import { selectRessources } from './utils';
@@ -13,7 +14,7 @@ interface StoreProps {
 }
 
 interface DispatchProps {
-  setFilter: (event: Event) => void;
+  setFilter: (event: SyntheticEvent<HTMLInputElement>) => void;
 }
 
 function mapStateToProps(state: StoreState): StoreProps {

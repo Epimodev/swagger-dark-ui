@@ -1,4 +1,4 @@
-import { h, Component } from 'preact';
+import { createElement, Component } from 'react';
 import Menu from 'src/components/Menu';
 import DocDetails from 'src/pages/DocDetails';
 import * as style from './style.scss';

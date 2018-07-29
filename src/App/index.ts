@@ -1,5 +1,4 @@
-import { h } from 'preact';
-import { connect } from 'preact-redux';
+import { connect } from 'react-redux';
 import { StoreState } from 'src/store';
 import AppView from './view';
 import { fetchApiDocumentation } from './actions';
@@ -22,8 +21,4 @@ const dispatchToProps: DispatchProps = {
   fetchApiDocumentation,
 };
 
-function render(props: StoreProps & DispatchProps) {
-  return <AppView {...props} />;
-}
-
-export default connect(mapStateToProps, dispatchToProps)(render);
+export default connect(mapStateToProps, dispatchToProps)(AppView);

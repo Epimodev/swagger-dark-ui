@@ -1,4 +1,4 @@
-import { h } from 'preact';
+import { createElement } from 'react';
 import { MenuRessource } from '../../types';
 import Operation from '../Operation';
 import * as style from './style.scss';

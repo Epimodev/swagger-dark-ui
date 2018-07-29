@@ -1,11 +1,11 @@
 {
-  "name": "preact-boilerplate",
+  "name": "react-boilerplate",
   "version": "1.0.0",
   "main": "index.js",
   "author": "Frederic Godin",
   "license": "MIT",
   "keywords": [
-    "preact",
+    "react",
     "webpack",
     "svg-sprite",
     "css modules",
@@ -22,6 +22,9 @@
   "devDependencies": {
     "@types/classnames": "^2.2.6",
     "@types/jest": "^23.3.1",
+    "@types/react": "^16.4.7",
+    "@types/react-dom": "^16.0.6",
+    "@types/react-redux": "^6.0.5",
     "autoprefixer": "^8.4.1",
     "awesome-typescript-loader": "^5.0.0",
     "css-loader": "^0.28.11",
@@ -32,7 +35,6 @@
     "jest": "^23.4.2",
     "node-sass": "^4.9.0",
     "postcss-loader": "^2.1.5",
-    "preact-compat": "^3.18.0",
     "prettier": "^1.12.1",
     "sass-loader": "^7.0.1",
     "shelljs": "^0.8.1",
@@ -50,8 +52,9 @@
   "dependencies": {
     "axios": "^0.18.0",
     "classnames": "^2.2.6",
-    "preact": "^8.2.9",
-    "preact-redux": "^2.0.3",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "react-redux": "^5.0.7",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
     "reselect": "^3.0.1"
