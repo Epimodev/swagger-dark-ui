@@ -1,3 +1,5 @@
+import { createSelector } from 'reselect';
+import { StoreState } from 'src/store';
 import fuzzysearch from 'src/utils/fuzzysearch';
 import { OperationDocumentation } from 'src/App/types';
 import { MenuRessource } from './types';
@@ -89,4 +91,13 @@ function getMenuRessources(operations: OperationDocumentation[]): MenuRessource[
   return [];
 }
 
-export { filterOperations, getMenuRessources };
+const selectOperations = createSelector(
+  (state: StoreState) => state.filterQuery,
+  (state: StoreState) => state.operations,
+  (filterQuery: string, operations: OperationDocumentation[]) =>
+    filterOperations(filterQuery, operations),
+);
+
+const selectRessources = createSelector(selectOperations, getMenuRessources);
+
+export { filterOperations, getMenuRessources, selectRessources };

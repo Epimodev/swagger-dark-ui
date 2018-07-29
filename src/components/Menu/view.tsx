@@ -3,14 +3,16 @@ import { MenuRessource } from './types';
 import Ressource from './components/Ressource';
 import * as style from './style.scss';
 
-interface Props {
+export interface Props {
   docName: string;
   docVersion: string;
   ressources: MenuRessource[];
+  filterValue: string;
+  setFilter: (event: Event) => void;
 }
 
 function Menu(props: Props) {
-  const { docName, docVersion, ressources } = props;
+  const { docName, docVersion, ressources, filterValue, setFilter } = props;
 
   return (
     <div className={style.container}>
@@ -18,7 +20,13 @@ function Menu(props: Props) {
         <span className={style.docName}>{docName}</span>
         <span className={style.docVersion}>v{docVersion}</span>
       </div>
-      <input type="text" placeholder="Filter endpoints" className={style.filterInput} />
+      <input
+        type="text"
+        value={filterValue}
+        onInput={setFilter}
+        placeholder="Filter endpoints"
+        className={style.filterInput}
+      />
       {ressources.map(ressource => <Ressource {...ressource} />)}
     </div>
   );

@@ -20,6 +20,7 @@ export interface DocumentationState {
   baseUrl: string;
   operations: OperationDocumentation[];
   status: 'LOADING' | 'LOADED' | 'ERROR';
+  filterQuery: string;
 }
 
 export type FETCH_SWAGGER_START = {
@@ -35,4 +36,13 @@ export type FETCH_SWAGGER_FAIL = {
   type: 'FETCH_SWAGGER_FAIL';
 };
 
-export type DocumentationAction = FETCH_SWAGGER_START | FETCH_SWAGGER_SUCCESS | FETCH_SWAGGER_FAIL;
+export type SET_FILTER_VALUE = {
+  type: 'SET_FILTER_VALUE';
+  payload: string;
+};
+
+export type DocumentationAction =
+  | FETCH_SWAGGER_START
+  | FETCH_SWAGGER_SUCCESS
+  | FETCH_SWAGGER_FAIL
+  | SET_FILTER_VALUE;

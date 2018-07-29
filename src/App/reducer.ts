@@ -7,6 +7,7 @@ const initialState: DocumentationState = {
   baseUrl: '',
   operations: [],
   status: 'LOADED',
+  filterQuery: '',
 };
 
 function reducer(
@@ -32,6 +33,11 @@ function reducer(
       return {
         ...state,
         status: 'ERROR',
+      };
+    case 'SET_FILTER_VALUE':
+      return {
+        ...state,
+        filterQuery: action.payload,
       };
   }
   return state;
