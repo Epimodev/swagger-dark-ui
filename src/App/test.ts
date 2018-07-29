@@ -20,7 +20,7 @@ const SwaggerBaseSchema: SwaggerSchema = {
   paths: {},
 };
 
-describe('getBaseUrl', () => {
+describe.skip('getBaseUrl', () => {
   test('Should return base url with protocol', () => {
     const swaggerSchema = SwaggerBaseSchema;
 
@@ -41,7 +41,7 @@ describe('getBaseUrl', () => {
   });
 });
 
-describe('getOperations', () => {
+describe.skip('getOperations', () => {
   test('Should return empty list', () => {
     const swaggerSchema = {
       ...SwaggerBaseSchema,

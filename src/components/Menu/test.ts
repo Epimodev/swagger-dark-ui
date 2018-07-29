@@ -11,7 +11,7 @@ const operationBase: OperationDocumentation = {
   responses: [],
 };
 
-describe('filterOperations', () => {
+describe.only('filterOperations', () => {
   const operations: OperationDocumentation[] = [
     { ...operationBase, id: 'get_streams', path: '/streams' },
     { ...operationBase, id: 'get_stream_by_id', path: '/streams/{id}' },
@@ -27,7 +27,7 @@ describe('filterOperations', () => {
   test('Should return only `score` operation', () => {
     const expectedResult = [operations[2]];
 
-    expect(utils.filterOperations('scr', operations)).toEqual(expectedResult);
+    expect(utils.filterOperations('scoe', operations)).toEqual(expectedResult);
   });
 
   test('Should return only `streams` operations', () => {

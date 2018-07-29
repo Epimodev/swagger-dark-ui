@@ -60,6 +60,9 @@
       "^.+\\.ts$": "ts-jest"
     },
     "testRegex": "((\\.|/)(test))\\.(ts)$",
+    "moduleNameMapper": {
+      "src(.*)$": "<rootDir>/src/$1"
+    },
     "moduleFileExtensions": [
       "ts",
       "js",
