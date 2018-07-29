@@ -47,7 +47,9 @@
     "webpackbar": "^2.6.1"
   },
   "dependencies": {
+    "@types/lodash": "^4.14.115",
     "axios": "^0.18.0",
+    "lodash": "^4.17.10",
     "preact": "^8.2.9",
     "preact-redux": "^2.0.3",
     "redux": "^3.7.2",

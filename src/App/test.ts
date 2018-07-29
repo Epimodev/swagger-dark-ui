@@ -20,7 +20,7 @@ const SwaggerBaseSchema: SwaggerSchema = {
   paths: {},
 };
 
-describe.skip('getBaseUrl', () => {
+describe('getBaseUrl', () => {
   test('Should return base url with protocol', () => {
     const swaggerSchema = SwaggerBaseSchema;
 
@@ -41,7 +41,7 @@ describe.skip('getBaseUrl', () => {
   });
 });
 
-describe.skip('getOperations', () => {
+describe('getOperations', () => {
   test('Should return empty list', () => {
     const swaggerSchema = {
       ...SwaggerBaseSchema,
@@ -71,6 +71,8 @@ describe.skip('getOperations', () => {
             operationId: 'search_get',
             summary: 'Summary',
             description: 'Description',
+            tags: [],
+            produces: [],
             parameters: [],
             responses: {},
           },
@@ -94,6 +96,8 @@ describe.skip('getOperations', () => {
             operationId: 'search_get',
             summary: 'Summary',
             description: 'Description',
+            tags: [],
+            produces: [],
             parameters: [],
             responses: {},
           },
@@ -103,6 +107,8 @@ describe.skip('getOperations', () => {
             operationId: 'find_post',
             summary: 'Summary',
             description: 'Description',
+            tags: [],
+            produces: [],
             parameters: [],
             responses: {},
           },
@@ -130,12 +136,16 @@ describe.skip('getOperations', () => {
             summary: 'Summary',
             description: 'Description',
             parameters: [],
+            tags: [],
+            produces: [],
             responses: {},
           },
           post: {
             operationId: 'search_post',
             summary: 'Summary',
             description: 'Description',
+            tags: [],
+            produces: [],
             parameters: [],
             responses: {},
           },
@@ -162,6 +172,8 @@ describe.skip('getOperations', () => {
             operationId: 'search_get',
             summary: 'Summary',
             description: 'Description',
+            tags: [],
+            produces: [],
             parameters: [],
             responses: {},
           },
@@ -184,11 +196,14 @@ describe.skip('getOperations', () => {
             operationId: 'search_get',
             summary: 'Summary',
             description: 'Description',
+            tags: [],
+            produces: [],
             parameters: [],
             responses: {
-              200: {
+              // tslint:disable-next-line object-literal-key-quotes
+              '200': {
                 description: 'Response description',
-                schema: { type: 'string' },
+                schema: { type: 'string' as 'string' },
                 examples: {
                   'application/json': {
                     data: 'Response example',
@@ -219,20 +234,24 @@ describe.skip('getOperations', () => {
             operationId: 'search_get',
             summary: 'Summary',
             description: 'Description',
+            tags: [],
+            produces: [],
             parameters: [],
             responses: {
-              200: {
+              // tslint:disable-next-line object-literal-key-quotes
+              '200': {
                 description: 'Response description',
-                schema: { type: 'string' },
+                schema: { type: 'string' as 'string' },
                 examples: {
                   'application/json': {
                     data: 'Response example',
                   },
                 },
               },
-              400: {
+              // tslint:disable-next-line object-literal-key-quotes
+              '400': {
                 description: 'Bad request description',
-                schema: { type: 'string' },
+                schema: { type: 'string' as 'string' },
                 examples: {
                   'application/json': {
                     data: 'Bad request example',

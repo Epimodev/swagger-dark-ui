@@ -42,7 +42,7 @@ type PrimitiveSchema = {
 
 declare type ResponseSchema = ArraySchema | ObjectSchema | PrimitiveSchema;
 
-interface Response {
+declare interface OperationResponse {
   description: string;
   schema: ResponseSchema;
   examples: {
@@ -52,20 +52,24 @@ interface Response {
   };
 }
 
-interface ApiPaths {
-  [x: string]: {
-    [x: HttpMethod]: {
-      operationId: string;
-      summary: string;
-      tags: string[];
-      description: string[];
-      produces: string[];
-      parameters: HttpParameter[];
-      responses: {
-        [x: string]: Response;
-      };
-    };
+declare interface ApiPathMethod {
+  operationId: string;
+  summary: string;
+  tags: string[];
+  description: string;
+  produces: string[];
+  parameters: HttpParameter[];
+  responses: {
+    [x: string]: OperationResponse;
   };
+}
+
+declare interface ApiPath {
+  [x: string]: ApiPathMethod;
+}
+
+interface ApiPaths {
+  [x: string]: ApiPath;
 }
 
 declare interface SwaggerSchema {

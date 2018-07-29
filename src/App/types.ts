@@ -1,4 +1,4 @@
-interface MethodResponse {
+export interface MethodResponse {
   code: number;
   description: string;
   schema: ResponseSchema;
