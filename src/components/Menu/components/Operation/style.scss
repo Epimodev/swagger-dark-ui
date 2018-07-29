@@ -1,0 +1,32 @@
+@import "app-colors";
+@import "mixins";
+
+.container {
+  display: flex;
+  margin: 10px 0;
+}
+
+.method {
+  @include uppercase;
+  display: inline-block;
+  width: 55px;
+  margin-right: 10px;
+}
+
+.method_get {
+  color: $green;
+}
+.method_post {
+  color: $yellow;
+}
+.method_put {
+  color: $orange;
+}
+.method_delete {
+  color: $red;
+}
+
+.path {
+  @include ellipsis;
+  flex: 1;
+}

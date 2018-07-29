@@ -1,0 +1,26 @@
+@import "mixins";
+
+.container {
+  margin-bottom: 25px;
+}
+
+.name {
+  @include uppercase;
+  font-size: 16px;
+}
+
+.operations {
+  position: relative;
+  padding-left: 15px;
+}
+
+.operationsLine {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 4px;
+  width: 1px;
+  background-color: rgba(white, 0.25);
+  border: none;
+  margin: 0;
+}

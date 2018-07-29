@@ -1,0 +1,35 @@
+@import 'app-colors';
+@import 'mixins';
+
+.container {
+  width: 320px;
+  height: 100%;
+  padding: 25px;
+  overflow: auto;
+  background-color: $cardBackground;
+}
+
+.docName {
+  font-size: 20px;
+}
+
+.docVersion {
+  margin-left: 10px;
+  color: $lightText;
+}
+
+.filterInput {
+  @include resetInput;
+  width: 100%;
+  padding: 10px;
+  margin: 20px 0;
+  border: 1px solid rgba(white, 0.2);
+  background-color: rgba(black, 0.15);
+  color: white;
+  box-sizing: border-box;
+  border-radius: 3px;
+
+  &::placeholder {
+    color: rgba(white, 0.5);
+  }
+}

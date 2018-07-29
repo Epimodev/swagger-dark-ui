@@ -20,3 +20,8 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+@mixin uppercase {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
