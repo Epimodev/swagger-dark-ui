@@ -4,6 +4,15 @@
 .container {
   display: flex;
   margin: 10px 0;
+  color: white;
+  text-decoration: none;
+  opacity: 0.55;
+  transition: 150ms;
+}
+
+.container_active {
+  opacity: 1;
+  animation: activated 150ms;
 }
 
 .method {
@@ -29,4 +38,10 @@
 .path {
   @include ellipsis;
   flex: 1;
+}
+
+@keyframes activated {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
 }

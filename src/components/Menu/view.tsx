@@ -27,7 +27,7 @@ function Menu(props: Props) {
         placeholder="Filter endpoints"
         className={style.filterInput}
       />
-      {ressources.map(ressource => <Ressource {...ressource} />)}
+      {ressources.map(ressource => <Ressource key={ressource.name} {...ressource} />)}
     </div>
   );
 }

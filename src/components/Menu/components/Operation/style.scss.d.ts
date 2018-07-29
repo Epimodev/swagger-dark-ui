@@ -1,4 +1,5 @@
 export const container: string;
+export const container_active: string;
 export const method: string;
 export const method_get: string;
 export const method_post: string;

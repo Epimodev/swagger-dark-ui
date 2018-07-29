@@ -1,4 +1,5 @@
 import { createElement, Component } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Menu from 'src/components/Menu';
 import DocDetails from 'src/pages/DocDetails';
 import * as style from './style.scss';
@@ -19,18 +20,20 @@ class AppView extends Component<Props, State> {
     const { status } = this.props;
 
     return (
-      <div className={style.container}>
-        {status === 'ERROR' && <div>Loading error</div>}
-        {status === 'LOADING' && <div>Loading</div>}
-        {status === 'LOADED' && (
-          <div>
-            <Menu />
-            <div className={style.detailsContainer}>
-              <DocDetails />
+      <Router>
+        <div className={style.container}>
+          {status === 'ERROR' && <div>Loading error</div>}
+          {status === 'LOADING' && <div>Loading</div>}
+          {status === 'LOADED' && (
+            <div>
+              <Route path="/" component={Menu} />
+              <div className={style.detailsContainer}>
+                <Route exact path="/operation/:operationId" component={DocDetails} />
+              </div>
             </div>
-          </div>
-        )}
-      </div>
+          )}
+        </div>
+      </Router>
     );
   }
 }
