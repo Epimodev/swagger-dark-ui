@@ -11,7 +11,7 @@ const operationBase: OperationDocumentation = {
   responses: [],
 };
 
-describe.only('filterOperations', () => {
+describe('filterOperations', () => {
   const operations: OperationDocumentation[] = [
     { ...operationBase, id: 'get_streams', path: '/streams' },
     { ...operationBase, id: 'get_stream_by_id', path: '/streams/{id}' },
