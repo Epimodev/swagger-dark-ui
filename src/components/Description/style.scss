@@ -1,0 +1,11 @@
+@import "app-colors";
+
+.container {
+  color: $lightText;
+  p {
+    margin: 5px 0;
+  }
+  a {
+    color: $blue;
+  }
+}
