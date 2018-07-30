@@ -1,0 +1,29 @@
+@import "app-colors";
+
+.type {
+  color: $lightText;
+}
+
+.type_string {
+  color: $cyan;
+}
+
+.type_integer {
+  color: $blue;
+}
+
+.type_number {
+  color: $blue;
+}
+
+.type_object {
+  color: $yellow;
+}
+
+.type_array {
+  color: $orange;
+}
+
+.type_boolean {
+  color: $purple;
+}
