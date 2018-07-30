@@ -4,7 +4,7 @@ import AppView from './view';
 import { fetchApiDocumentation } from './actions';
 
 interface StoreProps {
-  status: 'LOADING' | 'LOADED' | 'ERROR';
+  status: 'INIT' | 'LOADING' | 'LOADED' | 'ERROR';
 }
 
 interface DispatchProps {

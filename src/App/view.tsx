@@ -6,7 +6,7 @@ import * as style from './style.scss';
 
 interface Props {
   fetchApiDocumentation: () => void;
-  status: 'LOADING' | 'LOADED' | 'ERROR';
+  status: 'INIT' | 'LOADING' | 'LOADED' | 'ERROR';
 }
 
 interface State {}
@@ -28,7 +28,7 @@ class AppView extends Component<Props, State> {
             <div>
               <Route path="/" component={Menu} />
               <div className={style.detailsContainer}>
-                <Route exact path="/operation/:operationId" component={DocDetails} />
+                <Route path="/operation/:operationId" component={DocDetails} />
               </div>
             </div>
           )}

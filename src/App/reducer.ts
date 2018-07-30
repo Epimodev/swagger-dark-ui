@@ -6,7 +6,7 @@ const initialState: DocumentationState = {
   version: '',
   baseUrl: '',
   operations: [],
-  status: 'LOADED',
+  status: 'INIT',
   filterQuery: '',
 };
 

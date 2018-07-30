@@ -1,0 +1,19 @@
+@import "app-colors";
+@import "mixins";
+
+.method {
+  @include uppercase;
+}
+
+.method_get {
+  color: $green;
+}
+.method_post {
+  color: $yellow;
+}
+.method_put {
+  color: $orange;
+}
+.method_delete {
+  color: $red;
+}

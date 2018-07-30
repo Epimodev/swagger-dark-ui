@@ -12,27 +12,13 @@
 
 .container_active {
   opacity: 1;
-  animation: activated 150ms;
+  animation: activated 250ms;
 }
 
 .method {
-  @include uppercase;
   display: inline-block;
-  width: 55px;
+  min-width: 55px;
   margin-right: 10px;
-}
-
-.method_get {
-  color: $green;
-}
-.method_post {
-  color: $yellow;
-}
-.method_put {
-  color: $orange;
-}
-.method_delete {
-  color: $red;
 }
 
 .path {

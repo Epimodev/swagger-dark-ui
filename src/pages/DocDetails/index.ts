@@ -1,3 +1,18 @@
-import DocDetailsView from './view';
+import { connect } from 'react-redux';
+import { StoreState } from 'src/store';
+import { OperationDocumentation } from 'src/App/types';
+import DocDetailsView, { Props } from './view';
 
-export default DocDetailsView;
+interface StoreProps {
+  operation: OperationDocumentation | undefined;
+}
+
+function mapStateToProps(state: StoreState, props: Props): StoreProps {
+  const operation = state.operations.find(({ id }) => id === props.match.params.operationId);
+
+  return {
+    operation,
+  };
+}
+
+export default connect(mapStateToProps)(DocDetailsView);

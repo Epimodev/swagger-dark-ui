@@ -1,6 +1,6 @@
 import { createElement } from 'react';
-import * as classnames from 'classnames';
 import { NavLink } from 'react-router-dom';
+import MethodLabel from 'src/components/MethodLabel';
 import * as style from './style.scss';
 
 interface Props {
@@ -11,19 +11,11 @@ interface Props {
   };
 }
 
-const methodClassMap = {
-  get: style.method_get,
-  post: style.method_post,
-  put: style.method_put,
-  delete: style.method_delete,
-};
-
 function Operation(props: Props) {
   const {
     id,
     value: { method, path },
   } = props;
-  const methodClass = classnames(style.method, methodClassMap[method]);
 
   return (
     <NavLink
@@ -31,7 +23,7 @@ function Operation(props: Props) {
       className={style.container}
       activeClassName={style.container_active}
     >
-      <span className={methodClass}>{method}</span>
+      <MethodLabel method={method} className={style.method} />
       <span className={style.path}>{path}</span>
     </NavLink>
   );

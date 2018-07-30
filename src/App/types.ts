@@ -19,7 +19,7 @@ export interface DocumentationState {
   version: string;
   baseUrl: string;
   operations: OperationDocumentation[];
-  status: 'LOADING' | 'LOADED' | 'ERROR';
+  status: 'INIT' | 'LOADING' | 'LOADED' | 'ERROR';
   filterQuery: string;
 }
 
