@@ -1,4 +1,4 @@
-import { OperationDocumentation, MethodResponse } from './types';
+import { OperationDocumentation, MethodResponse, ParamsDocumentation } from './types';
 
 const HTTP_METHODS = ['get', 'post', 'put', 'delete'];
 
@@ -24,6 +24,44 @@ function getExample(response: OperationResponse): any {
     return null;
   }
   return response.examples['application/json'].data;
+}
+
+function formatParams(params: HttpParameter[]): ParamsDocumentation {
+  return params.reduce(
+    (result, param) => {
+      const paramToPush = { name: param.name, required: param.required, type: param.type };
+      switch (param.in) {
+        case 'header':
+          return {
+            ...result,
+            header: [...result.header, paramToPush],
+          };
+        case 'query':
+          return {
+            ...result,
+            query: [...result.query, paramToPush],
+          };
+        case 'path':
+          return {
+            ...result,
+            path: [...result.path, paramToPush],
+          };
+        case 'body':
+          return {
+            ...result,
+            body: [...result.body, paramToPush],
+          };
+      }
+      return result;
+    },
+    // tslint:disable ter-indent
+    {
+      header: [],
+      path: [],
+      query: [],
+      body: [],
+    } as ParamsDocumentation,
+  ); // tslint:enable
 }
 
 function formatResponses(docResponses: { [x: string]: OperationResponse }): MethodResponse[] {
@@ -53,15 +91,16 @@ function getOperations(apiDoc: SwaggerSchema): OperationDocumentation[] {
 
       const pathOperations: OperationDocumentation[] = pathMethods.map(method => {
         const pathMethod: ApiPathMethod = pathDefinition[method] as ApiPathMethod;
+        const params = formatParams(pathMethod.parameters);
         const responses = formatResponses(pathMethod.responses);
         return {
           method,
           path,
           responses,
+          params,
           id: pathMethod.operationId,
           summary: pathMethod.summary,
           description: pathMethod.description,
-          params: pathMethod.parameters,
         };
       });
 

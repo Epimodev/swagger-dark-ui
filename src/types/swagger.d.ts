@@ -33,7 +33,7 @@ type ArraySchema = {
 
 type ObjectSchema = {
   type: 'object';
-  properties: ResponseSchema;
+  properties: { [key: string]: ResponseSchema };
 };
 
 type PrimitiveSchema = {

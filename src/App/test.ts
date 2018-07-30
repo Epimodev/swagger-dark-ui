@@ -275,4 +275,67 @@ describe('getOperations', () => {
     expect(operationResponses[1].description).toBe('Bad request description');
     expect(operationResponses[1].example).toBe('Bad request example');
   });
+
+  test('Should return 1 method without parameters', () => {
+    const swaggerSchema = {
+      ...SwaggerBaseSchema,
+      paths: {
+        '/gifs/search': {
+          get: {
+            operationId: 'search_get',
+            summary: 'Summary',
+            description: 'Description',
+            tags: [],
+            produces: [],
+            parameters: [],
+            responses: {},
+          },
+        },
+      },
+    };
+
+    const apiOperations = utils.getOperations(swaggerSchema);
+    const operationParams = apiOperations[0].params;
+
+    expect(operationParams.header.length).toBe(0);
+    expect(operationParams.query.length).toBe(0);
+    expect(operationParams.path.length).toBe(0);
+    expect(operationParams.body.length).toBe(0);
+  });
+
+  test('Should return 1 method with parameters', () => {
+    const swaggerSchema = {
+      ...SwaggerBaseSchema,
+      paths: {
+        '/gifs/search': {
+          get: {
+            operationId: 'search_get',
+            summary: 'Summary',
+            description: 'Description',
+            tags: [],
+            produces: [],
+            parameters: [
+              { in: 'header', name: 'header-param', type: 'string', required: true },
+              { in: 'query', name: 'query-param', type: 'string', required: true },
+              { in: 'path', name: 'path-param', type: 'string', required: true },
+              { in: 'body', name: 'body-param', type: 'string', required: true },
+            ],
+            responses: {},
+          },
+        },
+      },
+    };
+
+    const apiOperations = utils.getOperations(swaggerSchema);
+    const operationParams = apiOperations[0].params;
+
+    expect(operationParams.header.length).toBe(1);
+    expect(operationParams.header[0].name).toBe('header-param');
+    expect(operationParams.query.length).toBe(1);
+    expect(operationParams.query[0].name).toBe('query-param');
+    expect(operationParams.path.length).toBe(1);
+    expect(operationParams.path[0].name).toBe('path-param');
+    expect(operationParams.body.length).toBe(1);
+    expect(operationParams.body[0].name).toBe('body-param');
+  });
 });
