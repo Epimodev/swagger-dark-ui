@@ -8,4 +8,11 @@
   a {
     color: $blue;
   }
+  pre {
+    padding: 5px;
+    margin: 5px 0;
+    border-radius: 3px;
+    overflow: auto;
+    background-color: rgba(white, 0.15);
+  }
 }
