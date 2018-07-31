@@ -3,6 +3,7 @@ import { Redirect, match as Match } from 'react-router-dom';
 import { OperationDocumentation } from 'src/App/types';
 import Description from 'src/components/Description';
 import OperationPath from './components/OperationPath';
+import ParamsDoc from './components/ParamsDoc';
 import * as style from './style.scss';
 
 export interface Props {
@@ -19,7 +20,7 @@ function DocDetailsView(props: Props) {
     return <Redirect to="/" />;
   }
 
-  const { summary, description, method, path } = operation;
+  const { summary, description, method, path, params } = operation;
 
   return (
     <div className={style.container}>
@@ -27,6 +28,10 @@ function DocDetailsView(props: Props) {
       <OperationPath method={method} path={path} />
       {description && <Description className={style.description}>{description}</Description>}
       <hr className={style.separator} />
+      <ParamsDoc title="Header Params" params={params.header} />
+      <ParamsDoc title="Query Params" params={params.query} />
+      <ParamsDoc title="Path Params" params={params.path} />
+      <ParamsDoc title="Request Body" params={params.body} />
     </div>
   );
 }

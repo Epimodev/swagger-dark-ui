@@ -1,0 +1,11 @@
+.container {
+  border: 1px solid rgba(white, 0.25);
+  border-radius: 3px;
+}
+
+.row {
+  padding: 10px;
+  &:nth-child(even) {
+    background-color: rgba(black, 0.08);
+  }
+}
