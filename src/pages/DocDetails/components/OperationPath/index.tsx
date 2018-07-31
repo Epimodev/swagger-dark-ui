@@ -39,7 +39,7 @@ class OperationPath extends Component<Props, State> {
     }
   }
 
-  handleScroll(event: UIEvent) {
+  handleScroll() {
     if (this.container && this.parent) {
       const topPosition = this.container.offsetTop - this.parent.scrollTop;
       const atTopWithScroll = topPosition <= 15;
