@@ -2,6 +2,7 @@
 @import 'mixins';
 
 .container {
+  position: relative;
   width: 640px;
   padding: 15px;
   background-color: $cardBackground;

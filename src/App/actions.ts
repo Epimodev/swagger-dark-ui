@@ -9,7 +9,7 @@ function fetchApiDocumentation(): AppThunk<void> {
     let loaded = false;
 
     axios
-      .get('/assets/swagger-files/peach.json')
+      .get('/assets/swagger-files/giphy.json')
       .then((response: AxiosResponse<SwaggerSchema>) => {
         loaded = true;
         dispatch({
