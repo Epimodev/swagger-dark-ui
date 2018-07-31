@@ -26,12 +26,14 @@ function DocDetailsView(props: Props) {
     <div className={style.container}>
       {summary && <div className={style.title}>{summary}</div>}
       <OperationPath method={method} path={path} />
-      {description && <Description className={style.description}>{description}</Description>}
-      <hr className={style.separator} />
-      <ParamsDoc title="Header Params" params={params.header} />
-      <ParamsDoc title="Query Params" params={params.query} />
-      <ParamsDoc title="Path Params" params={params.path} />
-      <ParamsDoc title="Request Body" params={params.body} />
+      <div className={style.content}>
+        {description && <Description className={style.description}>{description}</Description>}
+        <hr className={style.separator} />
+        <ParamsDoc title="Header Params" params={params.header} />
+        <ParamsDoc title="Query Params" params={params.query} />
+        <ParamsDoc title="Path Params" params={params.path} />
+        <ParamsDoc title="Request Body" params={params.body} />
+      </div>
     </div>
   );
 }
