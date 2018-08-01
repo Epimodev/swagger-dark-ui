@@ -11,10 +11,8 @@ $padding: 15px;
   overflow: auto;
 }
 
-.title {
-  @include uppercase;
-  padding: $padding $padding 0 $padding;
-  font-size: 18px;
+.summary {
+  margin-top: 15px;
 }
 
 .content {
@@ -22,7 +20,7 @@ $padding: 15px;
 }
 
 .description {
-  margin-bottom: 15px;
+  margin: 15px 0;
 }
 
 .separator {

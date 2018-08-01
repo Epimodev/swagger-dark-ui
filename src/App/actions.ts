@@ -5,12 +5,13 @@ import * as types from './types';
 const LOADING_TIMEOUT = 1500;
 
 function fetchApiDocumentation(): AppThunk<void> {
-  return (dispatch, getState) => {
+  return dispatch => {
     let loaded = false;
 
     axios
-      // .get('/assets/swagger-files/tactill.json')
-      .get('/assets/swagger-files/peach.json')
+      .get('/assets/swagger-files/tactill.json')
+      // .get('/assets/swagger-files/peach.json')
+      // .get('/assets/swagger-files/giphy.json')
       .then((response: AxiosResponse<SwaggerSchema>) => {
         loaded = true;
         dispatch({

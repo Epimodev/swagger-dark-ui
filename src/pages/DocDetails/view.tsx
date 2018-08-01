@@ -24,9 +24,9 @@ function DocDetailsView(props: Props) {
 
   return (
     <div className={style.container}>
-      {summary && <div className={style.title}>{summary}</div>}
       <OperationPath method={method} path={path} />
       <div className={style.content}>
+        {summary && <div className={style.summary}>{summary}</div>}
         {description && <Description className={style.description}>{description}</Description>}
         <hr className={style.separator} />
         <ParamsDoc title="Header Params" params={params.header} />
