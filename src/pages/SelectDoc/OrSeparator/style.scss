@@ -1,0 +1,22 @@
+@import 'app-colors';
+@import 'mixins';
+
+.container {
+  display: flex;
+  align-items: center;
+  margin: 30px 0;
+}
+
+.line {
+  flex: 1;
+  margin: 0;
+  border: 0;
+  height: 1px;
+  background-color: rgba(white, 0.25);
+}
+
+.word {
+  @include uppercase;
+  margin: 0 10px;
+  color: $lightText;
+}
