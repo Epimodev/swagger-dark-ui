@@ -1,4 +1,4 @@
-$cardColor: #474263;
+$cardColor: #44425f;
 
 .container {
   position: sticky;
@@ -9,10 +9,13 @@ $cardColor: #474263;
   &::before {
     content: "";
     position: absolute;
-    top: 0;
+    top: -20px;
     right: 0;
     bottom: -20px;
     left: 0;
+    background: linear-gradient(to bottom, rgba($cardColor, 1) 60%, rgba($cardColor, 0) 100%);
+    opacity: 0;
+    transition: 200ms;
   }
 
   &:first-child {
@@ -22,7 +25,7 @@ $cardColor: #474263;
 
 .container_withBackground {
   &::before {
-    background: linear-gradient(to bottom, rgba($cardColor, 1) 50%, rgba($cardColor, 0) 100%);
+    opacity: 1;
   }
 }
 
