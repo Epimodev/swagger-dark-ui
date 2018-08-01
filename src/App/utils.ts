@@ -26,42 +26,36 @@ function getExample(response: OperationResponse): any {
   return response.examples['application/json'].data;
 }
 
-function formatParams(params: HttpParameter[]): ParamsDocumentation {
-  return params.reduce(
-    (result, param) => {
-      const paramToPush = { name: param.name, required: param.required, type: param.type };
-      switch (param.in) {
-        case 'header':
-          return {
-            ...result,
-            header: [...result.header, paramToPush],
-          };
-        case 'query':
-          return {
-            ...result,
-            query: [...result.query, paramToPush],
-          };
-        case 'path':
-          return {
-            ...result,
-            path: [...result.path, paramToPush],
-          };
-        case 'body':
-          return {
-            ...result,
-            body: [...result.body, paramToPush],
-          };
-      }
-      return result;
-    },
-    // tslint:disable ter-indent
-    {
-      header: [],
-      path: [],
-      query: [],
-      body: [],
-    } as ParamsDocumentation,
-  ); // tslint:enable
+function formatParams(
+  params: HttpParameter[],
+  currentParams: ParamsDocumentation,
+): ParamsDocumentation {
+  return params.reduce((result, param) => {
+    const paramToPush = { name: param.name, required: param.required, type: param.type };
+    switch (param.in) {
+      case 'header':
+        return {
+          ...result,
+          header: [...result.header, paramToPush],
+        };
+      case 'query':
+        return {
+          ...result,
+          query: [...result.query, paramToPush],
+        };
+      case 'path':
+        return {
+          ...result,
+          path: [...result.path, paramToPush],
+        };
+      case 'body':
+        return {
+          ...result,
+          body: [...result.body, paramToPush],
+        };
+    }
+    return result;
+  }, currentParams);
 }
 
 function formatResponses(docResponses: { [x: string]: OperationResponse }): MethodResponse[] {
@@ -82,6 +76,12 @@ function formatResponses(docResponses: { [x: string]: OperationResponse }): Meth
 
 function getOperations(apiDoc: SwaggerSchema): OperationDocumentation[] {
   const paths = Object.keys(apiDoc.paths);
+  const initialParams: ParamsDocumentation = {
+    header: [],
+    path: [],
+    query: [],
+    body: [],
+  };
 
   return paths.reduce(
     (operations, path) => {
@@ -89,9 +89,12 @@ function getOperations(apiDoc: SwaggerSchema): OperationDocumentation[] {
       const pathKeys: string[] = Object.keys(pathDefinition) as string[];
       const pathMethods: HttpMethod[] = pathKeys.filter(isHttpMethod) as HttpMethod[];
 
+      const pathParameters = pathDefinition.parameters ? pathDefinition.parameters : [];
+      const pathParams = formatParams(pathParameters, initialParams);
+
       const pathOperations: OperationDocumentation[] = pathMethods.map(method => {
         const pathMethod: ApiPathMethod = pathDefinition[method] as ApiPathMethod;
-        const params = formatParams(pathMethod.parameters);
+        const params = formatParams(pathMethod.parameters, pathParams);
         const responses = formatResponses(pathMethod.responses);
         return {
           method,

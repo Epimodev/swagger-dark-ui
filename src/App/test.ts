@@ -338,4 +338,85 @@ describe('getOperations', () => {
     expect(operationParams.body.length).toBe(1);
     expect(operationParams.body[0].name).toBe('body-param');
   });
+  test('Should return 1 method with parameters from path', () => {
+    const swaggerSchema = {
+      ...SwaggerBaseSchema,
+      paths: {
+        '/gifs/search': {
+          get: {
+            operationId: 'search_get',
+            summary: 'Summary',
+            description: 'Description',
+            tags: [],
+            produces: [],
+            parameters: [],
+            responses: {},
+          },
+          parameters: [
+            { in: 'header', name: 'path-header-param', type: 'string', required: true },
+            { in: 'query', name: 'path-query-param', type: 'string', required: true },
+            { in: 'path', name: 'path-path-param', type: 'string', required: true },
+            { in: 'body', name: 'path-body-param', type: 'string', required: true },
+          ],
+        },
+      },
+    };
+
+    const apiOperations = utils.getOperations(swaggerSchema);
+    const operationParams = apiOperations[0].params;
+
+    expect(operationParams.header.length).toBe(1);
+    expect(operationParams.header[0].name).toBe('path-header-param');
+    expect(operationParams.query.length).toBe(1);
+    expect(operationParams.query[0].name).toBe('path-query-param');
+    expect(operationParams.path.length).toBe(1);
+    expect(operationParams.path[0].name).toBe('path-path-param');
+    expect(operationParams.body.length).toBe(1);
+    expect(operationParams.body[0].name).toBe('path-body-param');
+  });
+  test('Should return 1 method with parameters from path and operation', () => {
+    const swaggerSchema = {
+      ...SwaggerBaseSchema,
+      paths: {
+        '/gifs/search': {
+          get: {
+            operationId: 'search_get',
+            summary: 'Summary',
+            description: 'Description',
+            tags: [],
+            produces: [],
+            parameters: [
+              { in: 'header', name: 'header-param', type: 'string', required: true },
+              { in: 'query', name: 'query-param', type: 'string', required: true },
+              { in: 'path', name: 'path-param', type: 'string', required: true },
+              { in: 'body', name: 'body-param', type: 'string', required: true },
+            ],
+            responses: {},
+          },
+          parameters: [
+            { in: 'header', name: 'path-header-param', type: 'string', required: true },
+            { in: 'query', name: 'path-query-param', type: 'string', required: true },
+            { in: 'path', name: 'path-path-param', type: 'string', required: true },
+            { in: 'body', name: 'path-body-param', type: 'string', required: true },
+          ],
+        },
+      },
+    };
+
+    const apiOperations = utils.getOperations(swaggerSchema);
+    const operationParams = apiOperations[0].params;
+
+    expect(operationParams.header.length).toBe(2);
+    expect(operationParams.header[0].name).toBe('path-header-param');
+    expect(operationParams.header[1].name).toBe('header-param');
+    expect(operationParams.query.length).toBe(2);
+    expect(operationParams.query[0].name).toBe('path-query-param');
+    expect(operationParams.query[1].name).toBe('query-param');
+    expect(operationParams.path.length).toBe(2);
+    expect(operationParams.path[0].name).toBe('path-path-param');
+    expect(operationParams.path[1].name).toBe('path-param');
+    expect(operationParams.body.length).toBe(2);
+    expect(operationParams.body[0].name).toBe('path-body-param');
+    expect(operationParams.body[1].name).toBe('body-param');
+  });
 });
