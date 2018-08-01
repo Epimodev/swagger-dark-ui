@@ -1,5 +1,6 @@
 import { createElement, SyntheticEvent } from 'react';
 import { MenuRessource } from './types';
+import Input from 'src/components/Input';
 import Ressource from './components/Ressource';
 import * as style from './style.scss';
 
@@ -20,13 +21,7 @@ function Menu(props: Props) {
         <span className={style.docName}>{docName}</span>
         <span className={style.docVersion}>v{docVersion}</span>
       </div>
-      <input
-        type="text"
-        value={filterValue}
-        onChange={setFilter}
-        placeholder="Filter endpoints"
-        className={style.filterInput}
-      />
+      <Input value={filterValue} onChange={setFilter} placeholder="Filter endpoints" />
       {ressources.map(ressource => <Ressource key={ressource.name} {...ressource} />)}
     </div>
   );
