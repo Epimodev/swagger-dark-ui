@@ -1,0 +1,11 @@
+@import "app-colors";
+@import "mixins";
+
+.button {
+  @include resetButton;
+  height: 40px;
+  padding: 0 15px;
+  color: white;
+  background-color: $blue;
+  border-radius: 3px;
+}

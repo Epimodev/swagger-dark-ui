@@ -1,4 +1,6 @@
 import { createElement } from 'react';
+import Input from 'src/components/Input';
+import Button from 'src/components/Button';
 import OrSeparator from './OrSeparator';
 import * as style from './style.scss';
 
@@ -14,6 +16,16 @@ function SelectDocView(props: Props) {
         <OrSeparator />
         <div>
           <h2 className={style.optionTitle}>Write Swagger file url</h2>
+          <div className={style.urlOptionContainer}>
+            <div className={style.inputContainer}>
+              <Input
+                placeholder="https://swagger-file.json"
+                value=""
+                onChange={() => console.log('Change')}
+              />
+            </div>
+            <Button onClick={() => console.log('LOAD FILE')}>LOAD FILE</Button>
+          </div>
         </div>
         <OrSeparator />
         <div>
