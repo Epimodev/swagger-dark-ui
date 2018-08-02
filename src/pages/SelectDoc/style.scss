@@ -14,7 +14,9 @@
 
 .card {
   width: 640px;
+  max-height: calc(100% - 30px);
   padding: 30px;
+  box-sizing: border-box;
   background-color: $cardBackground;
   border-radius: 5px;
   overflow: auto;
@@ -29,6 +31,42 @@
   color: $lightText;
 }
 
+.dropZoneContainer {
+  text-align: center;
+}
+
+.dropZone {
+  width: 300px;
+  height: 150px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(white, 0.08);
+  border: 1px solid transparent;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 200ms;
+}
+
+.dropZone_isOver {
+  background-color: rgba($green, 0.08);
+}
+
+.dropZone_focused {
+  border-color: rgba(white, 0.2);
+}
+
+.dropZone_error {
+  background-color: rgba($red, 0.08);
+}
+
+.jsonIcon {
+  width: 50px;
+  height: 67px;
+  color: rgba(white, 0.5);
+}
+
 .urlOptionContainer {
   display: flex;
   align-items: center;
@@ -37,4 +75,18 @@
 .inputContainer {
   flex: 1;
   margin-right: 10px;
+}
+
+.examplesContainer {
+  text-align: center;
+}
+
+.tactillIcon {
+  width: 100px;
+  height: 26px;
+}
+
+.giphyIcon {
+  width: 59px;
+  height: 65px;
 }
