@@ -53,7 +53,7 @@ class AppView extends Component<Props, State> {
           {status === 'LOADING' && <div>Loading</div>}
 
           <Route path="/">
-            {({ match }) => (
+            {({ match, location }) => (
               <Fragment>
                 {!match.isExact && status === 'INIT' && <Redirect to="/" />}
                 <CSSTransition
@@ -70,7 +70,7 @@ class AppView extends Component<Props, State> {
                   classNames={MENU_CLASSNAMES}
                   unmountOnExit
                 >
-                  <Menu {...match} />
+                  <Menu pathname={location.pathname} />
                 </CSSTransition>
               </Fragment>
             )}

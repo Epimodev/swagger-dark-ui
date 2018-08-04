@@ -1,4 +1,5 @@
 import { createElement } from 'react';
+import { Redirect } from 'react-router-dom';
 import { MenuRessource } from './types';
 import Input from 'src/components/Input';
 import Ressource from './components/Ressource';
@@ -10,13 +11,15 @@ export interface Props {
   ressources: MenuRessource[];
   filterValue: string;
   setFilter: (value: string) => void;
+  pathname: string;
 }
 
 function Menu(props: Props) {
-  const { docName, docVersion, ressources, filterValue, setFilter } = props;
+  const { docName, docVersion, ressources, filterValue, setFilter, pathname } = props;
 
   return (
     <div className={style.container}>
+      {pathname === '/' && <Redirect to={`/operation/${ressources[0].operations[0].id}`} />}
       <div>
         <span className={style.docName}>{docName}</span>
         <span className={style.docVersion}>v{docVersion}</span>
