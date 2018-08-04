@@ -65,7 +65,7 @@ class AppView extends Component<Props, State> {
                   <SelectDoc />
                 </CSSTransition>
                 <CSSTransition
-                  in={displayed && !!match && status === 'LOADED'}
+                  in={!!match && status === 'LOADED'}
                   timeout={1000}
                   classNames={MENU_CLASSNAMES}
                   unmountOnExit
@@ -79,7 +79,7 @@ class AppView extends Component<Props, State> {
           <Route path="/operation/:operationId">
             {({ match }) => (
               <CSSTransition
-                in={displayed && !!match && status === 'LOADED'}
+                in={!!match && status === 'LOADED'}
                 timeout={1000}
                 classNames={SELECTION_CLASSNAMES}
                 unmountOnExit
