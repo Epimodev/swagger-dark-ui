@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 import { StoreState } from 'src/store';
 import fuzzysearch from 'src/utils/fuzzysearch';
-import { OperationDocumentation } from 'src/App/types';
+import { OperationDocumentation } from 'src/types/documentation';
 import { MenuRessource } from './types';
 
 function filterOperations(
@@ -91,8 +91,8 @@ function getMenuRessources(operations: OperationDocumentation[]): MenuRessource[
 }
 
 const selectOperations = createSelector(
-  (state: StoreState) => state.filterQuery,
-  (state: StoreState) => state.operations,
+  (state: StoreState) => state.documentation.filterQuery,
+  (state: StoreState) => state.documentation.operations,
   (filterQuery: string, operations: OperationDocumentation[]) =>
     filterOperations(filterQuery, operations),
 );

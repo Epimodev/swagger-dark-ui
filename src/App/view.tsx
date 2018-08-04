@@ -6,17 +6,12 @@ import SelectDoc from 'src/pages/SelectDoc';
 import * as style from './style.scss';
 
 interface Props {
-  fetchApiDocumentation: () => void;
   status: 'INIT' | 'LOADING' | 'LOADED' | 'ERROR';
 }
 
 interface State {}
 
 class AppView extends Component<Props, State> {
-  // componentDidMount() {
-  //   this.props.fetchApiDocumentation();
-  // }
-
   render() {
     const { status } = this.props;
 

@@ -1,6 +1,6 @@
 import { createElement, PureComponent } from 'react';
 import * as classnames from 'classnames';
-import { ParamDocumentation } from 'src/App/types';
+import { ParamDocumentation } from 'src/types/documentation';
 import * as style from './style.scss';
 
 interface Props {

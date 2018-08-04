@@ -1,4 +1,8 @@
-import { OperationDocumentation, MethodResponse, ParamsDocumentation } from './types';
+import {
+  OperationDocumentation,
+  MethodResponse,
+  ParamsDocumentation,
+} from 'src/types/documentation';
 
 const HTTP_METHODS = ['get', 'post', 'put', 'delete'];
 

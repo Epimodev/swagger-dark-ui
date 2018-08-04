@@ -1,6 +1,6 @@
 import { createElement } from 'react';
 import { Redirect, match as Match } from 'react-router-dom';
-import { OperationDocumentation } from 'src/App/types';
+import { OperationDocumentation } from 'src/types/documentation';
 import Description from 'src/components/Description';
 import OperationPath from './components/OperationPath';
 import ParamsDoc from './components/ParamsDoc';

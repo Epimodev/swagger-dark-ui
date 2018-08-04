@@ -1,4 +1,4 @@
-import { OperationDocumentation } from 'src/App/types';
+import { OperationDocumentation } from 'src/types/documentation';
 import * as utils from './utils';
 
 const operationBase: OperationDocumentation = {
@@ -7,7 +7,7 @@ const operationBase: OperationDocumentation = {
   description: '',
   method: 'get',
   path: '/',
-  params: [],
+  params: { header: [], query: [], path: [], body: [] },
   responses: [],
 };
 

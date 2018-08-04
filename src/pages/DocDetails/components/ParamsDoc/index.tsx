@@ -1,5 +1,5 @@
 import { createElement, Fragment } from 'react';
-import { ParamDocumentation } from 'src/App/types';
+import { ParamDocumentation } from 'src/types/documentation';
 import ParamsList from 'src/components/ParamsList';
 import * as style from './style.scss';
 

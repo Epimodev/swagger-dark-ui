@@ -1,5 +1,14 @@
-import { DocumentationState, DocumentationAction } from './types';
-import { getBaseUrl, getOperations } from './utils';
+import { Action } from 'src/store';
+import { OperationDocumentation } from 'src/types/documentation';
+
+export interface DocumentationState {
+  name: string;
+  version: string;
+  baseUrl: string;
+  operations: OperationDocumentation[];
+  status: 'INIT' | 'LOADING' | 'LOADED' | 'ERROR';
+  filterQuery: string;
+}
 
 const initialState: DocumentationState = {
   name: '',
@@ -10,10 +19,7 @@ const initialState: DocumentationState = {
   filterQuery: '',
 };
 
-function reducer(
-  state: DocumentationState = initialState,
-  action: DocumentationAction,
-): DocumentationState {
+function reducer(state: DocumentationState = initialState, action: Action): DocumentationState {
   switch (action.type) {
     case 'FETCH_SWAGGER_START':
       return {
@@ -24,10 +30,7 @@ function reducer(
       return {
         ...state,
         status: 'LOADED',
-        name: action.payload.info.title,
-        version: action.payload.info.version,
-        baseUrl: getBaseUrl(action.payload),
-        operations: getOperations(action.payload),
+        ...action.payload,
       };
     case 'FETCH_SWAGGER_FAIL':
       return {

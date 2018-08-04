@@ -1,9 +1,9 @@
 import { SyntheticEvent } from 'react';
 import { connect } from 'react-redux';
 import { StoreState } from 'src/store';
+import { setFilter } from 'src/store/actions/documentation';
 import MenuView from './view';
 import { selectRessources } from './utils';
-import { setFilter } from './actions';
 import { MenuRessource } from './types';
 
 interface StoreProps {
@@ -19,10 +19,10 @@ interface DispatchProps {
 
 function mapStateToProps(state: StoreState): StoreProps {
   return {
-    docName: state.name,
-    docVersion: state.version,
+    docName: state.documentation.name,
+    docVersion: state.documentation.version,
     ressources: selectRessources(state),
-    filterValue: state.filterQuery,
+    filterValue: state.documentation.filterQuery,
   };
 }
 

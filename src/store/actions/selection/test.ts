@@ -188,7 +188,7 @@ describe('getOperations', () => {
   });
 
   test('Should return 1 method with 1 response', () => {
-    const swaggerSchema = {
+    const swaggerSchema: SwaggerSchema = {
       ...SwaggerBaseSchema,
       paths: {
         '/gifs/search': {
@@ -203,7 +203,7 @@ describe('getOperations', () => {
               // tslint:disable-next-line object-literal-key-quotes
               '200': {
                 description: 'Response description',
-                schema: { type: 'string' as 'string' },
+                schema: { type: 'string' },
                 examples: {
                   'application/json': {
                     data: 'Response example',
@@ -226,7 +226,7 @@ describe('getOperations', () => {
   });
 
   test('Should return 1 method with 2 responses', () => {
-    const swaggerSchema = {
+    const swaggerSchema: SwaggerSchema = {
       ...SwaggerBaseSchema,
       paths: {
         '/gifs/search': {
@@ -241,7 +241,7 @@ describe('getOperations', () => {
               // tslint:disable-next-line object-literal-key-quotes
               '200': {
                 description: 'Response description',
-                schema: { type: 'string' as 'string' },
+                schema: { type: 'string' },
                 examples: {
                   'application/json': {
                     data: 'Response example',
@@ -251,7 +251,7 @@ describe('getOperations', () => {
               // tslint:disable-next-line object-literal-key-quotes
               '400': {
                 description: 'Bad request description',
-                schema: { type: 'string' as 'string' },
+                schema: { type: 'string' },
                 examples: {
                   'application/json': {
                     data: 'Bad request example',
@@ -304,7 +304,7 @@ describe('getOperations', () => {
   });
 
   test('Should return 1 method with parameters', () => {
-    const swaggerSchema = {
+    const swaggerSchema: SwaggerSchema = {
       ...SwaggerBaseSchema,
       paths: {
         '/gifs/search': {
@@ -339,7 +339,7 @@ describe('getOperations', () => {
     expect(operationParams.body[0].name).toBe('body-param');
   });
   test('Should return 1 method with parameters from path', () => {
-    const swaggerSchema = {
+    const swaggerSchema: SwaggerSchema = {
       ...SwaggerBaseSchema,
       paths: {
         '/gifs/search': {
@@ -375,7 +375,7 @@ describe('getOperations', () => {
     expect(operationParams.body[0].name).toBe('path-body-param');
   });
   test('Should return 1 method with parameters from path and operation', () => {
-    const swaggerSchema = {
+    const swaggerSchema: SwaggerSchema = {
       ...SwaggerBaseSchema,
       paths: {
         '/gifs/search': {

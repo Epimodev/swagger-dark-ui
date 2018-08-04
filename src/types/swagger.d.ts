@@ -66,7 +66,10 @@ declare interface ApiPathMethod {
 
 declare interface ApiPath {
   parameters?: HttpParameter[];
-  [x: string]: ApiPathMethod;
+  get?: ApiPathMethod;
+  post?: ApiPathMethod;
+  put?: ApiPathMethod;
+  delete?: ApiPathMethod;
 }
 
 interface ApiPaths {
