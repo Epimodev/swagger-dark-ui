@@ -9,7 +9,7 @@ export interface Props {
   onClick: (index: number) => void;
 }
 
-function ResponseTab(props: Props) {
+function CodeTab(props: Props) {
   const { code, selected, index, onClick } = props;
   const containerClassName = classnames(style.container, {
     [style.container_selected]: selected,
@@ -27,4 +27,4 @@ function ResponseTab(props: Props) {
   );
 }
 
-export default ResponseTab;
+export default CodeTab;

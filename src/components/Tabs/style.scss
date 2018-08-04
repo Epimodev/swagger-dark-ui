@@ -1,0 +1,22 @@
+@import "app-colors";
+@import "mixins";
+
+.tabs {
+  margin-bottom: 10px;
+}
+
+.tab {
+  @include resetButton;
+  color: white;
+  opacity: 0.5;
+  transition: 200ms;
+
+  &:not(:last-child) {
+    margin-right: 30px;
+  }
+}
+
+.tab_selected {
+  color: $green;
+  opacity: 1;
+}
