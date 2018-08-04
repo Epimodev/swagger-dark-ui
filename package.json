@@ -26,6 +26,7 @@
     "@types/react-dom": "^16.0.6",
     "@types/react-redux": "^6.0.5",
     "@types/react-router-dom": "^4.3.0",
+    "@types/validator": "^9.4.1",
     "autoprefixer": "^8.4.1",
     "awesome-typescript-loader": "^5.0.0",
     "css-loader": "^0.28.11",
@@ -59,7 +60,8 @@
     "react-router-dom": "^4.3.1",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
-    "reselect": "^3.0.1"
+    "reselect": "^3.0.1",
+    "validator": "^10.5.0"
   },
   "jest": {
     "verbose": true,

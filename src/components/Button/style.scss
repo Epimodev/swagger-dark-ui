@@ -8,4 +8,9 @@
   color: white;
   background-color: $blue;
   border-radius: 3px;
+  transition: 200ms;
+}
+
+.button_disabled {
+  opacity: 0.5;
 }

@@ -1,5 +1,6 @@
 import { createElement } from 'react';
 import classnames from 'classnames';
+import * as isUrl from 'validator/lib/isURL';
 import Input from 'src/components/Input';
 import Button from 'src/components/Button';
 import Dropzone from 'src/components/Dropzone';
@@ -22,6 +23,7 @@ export interface Props {
 
 function SelectDocView(props: Props) {
   const { url, readJsonFile, updateUrl, fetchUserUrl, fetchApiExemple } = props;
+  const isUrlInvalid = !isUrl(url);
 
   return (
     <div className={style.container}>
@@ -51,7 +53,9 @@ function SelectDocView(props: Props) {
             <div className={style.inputContainer}>
               <Input placeholder="https://swagger-file.json" value={url} onChange={updateUrl} />
             </div>
-            <Button onClick={fetchUserUrl}>LOAD FILE</Button>
+            <Button onClick={fetchUserUrl} disabled={isUrlInvalid}>
+              LOAD FILE
+            </Button>
           </div>
         </div>
         <OrSeparator />
