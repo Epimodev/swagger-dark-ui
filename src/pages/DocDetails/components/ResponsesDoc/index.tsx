@@ -1,6 +1,7 @@
 import { createElement, Component, Fragment } from 'react';
 import { MethodResponse } from 'src/types/documentation';
 import { Tabs, Tab } from 'src/components/Tabs';
+import Example from 'src/components/Example';
 import CodeTab from '../CodeTab';
 import * as style from './style.scss';
 
@@ -31,7 +32,7 @@ class ResponsesDoc extends Component<Props, State> {
   render() {
     const { title, responses } = this.props;
     const { selectedCodeIndex } = this.state;
-    // const selectedResponse = responses[selectedIndex];
+    const selectedResponse = responses[selectedCodeIndex];
 
     return (
       <Fragment>
@@ -51,7 +52,9 @@ class ResponsesDoc extends Component<Props, State> {
           <div className={style.responseDetails}>
             <Tabs>
               <Tab label="Schema">SCHEMA CONTENT</Tab>
-              <Tab label="Example">EXAMPLE CONTENT</Tab>
+              <Tab label="Example">
+                <Example>{JSON.stringify(selectedResponse.example, null, 2)}</Example>
+              </Tab>
             </Tabs>
           </div>
         </div>
