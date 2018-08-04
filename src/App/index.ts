@@ -8,7 +8,7 @@ interface StoreProps {
 
 function mapStateToProps(state: StoreState): StoreProps {
   return {
-    status: state.selection.docStatus,
+    status: state.selection.status,
   };
 }
 

@@ -1,13 +1,13 @@
 import { Action } from 'src/store';
 
 export interface SelectDocState {
-  docStatus: 'INIT' | 'LOADING' | 'LOADED' | 'ERROR';
+  status: 'INIT' | 'LOADING' | 'LOADED' | 'ERROR';
   dropzoneStatus: 'EMPTY' | 'BAD_FORMAT';
   url: string;
 }
 
 const initialState: SelectDocState = {
-  docStatus: 'INIT',
+  status: 'INIT',
   dropzoneStatus: 'EMPTY',
   url: '',
 };
@@ -23,6 +23,21 @@ function reducer(state: SelectDocState = initialState, action: Action): SelectDo
       return {
         ...state,
         url: action.payload,
+      };
+    case 'FETCH_SWAGGER_START':
+      return {
+        ...state,
+        status: 'LOADING',
+      };
+    case 'FETCH_SWAGGER_SUCCESS':
+      return {
+        ...state,
+        status: 'LOADED',
+      };
+    case 'FETCH_SWAGGER_FAIL':
+      return {
+        ...state,
+        status: 'ERROR',
       };
   }
   return state;
