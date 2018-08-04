@@ -13,7 +13,6 @@ import DocExemple from './components/DocExemple';
 import * as style from './style.scss';
 
 export interface Props {
-  displayed: boolean;
   dropzoneStatus: 'EMPTY' | 'BAD_FORMAT';
   url: string;
   readJsonFile: (file: File) => void;
@@ -23,14 +22,11 @@ export interface Props {
 }
 
 function SelectDocView(props: Props) {
-  const { displayed, url, readJsonFile, updateUrl, fetchUserUrl, fetchApiExemple } = props;
-  const containerClassName = classnames(style.container, {
-    [style.container_displayed]: displayed,
-  });
+  const { url, readJsonFile, updateUrl, fetchUserUrl, fetchApiExemple } = props;
   const isUrlInvalid = !isUrl(url);
 
   return (
-    <div className={containerClassName}>
+    <div className={style.container}>
       <div className={style.card}>
         <div>
           <h2 className={style.optionTitle}>Drop Swagger file here</h2>

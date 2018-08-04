@@ -1,5 +1,6 @@
-import { createElement, Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { createElement, Component, Fragment } from 'react';
+import { CSSTransition } from 'react-transition-group';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import * as classnames from 'classnames';
 import Menu from 'src/components/Menu';
 import DocDetails from 'src/pages/DocDetails';
@@ -12,13 +13,29 @@ interface Props {
 
 interface State {
   displayed: boolean;
+  displayTest: boolean;
 }
 
+const SELECTION_CLASSNAMES = {
+  enter: style.selection_enter,
+  enterActive: style.selection_enterActive,
+  exit: style.selection_exit,
+  exitActive: style.selection_exitActive,
+};
+const MENU_CLASSNAMES = {
+  enter: style.menu_enter,
+  enterActive: style.menu_enterActive,
+  exit: style.menu_exit,
+  exitActive: style.menu_exitActive,
+};
+
 class AppView extends Component<Props, State> {
-  state = { displayed: false };
+  state = { displayed: false, displayTest: false };
 
   componentDidMount() {
     setTimeout(() => this.setState({ displayed: true }), 0);
+
+    setTimeout(() => this.setState({ displayTest: true }), 1500);
   }
 
   render() {
@@ -32,17 +49,47 @@ class AppView extends Component<Props, State> {
       <Router>
         <div className={style.container}>
           <div className={backgroundClassName} />
-          {status === 'INIT' && <SelectDoc displayed={displayed} />}
           {status === 'ERROR' && <div>Loading error</div>}
           {status === 'LOADING' && <div>Loading</div>}
-          {status === 'LOADED' && (
-            <div>
-              <Route path="/" component={Menu} />
-              <div className={style.detailsContainer}>
-                <Route path="/operation/:operationId" component={DocDetails} />
-              </div>
-            </div>
-          )}
+
+          <Route path="/">
+            {({ match }) => (
+              <Fragment>
+                {!match.isExact && status === 'INIT' && <Redirect to="/" />}
+                <CSSTransition
+                  in={displayed && status === 'INIT'}
+                  timeout={1000}
+                  classNames={SELECTION_CLASSNAMES}
+                  unmountOnExit
+                >
+                  <SelectDoc />
+                </CSSTransition>
+                <CSSTransition
+                  in={displayed && !!match && status === 'LOADED'}
+                  timeout={1000}
+                  classNames={MENU_CLASSNAMES}
+                  unmountOnExit
+                >
+                  <Menu {...match} />
+                </CSSTransition>
+              </Fragment>
+            )}
+          </Route>
+
+          <Route path="/operation/:operationId">
+            {({ match }) => (
+              <CSSTransition
+                in={displayed && !!match && status === 'LOADED'}
+                timeout={1000}
+                classNames={SELECTION_CLASSNAMES}
+                unmountOnExit
+              >
+                <div className={style.detailsContainer}>
+                  <DocDetails match={match} />
+                </div>
+              </CSSTransition>
+            )}
+          </Route>
         </div>
       </Router>
     );

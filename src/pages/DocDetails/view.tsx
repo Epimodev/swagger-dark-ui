@@ -8,7 +8,7 @@ import * as style from './style.scss';
 
 export interface Props {
   match: Match<{ operationId: string }>;
-  operation: OperationDocumentation | undefined;
+  operation?: OperationDocumentation;
 }
 
 function DocDetailsView(props: Props) {

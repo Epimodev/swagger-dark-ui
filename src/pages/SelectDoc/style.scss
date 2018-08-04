@@ -10,15 +10,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  opacity: 0;
-  transform: scale(1.1);
-  transition: 500ms;
-  transition-delay: 250ms;
-}
-
-.container_displayed {
-  transform: scale(1);
-  opacity: 1;
 }
 
 .card {

@@ -1,5 +1,4 @@
 export const container: string;
-export const container_displayed: string;
 export const card: string;
 export const optionTitle: string;
 export const dropZoneContainer: string;
