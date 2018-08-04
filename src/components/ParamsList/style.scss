@@ -1,11 +1,36 @@
+@import "app-colors";
+@import "mixins";
+
 .container {
   border: 1px solid rgba(white, 0.25);
   border-radius: 3px;
 }
 
 .row {
+  display: flex;
   padding: 10px;
+  color: $lightText;
   &:nth-child(even) {
     background-color: rgba(black, 0.08);
   }
+}
+
+.cell_name {
+  @include ellipsis;
+  flex: 1;
+}
+
+.cell_type {
+  width: 80px;
+  padding: 0 10px;
+}
+
+.cell_required {
+  font-weight: 500;
+  color: white;
+  padding: 0 10px;
+}
+
+.cell_optional {
+  padding: 0 10px;
 }

@@ -4,6 +4,7 @@ import { OperationDocumentation } from 'src/types/documentation';
 import Description from 'src/components/Description';
 import OperationPath from './components/OperationPath';
 import ParamsDoc from './components/ParamsDoc';
+import ResponsesDoc from './components/ResponsesDoc';
 import * as style from './style.scss';
 
 export interface Props {
@@ -14,13 +15,11 @@ export interface Props {
 function DocDetailsView(props: Props) {
   const { operation } = props;
 
-  console.log(operation);
-
   if (!operation) {
     return <Redirect to="/" />;
   }
 
-  const { summary, description, method, path, params } = operation;
+  const { id, summary, description, method, path, params, responses } = operation;
 
   return (
     <div className={style.container}>
@@ -33,6 +32,7 @@ function DocDetailsView(props: Props) {
         <ParamsDoc title="Query Params" params={params.query} />
         <ParamsDoc title="Path Params" params={params.path} />
         <ParamsDoc title="Request Body" params={params.body} />
+        <ResponsesDoc key={id} title="Responses" responses={responses} />
       </div>
     </div>
   );

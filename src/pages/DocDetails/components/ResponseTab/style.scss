@@ -1,0 +1,33 @@
+@import "app-colors";
+@import "mixins";
+
+.container {
+  @include resetButton;
+  display: block;
+  margin-bottom: 3px;
+  color: white;
+  opacity: 0.4;
+  transition: 200ms;
+}
+
+.container_selected {
+  opacity: 1;
+}
+
+.square {
+  display: inline-block;
+  vertical-align: middle;
+  width: 10px;
+  height: 10px;
+  margin-right: 5px;
+  border-radius: 2px;
+  background-color: $green;
+}
+
+.square_error {
+  background-color: $red;
+}
+
+.code {
+  font-size: 12px;
+}
