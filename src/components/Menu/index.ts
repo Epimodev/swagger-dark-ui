@@ -1,4 +1,3 @@
-import { SyntheticEvent } from 'react';
 import { connect } from 'react-redux';
 import { StoreState } from 'src/store';
 import { setFilter } from 'src/store/actions/documentation';
@@ -14,7 +13,7 @@ interface StoreProps {
 }
 
 interface DispatchProps {
-  setFilter: (event: SyntheticEvent<HTMLInputElement>) => void;
+  setFilter: (value: string) => void;
 }
 
 function mapStateToProps(state: StoreState): StoreProps {

@@ -14,25 +14,36 @@ function updateUrl(value: string): types.UPDATE_DOC_URL {
 
 function fetchApiDocumentation(url: string): AppThunk<void> {
   return dispatch => {
-    let loaded = false;
+    let finished = false;
 
     axios
       .get(url)
       .then((response: AxiosResponse<SwaggerSchema>) => {
-        loaded = true;
+        finished = true;
         dispatch(saveSwaggerDoc(response.data));
       })
       .catch(error => {
+        finished = true;
         console.error(error);
         dispatch({ type: 'FETCH_SWAGGER_FAIL' });
       });
 
     setTimeout(() => {
-      if (!loaded) {
+      if (!finished) {
         // display loader only if http request is too long
         dispatch({ type: 'FETCH_SWAGGER_START' });
       }
     }, LOADING_TIMEOUT);
+  };
+}
+
+function fetchUserUrl(): AppThunk<void> {
+  return (dispatch, getState) => {
+    const {
+      selection: { url },
+    } = getState();
+
+    dispatch(fetchApiDocumentation(url));
   };
 }
 
@@ -76,4 +87,4 @@ function saveSwaggerDoc(data: SwaggerSchema): types.FETCH_SWAGGER_SUCCESS {
   };
 }
 
-export { updateUrl, fetchApiDocumentation, fetchApiExemple, readJsonFile };
+export { updateUrl, fetchUserUrl, fetchApiExemple, readJsonFile };

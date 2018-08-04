@@ -11,16 +11,25 @@ import OrSeparator from './components/OrSeparator';
 import DocExemple from './components/DocExemple';
 import * as style from './style.scss';
 
-export interface Props {}
+export interface Props {
+  dropzoneStatus: 'EMPTY' | 'BAD_FORMAT';
+  url: string;
+  readJsonFile: (file: File) => void;
+  updateUrl: (value: string) => void;
+  fetchUserUrl: () => void;
+  fetchApiExemple: (exampleValue: string) => void;
+}
 
 function SelectDocView(props: Props) {
+  const { url, readJsonFile, updateUrl, fetchUserUrl, fetchApiExemple } = props;
+
   return (
     <div className={style.container}>
       <div className={style.card}>
         <div>
           <h2 className={style.optionTitle}>Drop Swagger file here</h2>
           <div className={style.dropZoneContainer}>
-            <Dropzone onChange={console.log} accept="application/json">
+            <Dropzone onChange={readJsonFile} accept="application/json">
               {({ isOver, focused }) => {
                 const zoneClass = classnames(style.dropZone, {
                   [style.dropZone_isOver]: isOver,
@@ -40,13 +49,9 @@ function SelectDocView(props: Props) {
           <h2 className={style.optionTitle}>Write Swagger file url</h2>
           <div className={style.urlOptionContainer}>
             <div className={style.inputContainer}>
-              <Input
-                placeholder="https://swagger-file.json"
-                value=""
-                onChange={() => console.log('Change')}
-              />
+              <Input placeholder="https://swagger-file.json" value={url} onChange={updateUrl} />
             </div>
-            <Button onClick={() => console.log('LOAD FILE')}>LOAD FILE</Button>
+            <Button onClick={fetchUserUrl}>LOAD FILE</Button>
           </div>
         </div>
         <OrSeparator />
@@ -55,13 +60,13 @@ function SelectDocView(props: Props) {
           <div className={style.examplesContainer}>
             <DocExemple
               value="tactill"
-              onClick={console.log}
+              onClick={fetchApiExemple}
               iconRef={tactillIcon}
               iconClassName={style.tactillIcon}
             />
             <DocExemple
               value="giphy"
-              onClick={console.log}
+              onClick={fetchApiExemple}
               iconRef={giphyIcon}
               iconClassName={style.giphyIcon}
             />

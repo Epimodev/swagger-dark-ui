@@ -1,4 +1,4 @@
-import { createElement, SyntheticEvent } from 'react';
+import { createElement } from 'react';
 import { MenuRessource } from './types';
 import Input from 'src/components/Input';
 import Ressource from './components/Ressource';
@@ -9,7 +9,7 @@ export interface Props {
   docVersion: string;
   ressources: MenuRessource[];
   filterValue: string;
-  setFilter: (event: SyntheticEvent<HTMLInputElement>) => void;
+  setFilter: (value: string) => void;
 }
 
 function Menu(props: Props) {
