@@ -36,6 +36,7 @@
 }
 
 .dropZone {
+  position: relative;
   width: 300px;
   height: 150px;
   margin: auto;
@@ -51,6 +52,16 @@
 
 .dropZone_isOver {
   background-color: rgba($green, 0.08);
+
+  .jsonIcon {
+    color: $green;
+    transform: translateY(-15px);
+  }
+
+  .dropZoneMessage {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .dropZone_focused {
@@ -59,12 +70,42 @@
 
 .dropZone_error {
   background-color: rgba($red, 0.08);
+
+  .jsonIcon {
+    color: $red;
+    transform: translateY(-15px);
+  }
+
+  .dropZoneErrorMessage {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .jsonIcon {
   width: 50px;
   height: 67px;
   color: rgba(white, 0.5);
+  transition: 200ms;
+}
+
+.dropZoneMessage, .dropZoneErrorMessage {
+  @include uppercase;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 15px;
+  opacity: 0;
+  transform: translateY(15px);
+  transition: 200ms;
+}
+
+.dropZoneMessage {
+  color: $green;
+}
+
+.dropZoneErrorMessage {
+  color: $red;
 }
 
 .urlOptionContainer {

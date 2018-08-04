@@ -6,6 +6,8 @@ export const dropZone: string;
 export const dropZone_isOver: string;
 export const dropZone_focused: string;
 export const dropZone_error: string;
+export const dropZoneMessage: string;
+export const dropZoneErrorMessage: string;
 export const jsonIcon: string;
 export const urlOptionContainer: string;
 export const inputContainer: string;

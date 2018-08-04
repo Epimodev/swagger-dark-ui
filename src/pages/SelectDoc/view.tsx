@@ -22,7 +22,7 @@ export interface Props {
 }
 
 function SelectDocView(props: Props) {
-  const { url, readJsonFile, updateUrl, fetchUserUrl, fetchApiExemple } = props;
+  const { dropzoneStatus, url, readJsonFile, updateUrl, fetchUserUrl, fetchApiExemple } = props;
   const isUrlInvalid = !isUrl(url);
 
   return (
@@ -36,10 +36,13 @@ function SelectDocView(props: Props) {
                 const zoneClass = classnames(style.dropZone, {
                   [style.dropZone_isOver]: isOver,
                   [style.dropZone_focused]: focused,
+                  [style.dropZone_error]: !isOver && dropzoneStatus === 'BAD_FORMAT',
                 });
                 return (
                   <div className={zoneClass}>
                     <Icon href={jsonIcon} className={style.jsonIcon} />
+                    <span className={style.dropZoneMessage}>Drop file</span>
+                    <span className={style.dropZoneErrorMessage}>Bad file format</span>
                   </div>
                 );
               }}
