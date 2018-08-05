@@ -4,7 +4,12 @@ describe('getShallowProperties', () => {
   test('Should return 1 line if schema is `string`', () => {
     const stringSchema: ResponseSchema = { type: 'string' };
 
-    const expected: utils.SchemaLine = { type: 'string', label: 'string', indentLevel: 0 };
+    const expected: utils.SchemaLine = {
+      label: '-',
+      type: 'string',
+      typeLabel: 'string',
+      indentLevel: 0,
+    };
 
     const stringLines = utils.getShallowProperties(stringSchema);
     expect(stringLines.length).toBe(1);
@@ -14,7 +19,12 @@ describe('getShallowProperties', () => {
   test('Should return 1 line if schema is `number`', () => {
     const numberSchema: ResponseSchema = { type: 'number' };
 
-    const expected: utils.SchemaLine = { type: 'number', label: 'number', indentLevel: 0 };
+    const expected: utils.SchemaLine = {
+      label: '-',
+      type: 'number',
+      typeLabel: 'number',
+      indentLevel: 0,
+    };
 
     const numberLines = utils.getShallowProperties(numberSchema);
     expect(numberLines.length).toBe(1);
@@ -24,7 +34,12 @@ describe('getShallowProperties', () => {
   test('Should return 1 line if schema is `integer`', () => {
     const integerSchema: ResponseSchema = { type: 'integer' };
 
-    const expected: utils.SchemaLine = { type: 'integer', label: 'integer', indentLevel: 0 };
+    const expected: utils.SchemaLine = {
+      label: '-',
+      type: 'integer',
+      typeLabel: 'integer',
+      indentLevel: 0,
+    };
 
     const integerLines = utils.getShallowProperties(integerSchema);
     expect(integerLines.length).toBe(1);
@@ -34,7 +49,12 @@ describe('getShallowProperties', () => {
   test('Should return 1 line if schema is `boolean`', () => {
     const booleanSchema: ResponseSchema = { type: 'boolean' };
 
-    const expected: utils.SchemaLine = { type: 'boolean', label: 'boolean', indentLevel: 0 };
+    const expected: utils.SchemaLine = {
+      label: '-',
+      type: 'boolean',
+      typeLabel: 'boolean',
+      indentLevel: 0,
+    };
 
     const booleanLines = utils.getShallowProperties(booleanSchema);
     expect(booleanLines.length).toBe(1);
@@ -55,7 +75,25 @@ describe('getShallowProperties', () => {
     const [objectLine, ...propertiesLines] = utils.getShallowProperties(schema);
 
     expect(objectLine.indentLevel).toBe(0);
+    expect(propertiesLines.length).toBe(3);
     propertiesLines.forEach(line => expect(line.indentLevel).toBe(1));
+  });
+
+  test('Object properties lines should have the label from property key', () => {
+    const schema: ResponseSchema = {
+      type: 'object',
+      properties: {
+        name: { type: 'string' },
+        size: { type: 'number' },
+        checked: { type: 'boolean' },
+      },
+    };
+
+    const lines = utils.getShallowProperties(schema);
+
+    expect(lines[1].label).toBe('name');
+    expect(lines[2].label).toBe('size');
+    expect(lines[3].label).toBe('checked');
   });
 
   // tslint:disable-next-line max-line-length
@@ -72,10 +110,31 @@ describe('getShallowProperties', () => {
       },
     };
 
-    const [arrayLine, ...propertiesLines] = utils.getShallowProperties(schema);
+    const [objectLine, ...propertiesLines] = utils.getShallowProperties(schema);
 
-    expect(arrayLine.indentLevel).toBe(0);
+    expect(objectLine.indentLevel).toBe(0);
+    expect(propertiesLines.length).toBe(3);
     propertiesLines.forEach(line => expect(line.indentLevel).toBe(1));
+  });
+
+  test('Array properties lines should have the label from property key', () => {
+    const schema: ResponseSchema = {
+      type: 'array',
+      items: {
+        type: 'object',
+        properties: {
+          name: { type: 'string' },
+          size: { type: 'number' },
+          checked: { type: 'boolean' },
+        },
+      },
+    };
+
+    const lines = utils.getShallowProperties(schema);
+
+    expect(lines[1].label).toBe('name');
+    expect(lines[2].label).toBe('size');
+    expect(lines[3].label).toBe('checked');
   });
 
   test('Should return 1 line when schema is `array` of `string`', () => {
@@ -151,10 +210,10 @@ describe('getShallowProperties', () => {
     const integerLines = utils.getShallowProperties(integerSchema);
     const booleanLines = utils.getShallowProperties(booleanSchema);
 
-    expect(objectLines[0].label).toBe('object[]');
-    expect(stringLines[0].label).toBe('string[]');
-    expect(numberLines[0].label).toBe('number[]');
-    expect(integerLines[0].label).toBe('integer[]');
-    expect(booleanLines[0].label).toBe('boolean[]');
+    expect(objectLines[0].typeLabel).toBe('object[]');
+    expect(stringLines[0].typeLabel).toBe('string[]');
+    expect(numberLines[0].typeLabel).toBe('number[]');
+    expect(integerLines[0].typeLabel).toBe('integer[]');
+    expect(booleanLines[0].typeLabel).toBe('boolean[]');
   });
 });
