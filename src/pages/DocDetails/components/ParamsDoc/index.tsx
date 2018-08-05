@@ -1,6 +1,7 @@
 import { createElement, Fragment } from 'react';
 import { ParamDocumentation } from 'src/types/documentation';
 import ParamsList from 'src/components/ParamsList';
+import DetailsTitle from '../DetailsTitle';
 import * as style from './style.scss';
 
 export interface Props {
@@ -14,7 +15,7 @@ function ParamsDoc(props: Props) {
   if (params.length > 0) {
     return (
       <Fragment>
-        <div className={style.paramsTitle}>{title}</div>
+        <DetailsTitle>{title}</DetailsTitle>
         <ParamsList className={style.paramsList} params={params} />
       </Fragment>
     );

@@ -2,6 +2,8 @@ import { createElement } from 'react';
 import { Redirect, match as Match } from 'react-router-dom';
 import { OperationDocumentation } from 'src/types/documentation';
 import Description from 'src/components/Description';
+import BodyDoc from 'src/components/BodyDoc';
+import DetailsTitle from './components/DetailsTitle';
 import OperationPath from './components/OperationPath';
 import ParamsDoc from './components/ParamsDoc';
 import ResponsesDoc from './components/ResponsesDoc';
@@ -33,6 +35,12 @@ function DocDetailsView(props: Props) {
         <ParamsDoc title="Header Params" params={params.header} />
         <ParamsDoc title="Query Params" params={params.query} />
         <ParamsDoc title="Path Params" params={params.path} />
+        {body && (
+          <div className={style.requestBodyContainer}>
+            <DetailsTitle>Request Body</DetailsTitle>
+            <BodyDoc schema={body.schema} example={body.example} />
+          </div>
+        )}
         <ResponsesDoc key={id} title="Responses" responses={responses} />
       </div>
     </div>
