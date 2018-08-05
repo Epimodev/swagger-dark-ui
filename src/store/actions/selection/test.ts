@@ -205,9 +205,7 @@ describe('getOperations', () => {
                 description: 'Response description',
                 schema: { type: 'string' },
                 examples: {
-                  'application/json': {
-                    data: 'Response example',
-                  },
+                  'application/json': 'Response example',
                 },
               },
             },
@@ -243,9 +241,7 @@ describe('getOperations', () => {
                 description: 'Response description',
                 schema: { type: 'string' },
                 examples: {
-                  'application/json': {
-                    data: 'Response example',
-                  },
+                  'application/json': 'Response example',
                 },
               },
               // tslint:disable-next-line object-literal-key-quotes
@@ -253,9 +249,7 @@ describe('getOperations', () => {
                 description: 'Bad request description',
                 schema: { type: 'string' },
                 examples: {
-                  'application/json': {
-                    data: 'Bad request example',
-                  },
+                  'application/json': 'Bad request example',
                 },
               },
             },

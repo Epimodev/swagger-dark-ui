@@ -26,10 +26,7 @@ function getExample(response: OperationResponse): any {
   if (!response.examples['application/json']) {
     return null;
   }
-  if (!response.examples['application/json'].data) {
-    return null;
-  }
-  return response.examples['application/json'].data;
+  return response.examples['application/json'];
 }
 
 function formatParams(

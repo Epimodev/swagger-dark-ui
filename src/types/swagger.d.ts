@@ -47,9 +47,7 @@ declare interface OperationResponse {
   description: string;
   schema: ResponseSchema;
   examples: {
-    ['application/json']: {
-      data: object | array<any>;
-    };
+    ['application/json']: object | array<object>;
   };
 }
 
