@@ -1,5 +1,6 @@
 export const container: string;
 export const card: string;
+export const card_blurred: string;
 export const optionTitle: string;
 export const dropZoneContainer: string;
 export const dropZone: string;

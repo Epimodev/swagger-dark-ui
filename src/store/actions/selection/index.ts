@@ -3,7 +3,7 @@ import { AppThunk } from 'src/store';
 import * as types from './types';
 import { getBaseUrl, getOperations } from './utils';
 
-const LOADING_TIMEOUT = 1500;
+const LOADING_TIMEOUT = 600;
 
 function updateUrl(value: string): types.UPDATE_DOC_URL {
   return {

@@ -1,6 +1,7 @@
 import { createElement } from 'react';
 import classnames from 'classnames';
 import * as isUrl from 'validator/lib/isURL';
+import Loader from 'src/components/Loader';
 import Input from 'src/components/Input';
 import Button from 'src/components/Button';
 import Dropzone from 'src/components/Dropzone';
@@ -13,6 +14,7 @@ import DocExemple from './components/DocExemple';
 import * as style from './style.scss';
 
 export interface Props {
+  status: 'INIT' | 'LOADING' | 'LOADED' | 'ERROR';
   dropzoneStatus: 'EMPTY' | 'BAD_FORMAT';
   url: string;
   readJsonFile: (file: File) => void;
@@ -22,12 +24,26 @@ export interface Props {
 }
 
 function SelectDocView(props: Props) {
-  const { dropzoneStatus, url, readJsonFile, updateUrl, fetchUserUrl, fetchApiExemple } = props;
+  const {
+    status,
+    dropzoneStatus,
+    url,
+    readJsonFile,
+    updateUrl,
+    fetchUserUrl,
+    fetchApiExemple,
+  } = props;
   const isUrlInvalid = !isUrl(url);
+  const isLoading = status === 'LOADING';
+  const isLoaded = status === 'LOADED';
+  const cardClassName = classnames(style.card, {
+    [style.card_blurred]: isLoading || isLoaded,
+  });
 
   return (
     <div className={style.container}>
-      <div className={style.card}>
+      <Loader displayed={isLoading} />
+      <div className={cardClassName}>
         <div>
           <h2 className={style.optionTitle}>Drop Swagger file here</h2>
           <div className={style.dropZoneContainer}>

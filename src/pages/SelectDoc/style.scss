@@ -22,6 +22,10 @@
   overflow: auto;
 }
 
+.card_blurred {
+  filter: blur(3px);
+}
+
 .optionTitle {
   @include uppercase;
   margin: 0 0 15px 0;

@@ -50,14 +50,12 @@ class AppView extends Component<Props, State> {
         <div className={style.container}>
           <div className={backgroundClassName} />
           {status === 'ERROR' && <div>Loading error</div>}
-          {status === 'LOADING' && <div>Loading</div>}
-
           <Route path="/">
             {({ match, location }) => (
               <Fragment>
                 {!match.isExact && status === 'INIT' && <Redirect to="/" />}
                 <CSSTransition
-                  in={displayed && status === 'INIT'}
+                  in={displayed && status !== 'LOADED'}
                   timeout={1000}
                   classNames={SELECTION_CLASSNAMES}
                   unmountOnExit
@@ -65,7 +63,7 @@ class AppView extends Component<Props, State> {
                   <SelectDoc />
                 </CSSTransition>
                 <CSSTransition
-                  in={!!match && status === 'LOADED'}
+                  in={status === 'LOADED'}
                   timeout={1000}
                   classNames={MENU_CLASSNAMES}
                   unmountOnExit

@@ -23,8 +23,6 @@ function DocDetailsView(props: Props) {
 
   const { id, summary, description, method, path, params, body, responses } = operation;
 
-  console.log(body);
-
   return (
     <div className={style.container}>
       <OperationPath method={method} path={path} />
