@@ -8,7 +8,7 @@ import Button from 'src/components/Button';
 import Dropzone from 'src/components/Dropzone';
 import Icon from 'src/components/Icon';
 import jsonIcon from 'src/icons/json.svg';
-import tactillIcon from 'src/icons/tactill.svg';
+import peachIcon from 'src/icons/peach.svg';
 import giphyIcon from 'src/icons/giphy.svg';
 import OrSeparator from './components/OrSeparator';
 import DocExemple from './components/DocExemple';
@@ -87,10 +87,10 @@ function SelectDocView(props: Props) {
           <h2 className={style.optionTitle}>Select one of thoses examples</h2>
           <div className={style.examplesContainer}>
             <DocExemple
-              value="tactill"
+              value="peach"
               onClick={fetchApiExemple}
-              iconRef={tactillIcon}
-              iconClassName={style.tactillIcon}
+              iconRef={peachIcon}
+              iconClassName={style.peachIcon}
             />
             <DocExemple
               value="giphy"
