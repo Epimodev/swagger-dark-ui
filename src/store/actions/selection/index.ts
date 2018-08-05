@@ -87,4 +87,10 @@ function saveSwaggerDoc(data: SwaggerSchema): types.FETCH_SWAGGER_SUCCESS {
   };
 }
 
-export { updateUrl, fetchUserUrl, fetchApiExemple, readJsonFile };
+function resetApp(): types.RESET_APP {
+  return {
+    type: 'RESET_APP',
+  };
+}
+
+export { updateUrl, fetchUserUrl, fetchApiExemple, readJsonFile, resetApp };

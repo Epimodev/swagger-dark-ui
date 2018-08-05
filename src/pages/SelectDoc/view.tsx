@@ -2,6 +2,7 @@ import { createElement } from 'react';
 import classnames from 'classnames';
 import * as isUrl from 'validator/lib/isURL';
 import Loader from 'src/components/Loader';
+import Error from 'src/components/Error';
 import Input from 'src/components/Input';
 import Button from 'src/components/Button';
 import Dropzone from 'src/components/Dropzone';
@@ -21,6 +22,7 @@ export interface Props {
   updateUrl: (value: string) => void;
   fetchUserUrl: () => void;
   fetchApiExemple: (exampleValue: string) => void;
+  resetApp: () => void;
 }
 
 function SelectDocView(props: Props) {
@@ -32,16 +34,19 @@ function SelectDocView(props: Props) {
     updateUrl,
     fetchUserUrl,
     fetchApiExemple,
+    resetApp,
   } = props;
   const isUrlInvalid = !isUrl(url);
   const isLoading = status === 'LOADING';
+  const hasError = status === 'ERROR';
   const isLoaded = status === 'LOADED';
   const cardClassName = classnames(style.card, {
-    [style.card_blurred]: isLoading || isLoaded,
+    [style.card_blurred]: isLoading || isLoaded || hasError,
   });
 
   return (
     <div className={style.container}>
+      <Error displayed={hasError} onClose={resetApp} />
       <Loader displayed={isLoading} />
       <div className={cardClassName}>
         <div>

@@ -29,6 +29,8 @@ function reducer(state: DocumentationState = initialState, action: Action): Docu
         ...state,
         filterQuery: action.payload,
       };
+    case 'RESET_APP':
+      return initialState;
   }
   return state;
 }

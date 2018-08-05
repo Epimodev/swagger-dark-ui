@@ -39,6 +39,8 @@ function reducer(state: SelectDocState = initialState, action: Action): SelectDo
         ...state,
         status: 'ERROR',
       };
+    case 'RESET_APP':
+      return initialState;
   }
   return state;
 }

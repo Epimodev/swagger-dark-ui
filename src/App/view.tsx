@@ -13,7 +13,6 @@ interface Props {
 
 interface State {
   displayed: boolean;
-  displayTest: boolean;
 }
 
 const SELECTION_CLASSNAMES = {
@@ -30,12 +29,10 @@ const MENU_CLASSNAMES = {
 };
 
 class AppView extends Component<Props, State> {
-  state = { displayed: false, displayTest: false };
+  state = { displayed: false };
 
   componentDidMount() {
     setTimeout(() => this.setState({ displayed: true }), 0);
-
-    setTimeout(() => this.setState({ displayTest: true }), 1500);
   }
 
   render() {

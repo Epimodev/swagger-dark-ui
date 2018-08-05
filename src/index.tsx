@@ -1,6 +1,7 @@
 import { createElement } from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
+import ErrorBoundary from './components/ErrorBoundary';
 import store from './store';
 import App from './App';
 
@@ -10,7 +11,9 @@ function renderApp() {
     appContainer.innerHTML = '';
     render(
       <Provider store={store}>
-        <App />
+        <ErrorBoundary>
+          <App />
+        </ErrorBoundary>
       </Provider>,
       appContainer,
     );

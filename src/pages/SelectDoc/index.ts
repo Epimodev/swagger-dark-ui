@@ -5,6 +5,7 @@ import {
   updateUrl,
   fetchUserUrl,
   fetchApiExemple,
+  resetApp,
 } from 'src/store/actions/selection';
 import SelectDocView from './view';
 
@@ -19,6 +20,7 @@ interface DispatchProps {
   updateUrl: (value: string) => void;
   fetchUserUrl: () => void;
   fetchApiExemple: (exampleName: string) => void;
+  resetApp: () => void;
 }
 
 function mapStateToProps(state: StoreState): StoreProps {
@@ -30,6 +32,7 @@ const dispatchToProps: DispatchProps = {
   updateUrl,
   fetchUserUrl,
   fetchApiExemple,
+  resetApp,
 };
 
 export default connect(mapStateToProps, dispatchToProps)(SelectDocView);

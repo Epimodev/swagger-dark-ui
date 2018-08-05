@@ -28,9 +28,8 @@ export type FETCH_SWAGGER_FAIL = {
   type: 'FETCH_SWAGGER_FAIL';
 };
 
-export type SET_FILTER_VALUE = {
-  type: 'SET_FILTER_VALUE';
-  payload: string;
+export type RESET_APP = {
+  type: 'RESET_APP';
 };
 
 export type SelectionAction =
@@ -39,4 +38,4 @@ export type SelectionAction =
   | FETCH_SWAGGER_START
   | FETCH_SWAGGER_SUCCESS
   | FETCH_SWAGGER_FAIL
-  | SET_FILTER_VALUE;
+  | RESET_APP;
