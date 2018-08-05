@@ -26,11 +26,12 @@
 }
 
 .cell_required {
-  font-weight: 500;
-  color: white;
+  min-width: 55px;
   padding: 0 10px;
+  color: rgba(white, 0.9);
 }
 
 .cell_optional {
+  min-width: 55px;
   padding: 0 10px;
 }
