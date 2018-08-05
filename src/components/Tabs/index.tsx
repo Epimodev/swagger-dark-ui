@@ -39,7 +39,7 @@ class Tabs extends PureComponent<TabsProps, TabsState> {
     return (
       <div>
         <div className={style.tabs}>
-          {children.map((tab, index) => {
+          {children.filter(child => !!child).map((tab, index) => {
             const { label } = tab.props;
             const buttonClassName = classnames(style.tab, {
               [style.tab_selected]: selectedIndex === index,

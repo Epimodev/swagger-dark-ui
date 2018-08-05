@@ -1,7 +1,6 @@
 import { createElement, Component, Fragment } from 'react';
 import { MethodResponse } from 'src/types/documentation';
-import { Tabs, Tab } from 'src/components/Tabs';
-import Example from 'src/components/Example';
+import BodyDoc from 'src/components/BodyDoc';
 import CodeTab from '../CodeTab';
 import * as style from './style.scss';
 
@@ -50,12 +49,7 @@ class ResponsesDoc extends Component<Props, State> {
             ))}
           </div>
           <div className={style.responseDetails}>
-            <Tabs>
-              <Tab label="Schema">SCHEMA CONTENT</Tab>
-              <Tab label="Example">
-                <Example>{JSON.stringify(selectedResponse.example, null, 2)}</Example>
-              </Tab>
-            </Tabs>
+            <BodyDoc schema={selectedResponse.schema} example={selectedResponse.example} />
           </div>
         </div>
       </Fragment>
