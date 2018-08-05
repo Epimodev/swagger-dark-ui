@@ -21,8 +21,9 @@ declare type ParamType = 'string' | 'integer' | 'number' | 'object' | 'array' | 
 interface HttpParameter {
   name: string;
   in: ParamIn;
-  required: boolean;
-  type: ParamType;
+  type?: ParamType;
+  required?: boolean;
+  schema?: ResponseSchema & { example?: any };
   default?: string;
 }
 

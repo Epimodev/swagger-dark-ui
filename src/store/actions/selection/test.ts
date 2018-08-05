@@ -300,7 +300,6 @@ describe('getOperations', () => {
     expect(operationParams.header.length).toBe(0);
     expect(operationParams.query.length).toBe(0);
     expect(operationParams.path.length).toBe(0);
-    expect(operationParams.body.length).toBe(0);
   });
 
   test('Should return 1 method with parameters', () => {
@@ -335,8 +334,6 @@ describe('getOperations', () => {
     expect(operationParams.query[0].name).toBe('query-param');
     expect(operationParams.path.length).toBe(1);
     expect(operationParams.path[0].name).toBe('path-param');
-    expect(operationParams.body.length).toBe(1);
-    expect(operationParams.body[0].name).toBe('body-param');
   });
   test('Should return 1 method with parameters from path', () => {
     const swaggerSchema: SwaggerSchema = {
@@ -371,8 +368,6 @@ describe('getOperations', () => {
     expect(operationParams.query[0].name).toBe('path-query-param');
     expect(operationParams.path.length).toBe(1);
     expect(operationParams.path[0].name).toBe('path-path-param');
-    expect(operationParams.body.length).toBe(1);
-    expect(operationParams.body[0].name).toBe('path-body-param');
   });
   test('Should return 1 method with parameters from path and operation', () => {
     const swaggerSchema: SwaggerSchema = {
@@ -415,8 +410,111 @@ describe('getOperations', () => {
     expect(operationParams.path.length).toBe(2);
     expect(operationParams.path[0].name).toBe('path-path-param');
     expect(operationParams.path[1].name).toBe('path-param');
-    expect(operationParams.body.length).toBe(2);
-    expect(operationParams.body[0].name).toBe('path-body-param');
-    expect(operationParams.body[1].name).toBe('body-param');
+  });
+  test('Should have body equals to null', () => {
+    const swaggerSchema: SwaggerSchema = {
+      ...SwaggerBaseSchema,
+      paths: {
+        '/gifs/search': {
+          get: {
+            operationId: 'search_get',
+            summary: 'Summary',
+            description: 'Description',
+            tags: [],
+            produces: [],
+            parameters: [],
+            responses: {},
+          },
+          parameters: [],
+        },
+      },
+    };
+
+    const apiOperations = utils.getOperations(swaggerSchema);
+    expect(apiOperations[0].body).toBe(null);
+  });
+  test('Should have a body without example', () => {
+    const swaggerSchema: SwaggerSchema = {
+      ...SwaggerBaseSchema,
+      paths: {
+        '/gifs/search': {
+          get: {
+            operationId: 'search_get',
+            summary: 'Summary',
+            description: 'Description',
+            tags: [],
+            produces: [],
+            parameters: [
+              {
+                name: 'body',
+                in: 'body',
+                schema: {
+                  type: 'object',
+                  properties: {
+                    name: {
+                      type: 'string',
+                    },
+                  },
+                },
+              },
+            ],
+            responses: {},
+          },
+          parameters: [],
+        },
+      },
+    };
+
+    const apiOperations = utils.getOperations(swaggerSchema);
+    expect(apiOperations[0].body).not.toBe(null);
+    expect(apiOperations[0].body!.example).toBe(null);
+    expect(apiOperations[0].body!.schema).toEqual({
+      type: 'object',
+      properties: {
+        name: {
+          type: 'string',
+        },
+      },
+    });
+  });
+  test('Should have a body with example', () => {
+    const swaggerSchema: SwaggerSchema = {
+      ...SwaggerBaseSchema,
+      paths: {
+        '/gifs/search': {
+          get: {
+            operationId: 'search_get',
+            summary: 'Summary',
+            description: 'Description',
+            tags: [],
+            produces: [],
+            parameters: [
+              {
+                name: 'body',
+                in: 'body',
+                schema: {
+                  type: 'object',
+                  properties: {
+                    name: {
+                      type: 'string',
+                    },
+                  },
+                  example: {
+                    name: 'wave',
+                  },
+                },
+              },
+            ],
+            responses: {},
+          },
+          parameters: [],
+        },
+      },
+    };
+
+    const apiOperations = utils.getOperations(swaggerSchema);
+    expect(apiOperations[0].body).not.toBe(null);
+    expect(apiOperations[0].body!.example).not.toBe(null);
+    expect(apiOperations[0].body!.schema).not.toBe(null);
   });
 });

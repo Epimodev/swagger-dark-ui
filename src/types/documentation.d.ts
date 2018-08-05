@@ -15,7 +15,11 @@ export interface ParamsDocumentation {
   header: ParamDocumentation[];
   query: ParamDocumentation[];
   path: ParamDocumentation[];
-  body: ParamDocumentation[];
+}
+
+export interface BodyDocumentation {
+  schema: ResponseSchema;
+  example: any;
 }
 export interface OperationDocumentation {
   id: string;
@@ -24,5 +28,6 @@ export interface OperationDocumentation {
   method: HttpMethod;
   path: string;
   params: ParamsDocumentation;
+  body: BodyDocumentation | null;
   responses: MethodResponse[];
 }

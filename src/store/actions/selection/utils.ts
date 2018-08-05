@@ -1,7 +1,9 @@
 import {
   OperationDocumentation,
   MethodResponse,
+  ParamDocumentation,
   ParamsDocumentation,
+  BodyDocumentation,
 } from 'src/types/documentation';
 
 const HTTP_METHODS = ['get', 'post', 'put', 'delete'];
@@ -35,7 +37,11 @@ function formatParams(
   currentParams: ParamsDocumentation,
 ): ParamsDocumentation {
   return params.reduce((result, param) => {
-    const paramToPush = { name: param.name, required: param.required, type: param.type };
+    const paramToPush: ParamDocumentation = {
+      name: param.name,
+      required: param.required || false,
+      type: param.type || 'string',
+    };
     switch (param.in) {
       case 'header':
         return {
@@ -52,14 +58,23 @@ function formatParams(
           ...result,
           path: [...result.path, paramToPush],
         };
-      case 'body':
-        return {
-          ...result,
-          body: [...result.body, paramToPush],
-        };
     }
     return result;
   }, currentParams);
+}
+
+function getBodyDocumentation(params: HttpParameter[]): BodyDocumentation | null {
+  const bodyParam = params.find(param => param.in === 'body');
+
+  if (bodyParam && bodyParam.schema) {
+    const { example, ...schema } = bodyParam.schema;
+    return {
+      schema,
+      example: example || null,
+    };
+  }
+
+  return null;
 }
 
 function formatResponses(docResponses: { [x: string]: OperationResponse }): MethodResponse[] {
@@ -84,7 +99,6 @@ function getOperations(apiDoc: SwaggerSchema): OperationDocumentation[] {
     header: [],
     path: [],
     query: [],
-    body: [],
   };
 
   return paths.reduce(
@@ -99,12 +113,14 @@ function getOperations(apiDoc: SwaggerSchema): OperationDocumentation[] {
       const pathOperations: OperationDocumentation[] = pathMethods.map(method => {
         const pathMethod: ApiPathMethod = pathDefinition[method] as ApiPathMethod;
         const params = formatParams(pathMethod.parameters, pathParams);
+        const body = getBodyDocumentation(pathMethod.parameters);
         const responses = formatResponses(pathMethod.responses);
         return {
           method,
           path,
           responses,
           params,
+          body,
           id: pathMethod.operationId,
           summary: pathMethod.summary,
           description: pathMethod.description,

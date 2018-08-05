@@ -7,7 +7,8 @@ const operationBase: OperationDocumentation = {
   description: '',
   method: 'get',
   path: '/',
-  params: { header: [], query: [], path: [], body: [] },
+  params: { header: [], query: [], path: [] },
+  body: null,
   responses: [],
 };
 

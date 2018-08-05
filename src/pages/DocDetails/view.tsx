@@ -19,7 +19,9 @@ function DocDetailsView(props: Props) {
     return <Redirect to="/" />;
   }
 
-  const { id, summary, description, method, path, params, responses } = operation;
+  const { id, summary, description, method, path, params, body, responses } = operation;
+
+  console.log(body);
 
   return (
     <div className={style.container}>
@@ -31,7 +33,6 @@ function DocDetailsView(props: Props) {
         <ParamsDoc title="Header Params" params={params.header} />
         <ParamsDoc title="Query Params" params={params.query} />
         <ParamsDoc title="Path Params" params={params.path} />
-        <ParamsDoc title="Request Body" params={params.body} />
         <ResponsesDoc key={id} title="Responses" responses={responses} />
       </div>
     </div>
