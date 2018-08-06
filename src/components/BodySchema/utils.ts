@@ -13,7 +13,7 @@ function getArrayLabel(schema: ArraySchema): string {
   return schema.items ? `${schema.items.type}[]` : '[]';
 }
 
-function formatObjectProperties({ properties }: ObjectSchema): SchemaLine[] {
+function formatObjectProperties(properties: { [key: string]: ResponseSchema }): SchemaLine[] {
   return Object.keys(properties).map(propertyName => {
     const propertySchema = properties[propertyName];
     const typeLabel =
@@ -50,7 +50,9 @@ function getShallowProperties(schema: ResponseSchema): SchemaLine[] {
         indentLevel: 0,
       };
       const propertiesLines =
-        schema.items && schema.items.type === 'object' ? formatObjectProperties(schema.items) : [];
+        schema.items && schema.items.type === 'object' && schema.items.properties
+          ? formatObjectProperties(schema.items.properties)
+          : [];
 
       return [arrayLine, ...propertiesLines];
     }
@@ -61,7 +63,7 @@ function getShallowProperties(schema: ResponseSchema): SchemaLine[] {
         type: schema.type,
         indentLevel: 0,
       };
-      const propertiesLines = formatObjectProperties(schema);
+      const propertiesLines = schema.properties ? formatObjectProperties(schema.properties) : [];
       return [objectLine, ...propertiesLines];
     }
   }
