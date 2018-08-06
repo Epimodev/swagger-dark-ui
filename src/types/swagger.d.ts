@@ -23,22 +23,26 @@ interface HttpParameter {
   in: ParamIn;
   type?: ParamType;
   required?: boolean;
+  description?: string;
   schema?: ResponseSchema & { example?: any };
   default?: string;
 }
 
 type ArraySchema = {
   type: 'array';
-  items: ResponseSchema;
+  description?: string;
+  items?: ResponseSchema;
 };
 
 type ObjectSchema = {
   type: 'object';
+  description?: string;
   properties?: { [key: string]: ResponseSchema };
 };
 
 type PrimitiveSchema = {
   type: 'string' | 'integer' | 'number' | 'boolean';
+  description?: string;
 };
 
 declare type ResponseSchema = ArraySchema | ObjectSchema | PrimitiveSchema;
