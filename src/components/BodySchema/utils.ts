@@ -9,11 +9,11 @@ function getLineKey(line: SchemaLine, index: number): string {
   return `${line.indentLevel}${line.label}${line.type}${index}`;
 }
 
-function getArrayLabel(schema: ArraySchema): string {
+function getArrayLabel(schema: ArrayDefinition): string {
   return schema.items ? `${schema.items.type}[]` : '[]';
 }
 
-function formatObjectProperties(properties: { [key: string]: ResponseSchema }): SchemaLine[] {
+function formatObjectProperties(properties: { [key: string]: JsonDefinition }): SchemaLine[] {
   return Object.keys(properties).map(propertyName => {
     const propertySchema = properties[propertyName];
     const typeLabel =
@@ -27,7 +27,7 @@ function formatObjectProperties(properties: { [key: string]: ResponseSchema }): 
   });
 }
 
-function getShallowProperties(schema: ResponseSchema): SchemaLine[] {
+function getShallowProperties(schema: JsonDefinition): SchemaLine[] {
   switch (schema.type) {
     case 'string':
     case 'number':

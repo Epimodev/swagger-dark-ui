@@ -4,7 +4,7 @@ import Schema from '../BodySchema';
 import Example from '../Example';
 
 export interface Props {
-  schema: ResponseSchema;
+  schema: JsonDefinition;
   example: any[];
 }
 

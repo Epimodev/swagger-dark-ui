@@ -4,6 +4,7 @@ import {
   ParamDocumentation,
   ParamsDocumentation,
   BodyDocumentation,
+  Schema,
 } from 'src/types/documentation';
 
 const HTTP_METHODS = ['get', 'post', 'put', 'delete'];
@@ -60,13 +61,17 @@ function formatParams(
   }, currentParams);
 }
 
-function getBodyDocumentation(params: HttpParameter[]): BodyDocumentation | null {
+function getBodyDocumentation(
+  params: HttpParameter[],
+  apiDoc: SwaggerSchema,
+): BodyDocumentation | null {
   const bodyParam = params.find(param => param.in === 'body');
 
   if (bodyParam && bodyParam.schema) {
     const { example, ...schema } = bodyParam.schema;
+    const bodySchema = getSchema(schema, apiDoc);
     return {
-      schema,
+      schema: bodySchema,
       example: example || null,
     };
   }
@@ -74,20 +79,104 @@ function getBodyDocumentation(params: HttpParameter[]): BodyDocumentation | null
   return null;
 }
 
-function formatResponses(docResponses: { [x: string]: OperationResponse }): MethodResponse[] {
+function formatResponses(
+  docResponses: { [x: string]: OperationResponse },
+  apiDoc: SwaggerSchema,
+): MethodResponse[] {
   const httpCodes = Object.keys(docResponses);
   return httpCodes.map(code => {
     const docResponse = docResponses[code];
 
+    const schema = getSchema(docResponse.schema, apiDoc);
     const example = getExample(docResponse);
 
     return {
       example,
+      schema,
       code: parseInt(code, 10),
-      description: docResponse.description,
-      schema: docResponse.schema,
+      description: docResponse.description || '',
     };
   });
+}
+
+function findRef(result: any, pathKeys: string[]): any {
+  const [key, ...nextKeys] = pathKeys;
+
+  if (!result[key]) {
+    return undefined;
+  }
+
+  if (nextKeys.length > 0) {
+    return findRef(result[key], nextKeys);
+  }
+
+  return result[key];
+}
+
+function getRef($ref: string, apiDoc: SwaggerSchema): JsonDefinition {
+  const typeKeys = ['string', 'number', 'integer', 'object', 'array'];
+  const pathKeys = $ref.replace('#/', '').split('/');
+
+  const definition = findRef(apiDoc, pathKeys);
+
+  if (!definition) {
+    throw new Error(`$ref ${$ref} didn't exists in api documentation`);
+  }
+
+  if (typeKeys.indexOf(definition.type) < 0) {
+    throw new Error(`$ref ${$ref} isn't a valid type definition`);
+  }
+
+  return definition;
+}
+
+function getSchema(definition: JsonDefinition | RefDefinition, apiDoc: SwaggerSchema): Schema {
+  if (definition.$ref) {
+    const refDefinition = getRef(definition.$ref, apiDoc);
+    return formatSchema(refDefinition);
+  }
+
+  if (definition.type) {
+    return formatSchema(definition);
+  }
+
+  return { type: 'null', description: '' };
+}
+
+function formatObjectProperties(properties: {
+  [key: string]: JsonDefinition;
+}): { name: string; schema: Schema }[] {
+  return Object.keys(properties).map(key => ({
+    name: key,
+    schema: formatSchema(properties[key]),
+  }));
+}
+
+function formatSchema(definition: JsonDefinition): Schema {
+  switch (definition.type) {
+    case 'string':
+    case 'number':
+    case 'integer':
+    case 'boolean':
+      return {
+        type: definition.type,
+        description: definition.description || '',
+      };
+    case 'object':
+      return {
+        type: definition.type,
+        description: definition.description || '',
+        properties: definition.properties ? formatObjectProperties(definition.properties) : [],
+      };
+    case 'array':
+      return {
+        type: definition.type,
+        description: definition.description || '',
+        items: definition.items
+          ? formatSchema(definition.items)
+          : { type: 'null', description: '' },
+      };
+  }
 }
 
 function getOperations(apiDoc: SwaggerSchema): OperationDocumentation[] {
@@ -110,8 +199,8 @@ function getOperations(apiDoc: SwaggerSchema): OperationDocumentation[] {
       const pathOperations: OperationDocumentation[] = pathMethods.map(method => {
         const pathMethod: ApiPathMethod = pathDefinition[method] as ApiPathMethod;
         const params = formatParams(pathMethod.parameters, pathParams);
-        const body = getBodyDocumentation(pathMethod.parameters);
-        const responses = formatResponses(pathMethod.responses);
+        const body = getBodyDocumentation(pathMethod.parameters, apiDoc);
+        const responses = formatResponses(pathMethod.responses, apiDoc);
         return {
           method,
           path,

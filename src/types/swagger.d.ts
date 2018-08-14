@@ -24,33 +24,41 @@ interface HttpParameter {
   type?: ParamType;
   required?: boolean;
   description?: string;
-  schema?: ResponseSchema & { example?: any };
+  schema?: (JsonDefinition | RefDefinition) & { example?: any };
   default?: string;
 }
 
-type ArraySchema = {
+declare type RefDefinition = {
+  $ref: string;
+  type?: undefined;
+};
+
+type ArrayDefinition = {
+  $ref?: undefined;
   type: 'array';
   description?: string;
-  items?: ResponseSchema;
+  items?: JsonDefinition;
 };
 
-type ObjectSchema = {
+type ObjectDefinition = {
+  $ref?: undefined;
   type: 'object';
   description?: string;
-  properties?: { [key: string]: ResponseSchema };
+  properties?: { [key: string]: JsonDefinition };
 };
 
-type PrimitiveSchema = {
+type PrimitiveDefinition = {
+  $ref?: undefined;
   type: 'string' | 'integer' | 'number' | 'boolean';
   description?: string;
 };
 
-declare type ResponseSchema = ArraySchema | ObjectSchema | PrimitiveSchema;
+declare type JsonDefinition = ArrayDefinition | ObjectDefinition | PrimitiveDefinition;
 
 declare interface OperationResponse {
-  description: string;
-  schema: ResponseSchema;
-  examples: {
+  description?: string;
+  schema: JsonDefinition | RefDefinition;
+  examples?: {
     ['application/json']: object | array<object>;
   };
 }
@@ -87,4 +95,5 @@ declare interface SwaggerSchema {
   schemes: string[];
   securityDefinitions: SecurityDefinitions;
   paths: ApiPaths;
+  [x: string]: any;
 }
