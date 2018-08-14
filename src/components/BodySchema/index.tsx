@@ -4,7 +4,7 @@ import { getLineKey, getShallowProperties } from './utils';
 import * as style from './style.scss';
 
 export interface Props {
-  schema: ResponseSchema;
+  schema: JsonDefinition;
 }
 
 function BodySchema(props: Props) {

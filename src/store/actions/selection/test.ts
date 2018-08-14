@@ -20,6 +20,35 @@ const SwaggerBaseSchema: SwaggerSchema = {
   paths: {},
 };
 
+const swaggerBaseOperation: ApiPathMethod = {
+  operationId: 'search_get',
+  summary: 'Summary',
+  description: 'Description',
+  tags: [],
+  produces: [],
+  parameters: [],
+  responses: {},
+};
+
+function createSchemaWithResponse(definition: JsonDefinition): SwaggerSchema {
+  return {
+    ...SwaggerBaseSchema,
+    paths: {
+      '/gifs/search': {
+        get: {
+          ...swaggerBaseOperation,
+          responses: {
+            // tslint:disable-next-line object-literal-key-quotes
+            '200': {
+              schema: definition,
+            },
+          },
+        },
+      },
+    },
+  };
+}
+
 describe('getBaseUrl', () => {
   test('Should return base url with protocol', () => {
     const swaggerSchema = SwaggerBaseSchema;
@@ -38,6 +67,135 @@ describe('getBaseUrl', () => {
     const expectedValue = 'api.giphy.com/v1';
 
     expect(utils.getBaseUrl(swaggerSchema)).toBe(expectedValue);
+  });
+});
+
+describe('Format schema', () => {
+  test('Should format response of type `string`', () => {
+    const swaggerSchema = createSchemaWithResponse({
+      type: 'string',
+      description: 'value description',
+    });
+
+    const apiOperations = utils.getOperations(swaggerSchema);
+    const operationResponses = apiOperations[0].responses;
+
+    expect(operationResponses[0].schema).toEqual({
+      type: 'string',
+      description: 'value description',
+    });
+  });
+
+  test('Should format response of type `number`', () => {
+    const swaggerSchema = createSchemaWithResponse({
+      type: 'number',
+      description: 'value description',
+    });
+
+    const apiOperations = utils.getOperations(swaggerSchema);
+    const operationResponses = apiOperations[0].responses;
+
+    expect(operationResponses[0].schema).toEqual({
+      type: 'number',
+      description: 'value description',
+    });
+  });
+
+  test('Should format response of type `integer`', () => {
+    const swaggerSchema = createSchemaWithResponse({
+      type: 'integer',
+      description: 'value description',
+    });
+
+    const apiOperations = utils.getOperations(swaggerSchema);
+    const operationResponses = apiOperations[0].responses;
+
+    expect(operationResponses[0].schema).toEqual({
+      type: 'integer',
+      description: 'value description',
+    });
+  });
+
+  test('Should format response of type `boolean`', () => {
+    const swaggerSchema = createSchemaWithResponse({
+      type: 'boolean',
+      description: 'value description',
+    });
+
+    const apiOperations = utils.getOperations(swaggerSchema);
+    const operationResponses = apiOperations[0].responses;
+
+    expect(operationResponses[0].schema).toEqual({
+      type: 'boolean',
+      description: 'value description',
+    });
+  });
+
+  test('Should format response of type `object`', () => {
+    const swaggerSchema = createSchemaWithResponse({
+      type: 'object',
+      description: 'object description',
+      properties: {
+        name: { type: 'string', description: 'object name' },
+        size: { type: 'number' },
+      },
+    });
+
+    const apiOperations = utils.getOperations(swaggerSchema);
+    const operationResponses = apiOperations[0].responses;
+
+    expect(operationResponses[0].schema).toEqual({
+      type: 'object',
+      description: 'object description',
+      properties: [
+        { name: 'name', schema: { type: 'string', description: 'object name' } },
+        { name: 'size', schema: { type: 'number', description: '' } },
+      ],
+    });
+  });
+
+  test('Should format response of type `object` without properties', () => {
+    const swaggerSchema = createSchemaWithResponse({
+      type: 'object',
+    });
+
+    const apiOperations = utils.getOperations(swaggerSchema);
+    const operationResponses = apiOperations[0].responses;
+
+    expect(operationResponses[0].schema).toEqual({
+      type: 'object',
+      description: '',
+      properties: [],
+    });
+  });
+
+  test('Should format response of type `array`', () => {
+    const swaggerSchema = createSchemaWithResponse({
+      type: 'array',
+      items: {
+        type: 'object',
+        properties: {
+          name: { type: 'string', description: 'object name' },
+          size: { type: 'number' },
+        },
+      },
+    });
+
+    const apiOperations = utils.getOperations(swaggerSchema);
+    const operationResponses = apiOperations[0].responses;
+
+    expect(operationResponses[0].schema).toEqual({
+      type: 'array',
+      description: '',
+      items: {
+        type: 'object',
+        description: '',
+        properties: [
+          { name: 'name', schema: { type: 'string', description: 'object name' } },
+          { name: 'size', schema: { type: 'number', description: '' } },
+        ],
+      },
+    });
   });
 });
 
@@ -221,6 +379,147 @@ describe('getOperations', () => {
     expect(operationResponses[0].code).toBe(200);
     expect(operationResponses[0].description).toBe('Response description');
     expect(operationResponses[0].example).toBe('Response example');
+  });
+
+  test('Should return 1 method with 1 response from $ref', () => {
+    const swaggerSchema: SwaggerSchema = {
+      ...SwaggerBaseSchema,
+      paths: {
+        '/gifs/search': {
+          get: {
+            operationId: 'search_get',
+            summary: 'Summary',
+            description: 'Description',
+            tags: [],
+            produces: [],
+            parameters: [],
+            responses: {
+              // tslint:disable-next-line object-literal-key-quotes
+              '200': {
+                description: 'Response description',
+                schema: {
+                  $ref: '#/definitions/response_body',
+                },
+                examples: {
+                  'application/json': 'Response example',
+                },
+              },
+            },
+          },
+        },
+      },
+      definitions: {
+        response_body: {
+          type: 'object',
+          properties: {
+            name: {
+              type: 'string',
+            },
+          },
+        },
+      },
+    };
+
+    const apiOperations = utils.getOperations(swaggerSchema);
+    const operationResponses = apiOperations[0].responses;
+
+    expect(operationResponses[0].schema).toEqual({
+      type: 'object',
+      description: '',
+      properties: [
+        {
+          name: 'name',
+          schema: { type: 'string', description: '' },
+        },
+      ],
+    });
+  });
+
+  test("Should throw an error because $ref doesn't exist", () => {
+    const swaggerSchema: SwaggerSchema = {
+      ...SwaggerBaseSchema,
+      paths: {
+        '/gifs/search': {
+          get: {
+            operationId: 'search_get',
+            summary: 'Summary',
+            description: 'Description',
+            tags: [],
+            produces: [],
+            parameters: [],
+            responses: {
+              // tslint:disable-next-line object-literal-key-quotes
+              '200': {
+                description: 'Response description',
+                schema: {
+                  $ref: '#/definitions/response_test',
+                },
+                examples: {
+                  'application/json': 'Response example',
+                },
+              },
+            },
+          },
+        },
+      },
+      definitions: {
+        response_body: {
+          type: 'object',
+          properties: {
+            name: {
+              type: 'string',
+            },
+          },
+        },
+      },
+    };
+
+    function tryGetOperations() {
+      utils.getOperations(swaggerSchema);
+    }
+
+    expect(tryGetOperations).toThrow(/\#\/definitions\/response_test/);
+  });
+
+  test('Should throw an error because $ref value is invalid', () => {
+    const swaggerSchema: SwaggerSchema = {
+      ...SwaggerBaseSchema,
+      paths: {
+        '/gifs/search': {
+          get: {
+            operationId: 'search_get',
+            summary: 'Summary',
+            description: 'Description',
+            tags: [],
+            produces: [],
+            parameters: [],
+            responses: {
+              // tslint:disable-next-line object-literal-key-quotes
+              '200': {
+                description: 'Response description',
+                schema: {
+                  $ref: '#/definitions/response_body',
+                },
+                examples: {
+                  'application/json': 'Response example',
+                },
+              },
+            },
+          },
+        },
+      },
+      definitions: {
+        response_body: {
+          test: 'null',
+        },
+      },
+    };
+
+    function tryGetOperations() {
+      utils.getOperations(swaggerSchema);
+    }
+
+    expect(tryGetOperations).toThrow(/\#\/definitions\/response_body/);
   });
 
   test('Should return 1 method with 2 responses', () => {
@@ -462,14 +761,47 @@ describe('getOperations', () => {
     const apiOperations = utils.getOperations(swaggerSchema);
     expect(apiOperations[0].body).not.toBe(null);
     expect(apiOperations[0].body!.example).toBe(null);
-    expect(apiOperations[0].body!.schema).toEqual({
-      type: 'object',
-      properties: {
-        name: {
-          type: 'string',
+  });
+  test('Should have a body from $ref', () => {
+    const swaggerSchema: SwaggerSchema = {
+      ...SwaggerBaseSchema,
+      paths: {
+        '/gifs/search': {
+          get: {
+            operationId: 'search_get',
+            summary: 'Summary',
+            description: 'Description',
+            tags: [],
+            produces: [],
+            parameters: [
+              {
+                name: 'body',
+                in: 'body',
+                schema: {
+                  $ref: '#/definitions/search_body',
+                },
+              },
+            ],
+            responses: {},
+          },
+          parameters: [],
         },
       },
-    });
+      definitions: {
+        search_body: {
+          type: 'object',
+          properties: {
+            name: {
+              type: 'string',
+            },
+          },
+        },
+      },
+    };
+
+    const apiOperations = utils.getOperations(swaggerSchema);
+    expect(apiOperations[0].body).not.toBe(null);
+    expect(apiOperations[0].body!.example).toBe(null);
   });
   test('Should have a body with example', () => {
     const swaggerSchema: SwaggerSchema = {
