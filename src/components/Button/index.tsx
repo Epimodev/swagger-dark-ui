@@ -11,12 +11,13 @@ export interface Props {
 
 function SelectDocView(props: Props) {
   const { children, onClick, disabled = false, className = '' } = props;
+  const handleClick = disabled ? undefined : onClick;
   const buttonClass = classnames(style.button, className, {
     [style.button_disabled]: disabled,
   });
 
   return (
-    <button className={buttonClass} onClick={onClick}>
+    <button className={buttonClass} onClick={handleClick}>
       {children}
     </button>
   );
