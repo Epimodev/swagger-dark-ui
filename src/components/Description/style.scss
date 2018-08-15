@@ -6,7 +6,27 @@
     margin: 5px 0;
   }
   a {
-    color: $blue;
+    position: relative;
+    color: $cyan;
+    text-decoration: none;
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background-color: $cyan;
+      opacity: 0;
+      transform: translateY(-10px) scaleX(0.7);
+      transition: 200ms;
+    }
+
+    &:hover::after {
+      opacity: 1;
+      transform: translateY(0) scaleX(1);
+    }
   }
   pre {
     padding: 5px;
