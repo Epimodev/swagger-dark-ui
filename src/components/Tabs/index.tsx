@@ -1,4 +1,4 @@
-import { createElement, Component, PureComponent, ReactNode, ReactElement } from 'react';
+import { createElement, Component, PureComponent, ReactNode } from 'react';
 import * as classnames from 'classnames';
 import * as style from './style.scss';
 
@@ -14,7 +14,7 @@ class Tab extends Component<TabProps> {
 }
 
 interface TabsProps {
-  children: ReactElement<TabProps>[];
+  children: JSX.Element[];
 }
 
 interface TabsState {

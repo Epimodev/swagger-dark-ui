@@ -57,4 +57,7 @@ const dispatchToProps: DispatchProps = {
   resetApp,
 };
 
-export default connect(null, dispatchToProps)(ErrorBoundary);
+export default connect(
+  null,
+  dispatchToProps,
+)(ErrorBoundary);
