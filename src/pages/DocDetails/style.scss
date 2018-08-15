@@ -8,7 +8,6 @@ $padding: 15px;
   width: 640px;
   background-color: $cardBackground;
   border-radius: 5px;
-  overflow: auto;
 }
 
 .summary {
@@ -16,7 +15,13 @@ $padding: 15px;
 }
 
 .content {
-  padding: 0 $padding $padding $padding;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 50px $padding $padding $padding;
+  overflow: auto;
 }
 
 .description {
