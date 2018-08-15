@@ -1,10 +1,11 @@
 import { createElement } from 'react';
+import { Schema } from 'src/types/documentation';
 import TypeLabel from '../TypeLabel';
 import { getLineKey, getShallowProperties } from './utils';
 import * as style from './style.scss';
 
 export interface Props {
-  schema: JsonDefinition;
+  schema: Schema;
 }
 
 function BodySchema(props: Props) {

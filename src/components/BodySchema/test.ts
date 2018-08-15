@@ -1,8 +1,9 @@
+import { Schema } from 'src/types/documentation';
 import * as utils from './utils';
 
 describe('getShallowProperties', () => {
   test('Should return 1 line if schema is `string`', () => {
-    const stringSchema: JsonDefinition = { type: 'string' };
+    const stringSchema: Schema = { type: 'string', description: '' };
 
     const expected: utils.SchemaLine = {
       label: '-',
@@ -17,7 +18,7 @@ describe('getShallowProperties', () => {
   });
 
   test('Should return 1 line if schema is `number`', () => {
-    const numberSchema: JsonDefinition = { type: 'number' };
+    const numberSchema: Schema = { type: 'number', description: '' };
 
     const expected: utils.SchemaLine = {
       label: '-',
@@ -32,7 +33,7 @@ describe('getShallowProperties', () => {
   });
 
   test('Should return 1 line if schema is `integer`', () => {
-    const integerSchema: JsonDefinition = { type: 'integer' };
+    const integerSchema: Schema = { type: 'integer', description: '' };
 
     const expected: utils.SchemaLine = {
       label: '-',
@@ -47,7 +48,7 @@ describe('getShallowProperties', () => {
   });
 
   test('Should return 1 line if schema is `boolean`', () => {
-    const booleanSchema: JsonDefinition = { type: 'boolean' };
+    const booleanSchema: Schema = { type: 'boolean', description: '' };
 
     const expected: utils.SchemaLine = {
       label: '-',
@@ -63,13 +64,14 @@ describe('getShallowProperties', () => {
 
   // tslint:disable-next-line max-line-length
   test('Should return 1 line with indent equals 0 and lines with indent 1 when schema is `object`', () => {
-    const schema: JsonDefinition = {
+    const schema: Schema = {
       type: 'object',
-      properties: {
-        name: { type: 'string' },
-        size: { type: 'number' },
-        checked: { type: 'boolean' },
-      },
+      description: '',
+      properties: [
+        { name: 'name', schema: { type: 'string', description: '' } },
+        { name: 'size', schema: { type: 'number', description: '' } },
+        { name: 'checked', schema: { type: 'boolean', description: '' } },
+      ],
     };
 
     const [objectLine, ...propertiesLines] = utils.getShallowProperties(schema);
@@ -79,14 +81,15 @@ describe('getShallowProperties', () => {
     propertiesLines.forEach(line => expect(line.indentLevel).toBe(1));
   });
 
-  test('Object properties lines should have the label from property key', () => {
-    const schema: JsonDefinition = {
+  test('Object properties lines should have the label from property name', () => {
+    const schema: Schema = {
       type: 'object',
-      properties: {
-        name: { type: 'string' },
-        size: { type: 'number' },
-        checked: { type: 'boolean' },
-      },
+      description: '',
+      properties: [
+        { name: 'name', schema: { type: 'string', description: '' } },
+        { name: 'size', schema: { type: 'number', description: '' } },
+        { name: 'checked', schema: { type: 'boolean', description: '' } },
+      ],
     };
 
     const lines = utils.getShallowProperties(schema);
@@ -98,15 +101,17 @@ describe('getShallowProperties', () => {
 
   // tslint:disable-next-line max-line-length
   test('Should return 1 line with indent equals 0 and lines with indent 1 when schema is `array` of `object`', () => {
-    const schema: JsonDefinition = {
+    const schema: Schema = {
       type: 'array',
+      description: '',
       items: {
         type: 'object',
-        properties: {
-          name: { type: 'string' },
-          size: { type: 'number' },
-          checked: { type: 'boolean' },
-        },
+        description: '',
+        properties: [
+          { name: 'name', schema: { type: 'string', description: '' } },
+          { name: 'size', schema: { type: 'number', description: '' } },
+          { name: 'checked', schema: { type: 'boolean', description: '' } },
+        ],
       },
     };
 
@@ -117,16 +122,18 @@ describe('getShallowProperties', () => {
     propertiesLines.forEach(line => expect(line.indentLevel).toBe(1));
   });
 
-  test('Array properties lines should have the label from property key', () => {
-    const schema: JsonDefinition = {
+  test('Array properties lines should have the label from property name', () => {
+    const schema: Schema = {
       type: 'array',
+      description: '',
       items: {
         type: 'object',
-        properties: {
-          name: { type: 'string' },
-          size: { type: 'number' },
-          checked: { type: 'boolean' },
-        },
+        description: '',
+        properties: [
+          { name: 'name', schema: { type: 'string', description: '' } },
+          { name: 'size', schema: { type: 'number', description: '' } },
+          { name: 'checked', schema: { type: 'boolean', description: '' } },
+        ],
       },
     };
 
@@ -138,9 +145,10 @@ describe('getShallowProperties', () => {
   });
 
   test('Should return 1 line when schema is `array` of `string`', () => {
-    const schema: JsonDefinition = {
+    const schema: Schema = {
       type: 'array',
-      items: { type: 'string' },
+      description: '',
+      items: { type: 'string', description: '' },
     };
 
     const lines = utils.getShallowProperties(schema);
@@ -148,9 +156,10 @@ describe('getShallowProperties', () => {
   });
 
   test('Should return 1 line when schema is `array` of `number`', () => {
-    const schema: JsonDefinition = {
+    const schema: Schema = {
       type: 'array',
-      items: { type: 'number' },
+      description: '',
+      items: { type: 'number', description: '' },
     };
 
     const lines = utils.getShallowProperties(schema);
@@ -158,9 +167,10 @@ describe('getShallowProperties', () => {
   });
 
   test('Should return 1 line when schema is `array` of `integer`', () => {
-    const schema: JsonDefinition = {
+    const schema: Schema = {
       type: 'array',
-      items: { type: 'integer' },
+      description: '',
+      items: { type: 'integer', description: '' },
     };
 
     const lines = utils.getShallowProperties(schema);
@@ -168,9 +178,10 @@ describe('getShallowProperties', () => {
   });
 
   test('Should return 1 line when schema is `array` of `boolean`', () => {
-    const schema: JsonDefinition = {
+    const schema: Schema = {
       type: 'array',
-      items: { type: 'boolean' },
+      description: '',
+      items: { type: 'boolean', description: '' },
     };
 
     const lines = utils.getShallowProperties(schema);
@@ -178,30 +189,34 @@ describe('getShallowProperties', () => {
   });
 
   test('Array type label should be `type[]`', () => {
-    const objectSchema: JsonDefinition = {
+    const objectSchema: Schema = {
       type: 'array',
+      description: '',
       items: {
         type: 'object',
-        properties: {
-          name: { type: 'string' },
-        },
+        description: '',
+        properties: [{ name: 'name', schema: { type: 'string', description: '' } }],
       },
     };
-    const stringSchema: JsonDefinition = {
+    const stringSchema: Schema = {
       type: 'array',
-      items: { type: 'string' },
+      description: '',
+      items: { type: 'string', description: '' },
     };
-    const numberSchema: JsonDefinition = {
+    const numberSchema: Schema = {
       type: 'array',
-      items: { type: 'number' },
+      description: '',
+      items: { type: 'number', description: '' },
     };
-    const integerSchema: JsonDefinition = {
+    const integerSchema: Schema = {
       type: 'array',
-      items: { type: 'integer' },
+      description: '',
+      items: { type: 'integer', description: '' },
     };
-    const booleanSchema: JsonDefinition = {
+    const booleanSchema: Schema = {
       type: 'array',
-      items: { type: 'boolean' },
+      description: '',
+      items: { type: 'boolean', description: '' },
     };
 
     const objectLines = utils.getShallowProperties(objectSchema);

@@ -1,3 +1,5 @@
+import { Schema, ArraySchema } from 'src/types/documentation';
+
 interface SchemaLine {
   label: string;
   type: ParamType;
@@ -9,25 +11,23 @@ function getLineKey(line: SchemaLine, index: number): string {
   return `${line.indentLevel}${line.label}${line.type}${index}`;
 }
 
-function getArrayLabel(schema: ArrayDefinition): string {
+function getArrayLabel(schema: ArraySchema): string {
   return schema.items ? `${schema.items.type}[]` : '[]';
 }
 
-function formatObjectProperties(properties: { [key: string]: JsonDefinition }): SchemaLine[] {
-  return Object.keys(properties).map(propertyName => {
-    const propertySchema = properties[propertyName];
-    const typeLabel =
-      propertySchema.type === 'array' ? getArrayLabel(propertySchema) : propertySchema.type;
+function formatObjectProperties(properties: { name: string; schema: Schema }[]): SchemaLine[] {
+  return properties.map(({ name, schema }) => {
+    const typeLabel = schema.type === 'array' ? getArrayLabel(schema) : schema.type;
     return {
       typeLabel,
-      label: propertyName,
-      type: propertySchema.type,
+      label: name,
+      type: schema.type,
       indentLevel: 1,
     };
   });
 }
 
-function getShallowProperties(schema: JsonDefinition): SchemaLine[] {
+function getShallowProperties(schema: Schema): SchemaLine[] {
   switch (schema.type) {
     case 'string':
     case 'number':

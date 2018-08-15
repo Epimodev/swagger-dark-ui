@@ -1,7 +1,7 @@
 export interface MethodResponse {
   code: number;
   description: string;
-  schema: Schema | null;
+  schema: Schema;
   example: any;
 }
 
@@ -18,7 +18,7 @@ export interface ParamsDocumentation {
 }
 
 export interface BodyDocumentation {
-  schema: Schema | null;
+  schema: Schema;
   example: any;
 }
 
