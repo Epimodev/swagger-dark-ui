@@ -56,18 +56,22 @@ function readJsonFile(file: File): AppThunk<void> {
     const reader = new FileReader();
 
     reader.onload = () => {
-      const text = reader.result;
+      const text = reader.result as string | null;
 
       try {
-        const parsedJson: SwaggerSchema = JSON.parse(text);
+        if (text) {
+          const parsedJson: SwaggerSchema = JSON.parse(text);
 
-        dispatch(saveSwaggerDoc(parsedJson));
+          dispatch(saveSwaggerDoc(parsedJson));
+        } else {
+          throw new Error('FileReader result is null');
+        }
       } catch (error) {
         console.error(error);
         dispatch({
           type: 'UPDATE_DROP_ZONE_STATUS',
           payload: 'BAD_FORMAT',
-        } as types.UPDATE_DROP_ZONE_STATUS);
+        });
       }
     };
 

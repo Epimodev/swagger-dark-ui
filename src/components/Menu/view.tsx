@@ -25,7 +25,9 @@ function Menu(props: Props) {
         <span className={style.docVersion}>v{docVersion}</span>
       </div>
       <Input value={filterValue} onChange={setFilter} placeholder="Filter endpoints" />
-      {ressources.map(ressource => <Ressource key={ressource.name} {...ressource} />)}
+      {ressources.map(ressource => (
+        <Ressource key={ressource.name} {...ressource} />
+      ))}
     </div>
   );
 }

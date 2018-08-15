@@ -11,7 +11,9 @@ function Ressource(props: MenuRessource) {
       <div className={style.name}>{name}</div>
       <div className={style.operations}>
         <hr className={style.operationsLine} />
-        {operations.map(operation => <Operation key={operation.id} {...operation} />)}
+        {operations.map(operation => (
+          <Operation key={operation.id} {...operation} />
+        ))}
       </div>
     </div>
   );

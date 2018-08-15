@@ -29,4 +29,7 @@ const dispatchToProps: DispatchProps = {
   setFilter,
 };
 
-export default connect(mapStateToProps, dispatchToProps)(MenuView);
+export default connect(
+  mapStateToProps,
+  dispatchToProps,
+)(MenuView);

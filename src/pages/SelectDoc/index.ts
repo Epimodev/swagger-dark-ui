@@ -35,4 +35,7 @@ const dispatchToProps: DispatchProps = {
   resetApp,
 };
 
-export default connect(mapStateToProps, dispatchToProps)(SelectDocView);
+export default connect(
+  mapStateToProps,
+  dispatchToProps,
+)(SelectDocView);
