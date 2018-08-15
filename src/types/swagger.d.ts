@@ -16,7 +16,7 @@ declare type HttpMethod = 'get' | 'post' | 'put' | 'delete';
 
 type ParamIn = 'header' | 'query' | 'path' | 'body';
 
-declare type ParamType = 'string' | 'integer' | 'number' | 'object' | 'array' | 'boolean';
+declare type ParamType = 'string' | 'integer' | 'number' | 'object' | 'array' | 'boolean' | 'null';
 
 interface HttpParameter {
   name: string;

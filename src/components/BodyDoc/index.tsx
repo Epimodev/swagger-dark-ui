@@ -1,10 +1,11 @@
 import { createElement } from 'react';
+import { Schema } from 'src/types/documentation';
 import { Tabs, Tab } from 'src/components/Tabs';
-import Schema from '../BodySchema';
+import BodySchema from '../BodySchema';
 import Example from '../Example';
 
 export interface Props {
-  schema: JsonDefinition;
+  schema: Schema;
   example: any[];
 }
 
@@ -14,7 +15,7 @@ function BodyDoc(props: Props) {
   return (
     <Tabs>
       <Tab label="Schema">
-        <Schema schema={schema} />
+        <BodySchema schema={schema} />
       </Tab>
       {example && (
         <Tab label="Example">

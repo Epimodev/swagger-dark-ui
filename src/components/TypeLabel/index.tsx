@@ -15,6 +15,7 @@ const typeClassMap = {
   object: style.type_object,
   array: style.type_array,
   boolean: style.type_boolean,
+  null: style.type,
 };
 
 function TypeLabel(props: Props) {
