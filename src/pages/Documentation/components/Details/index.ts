@@ -8,9 +8,8 @@ interface StoreProps {
 }
 
 function mapStateToProps(state: StoreState, props: Props): StoreProps {
-  const operation = state.documentation.operations.find(
-    ({ id }) => id === props.match.params.operationId,
-  );
+  const operations = state.documentation ? state.documentation.operations : [];
+  const operation = operations.find(({ id }) => id === props.match.params.operationId);
 
   return {
     operation,

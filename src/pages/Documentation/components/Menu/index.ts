@@ -10,10 +10,17 @@ interface StoreProps {
 }
 
 function mapStateToProps(state: StoreState): StoreProps {
+  if (state.documentation) {
+    return {
+      docName: state.documentation.name,
+      docVersion: state.documentation.version,
+      operations: state.documentation.operations,
+    };
+  }
   return {
-    docName: state.documentation.name,
-    docVersion: state.documentation.version,
-    operations: state.documentation.operations,
+    docName: '',
+    docVersion: '',
+    operations: [],
   };
 }
 
