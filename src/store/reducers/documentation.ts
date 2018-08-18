@@ -6,7 +6,6 @@ export interface DocumentationState {
   version: string;
   baseUrl: string;
   operations: OperationDocumentation[];
-  filterQuery: string;
 }
 
 const initialState: DocumentationState = {
@@ -14,7 +13,6 @@ const initialState: DocumentationState = {
   version: '',
   baseUrl: '',
   operations: [],
-  filterQuery: '',
 };
 
 function reducer(state: DocumentationState = initialState, action: Action): DocumentationState {
@@ -23,11 +21,6 @@ function reducer(state: DocumentationState = initialState, action: Action): Docu
       return {
         ...state,
         ...action.payload,
-      };
-    case 'SET_FILTER_VALUE':
-      return {
-        ...state,
-        filterQuery: action.payload,
       };
     case 'RESET_APP':
       return initialState;

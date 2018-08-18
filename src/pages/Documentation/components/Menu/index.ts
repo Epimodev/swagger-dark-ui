@@ -1,35 +1,20 @@
 import { connect } from 'react-redux';
 import { StoreState } from 'src/store';
-import { setFilter } from 'src/store/actions/documentation';
+import { OperationDocumentation } from 'src/types/documentation';
 import MenuView from './view';
-import { selectRessources } from './utils';
-import { MenuRessource } from './types';
 
 interface StoreProps {
   docName: string;
   docVersion: string;
-  ressources: MenuRessource[];
-  filterValue: string;
-}
-
-interface DispatchProps {
-  setFilter: (value: string) => void;
+  operations: OperationDocumentation[];
 }
 
 function mapStateToProps(state: StoreState): StoreProps {
   return {
     docName: state.documentation.name,
     docVersion: state.documentation.version,
-    ressources: selectRessources(state),
-    filterValue: state.documentation.filterQuery,
+    operations: state.documentation.operations,
   };
 }
 
-const dispatchToProps: DispatchProps = {
-  setFilter,
-};
-
-export default connect(
-  mapStateToProps,
-  dispatchToProps,
-)(MenuView);
+export default connect(mapStateToProps)(MenuView);

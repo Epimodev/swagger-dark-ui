@@ -8,3 +8,7 @@ export interface MenuRessource {
     };
   }[];
 }
+
+export interface MenuState {
+  filter: string;
+}
