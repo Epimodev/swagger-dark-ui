@@ -33,6 +33,9 @@ module.exports = merge(webpackBaseConfig, {
         },
       },
     }),
-    new ExtractTextPlugin(config.outputCSS),
+    new ExtractTextPlugin({
+      filename: config.outputCSS,
+      allChunks: true
+    }),
   ],
 });
