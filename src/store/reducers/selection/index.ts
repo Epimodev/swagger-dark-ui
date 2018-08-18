@@ -1,10 +1,5 @@
 import { Action } from 'src/store';
-
-export interface SelectDocState {
-  status: 'INIT' | 'LOADING' | 'LOADED' | 'ERROR';
-  dropzoneStatus: 'EMPTY' | 'BAD_FORMAT';
-  url: string;
-}
+import { SelectDocState } from './types';
 
 const initialState: SelectDocState = {
   status: 'INIT',

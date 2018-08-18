@@ -1,5 +1,3 @@
-import { OperationDocumentation } from 'src/types/documentation';
-
 export type UPDATE_DROP_ZONE_STATUS = {
   type: 'UPDATE_DROP_ZONE_STATUS';
   payload: 'EMPTY' | 'BAD_FORMAT';
@@ -16,12 +14,7 @@ export type FETCH_SWAGGER_START = {
 
 export type FETCH_SWAGGER_SUCCESS = {
   type: 'FETCH_SWAGGER_SUCCESS';
-  payload: {
-    name: string;
-    version: string;
-    baseUrl: string;
-    operations: OperationDocumentation[];
-  };
+  payload: SwaggerSchema;
 };
 
 export type FETCH_SWAGGER_FAIL = {

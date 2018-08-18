@@ -67,7 +67,6 @@ function addOperationInRessource(
 }
 
 function getMenuRessources(operations: OperationDocumentation[]): MenuRessource[] {
-  console.log('GET MENU RESSOURCE');
   return operations.reduce(
     (ressources, operation) => {
       const ressourceName = getRessourceName(operation);
