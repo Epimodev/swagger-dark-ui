@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const webpackBaseConfig = require('./webpack.base.config');
 const config = require('./config');
 
@@ -35,7 +36,8 @@ module.exports = merge(webpackBaseConfig, {
     }),
     new ExtractTextPlugin({
       filename: config.outputCSS,
-      allChunks: true
+      allChunks: true,
     }),
+    new BundleAnalyzerPlugin(),
   ],
 });
