@@ -2,7 +2,6 @@ import { createElement, Component, Fragment, ComponentType } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import * as classnames from 'classnames';
-import Menu from 'src/components/Menu';
 import SelectDoc from 'src/pages/SelectDoc';
 import * as style from './style.scss';
 
@@ -12,7 +11,7 @@ interface Props {
 
 interface State {
   displayed: boolean;
-  docDetails: ComponentType<any> | null;
+  documentation: ComponentType<any> | null;
 }
 
 const SELECTION_CLASSNAMES = {
@@ -21,30 +20,24 @@ const SELECTION_CLASSNAMES = {
   exit: style.selection_exit,
   exitActive: style.selection_exitActive,
 };
-const MENU_CLASSNAMES = {
-  enter: style.menu_enter,
-  enterActive: style.menu_enterActive,
-  exit: style.menu_exit,
-  exitActive: style.menu_exitActive,
-};
 
 class AppView extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
-    this.state = { displayed: false, docDetails: null };
+    this.state = { displayed: false, documentation: null };
   }
 
   async componentDidMount() {
     setTimeout(() => this.setState({ displayed: true }), 0);
 
-    const detailsModule = await import('src/pages/DocDetails');
-    this.setState({ docDetails: detailsModule.default });
+    const documentationModule = await import('src/pages/Documentation');
+    this.setState({ documentation: documentationModule.default });
   }
 
   render() {
     const { status } = this.props;
-    const { displayed, docDetails: DocDetails } = this.state;
+    const { displayed, documentation: Documentation } = this.state;
     const backgroundClassName = classnames(style.background, {
       [style.background_enabled]: displayed,
     });
@@ -66,30 +59,17 @@ class AppView extends Component<Props, State> {
                 >
                   <SelectDoc />
                 </CSSTransition>
-                <CSSTransition
-                  in={status === 'LOADED'}
-                  timeout={1000}
-                  classNames={MENU_CLASSNAMES}
-                  unmountOnExit
-                >
-                  <Menu pathname={location.pathname} />
-                </CSSTransition>
+                {Documentation && (
+                  <CSSTransition
+                    in={status === 'LOADED'}
+                    timeout={1000}
+                    classNames={SELECTION_CLASSNAMES}
+                    unmountOnExit
+                  >
+                    <Documentation pathname={location.pathname} match={match} />
+                  </CSSTransition>
+                )}
               </Fragment>
-            )}
-          </Route>
-
-          <Route path="/operation/:operationId">
-            {({ match }) => (
-              <CSSTransition
-                in={!!match && status === 'LOADED'}
-                timeout={1000}
-                classNames={SELECTION_CLASSNAMES}
-                unmountOnExit
-              >
-                <div className={style.detailsContainer}>
-                  {DocDetails && <DocDetails match={match} />}
-                </div>
-              </CSSTransition>
             )}
           </Route>
         </div>

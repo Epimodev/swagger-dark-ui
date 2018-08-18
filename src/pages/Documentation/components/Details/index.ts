@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { StoreState } from 'src/store';
 import { OperationDocumentation } from 'src/types/documentation';
-import DocDetailsView, { Props } from './view';
+import DetailsView, { Props } from './view';
 
 interface StoreProps {
   operation: OperationDocumentation | undefined;
@@ -17,4 +17,4 @@ function mapStateToProps(state: StoreState, props: Props): StoreProps {
   };
 }
 
-export default connect(mapStateToProps)(DocDetailsView);
+export default connect(mapStateToProps)(DetailsView);

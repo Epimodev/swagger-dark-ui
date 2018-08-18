@@ -37,48 +37,22 @@ body {
   opacity: 1;
 }
 
-.detailsContainer {
-  position: absolute;
-  top: 25px;
-  right: 25px;
-  bottom: 25px;
-  left: 345px;
-  display: flex;
-  justify-content: center;
-}
-
 .selection_enter {
   opacity: 0;
-  transform: scale(1.1);
+  // transform: scale(1.1);
 }
 .selection_enterActive {
   opacity: 1;
-  transform: scale(1);
+  // transform: scale(1);
   transition: 500ms;
   transition-delay: 250ms;
 }
 .selection_exit {
   opacity: 1;
-  transform: scale(1);
+  // transform: scale(1);
 }
 .selection_exitActive {
-  transform: scale(0.9);
+  // transform: scale(0.9);
   opacity: 0;
-  transition: 300ms;
-}
-
-.menu_enter {
-  transform: translateX(-100%);
-}
-.menu_enterActive {
-  transform: translateX(0);
-  transition: 500ms;
-  transition-delay: 250ms;
-}
-.menu_exit {
-  transform: translateX(-100%);
-}
-.menu_exitActive {
-  transform: translateX(-100%);
   transition: 300ms;
 }
