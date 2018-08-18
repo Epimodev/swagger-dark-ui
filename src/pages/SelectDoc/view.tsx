@@ -8,8 +8,6 @@ import Button from 'src/components/Button';
 import Dropzone from 'src/components/Dropzone';
 import Icon from 'src/components/Icon';
 import jsonIcon from 'src/icons/json.svg';
-import peachIcon from 'src/icons/peach.svg';
-import giphyIcon from 'src/icons/giphy.svg';
 import OrSeparator from './components/OrSeparator';
 import DocExemple from './components/DocExemple';
 import * as style from './style.scss';
@@ -89,14 +87,16 @@ function SelectDocView(props: Props) {
             <DocExemple
               value="peach"
               onClick={fetchApiExemple}
-              iconRef={peachIcon}
-              iconClassName={style.peachIcon}
+              imageClassName={style.peachIcon}
+              src="/assets/logo/peach.png"
+              alt="Peach Logo"
             />
             <DocExemple
               value="giphy"
               onClick={fetchApiExemple}
-              iconRef={giphyIcon}
-              iconClassName={style.giphyIcon}
+              imageClassName={style.giphyIcon}
+              src="/assets/logo/giphy.png"
+              alt="Giphy Logo"
             />
           </div>
         </div>

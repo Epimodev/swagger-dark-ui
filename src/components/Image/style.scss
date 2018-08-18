@@ -1,0 +1,74 @@
+.container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image {
+  opacity: 0;
+  transition: 1000ms;
+}
+
+.image_loaded {
+  opacity: 1;
+}
+
+.placeholderContainer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.placeholder {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  width: 58px;
+  height: 46px;
+  color: white;
+  opacity: 0.2;
+}
+
+.placeholder_loading {
+  animation: loading 1000ms infinite alternate-reverse;
+}
+
+.error {
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.placeholder_enter {
+  opacity: 0;
+}
+
+.placeholder_enterActive {
+  opacity: 1;
+  transition: 1000ms;
+}
+
+.placeholder_exit {
+  opacity: 1;
+}
+
+.placeholder_exitActive {
+  opacity: 0;
+  transition: 200ms;
+}
+
+@keyframes loading {
+  from { opacity: 0.6 }
+  to { opacity: 0.4 }
+}
