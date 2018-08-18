@@ -1,9 +1,8 @@
-import { createElement, Component, Fragment } from 'react';
+import { createElement, Component, Fragment, ComponentType } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import * as classnames from 'classnames';
 import Menu from 'src/components/Menu';
-import DocDetails from 'src/pages/DocDetails';
 import SelectDoc from 'src/pages/SelectDoc';
 import * as style from './style.scss';
 
@@ -13,6 +12,7 @@ interface Props {
 
 interface State {
   displayed: boolean;
+  docDetails: ComponentType<any> | null;
 }
 
 const SELECTION_CLASSNAMES = {
@@ -29,15 +29,22 @@ const MENU_CLASSNAMES = {
 };
 
 class AppView extends Component<Props, State> {
-  state = { displayed: false };
+  constructor(props: Props) {
+    super(props);
 
-  componentDidMount() {
+    this.state = { displayed: false, docDetails: null };
+  }
+
+  async componentDidMount() {
     setTimeout(() => this.setState({ displayed: true }), 0);
+
+    const detailsModule = await import('src/pages/DocDetails');
+    this.setState({ docDetails: detailsModule.default });
   }
 
   render() {
     const { status } = this.props;
-    const { displayed } = this.state;
+    const { displayed, docDetails: DocDetails } = this.state;
     const backgroundClassName = classnames(style.background, {
       [style.background_enabled]: displayed,
     });
@@ -80,7 +87,7 @@ class AppView extends Component<Props, State> {
                 unmountOnExit
               >
                 <div className={style.detailsContainer}>
-                  <DocDetails match={match} />
+                  {DocDetails && <DocDetails match={match} />}
                 </div>
               </CSSTransition>
             )}
