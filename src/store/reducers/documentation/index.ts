@@ -1,12 +1,6 @@
 import { Action } from 'src/store';
-import { OperationDocumentation } from 'src/types/documentation';
-
-export interface DocumentationState {
-  name: string;
-  version: string;
-  baseUrl: string;
-  operations: OperationDocumentation[];
-}
+import { DocumentationState } from './types';
+import { getBaseUrl, getOperations } from './utils';
 
 const initialState: DocumentationState = {
   name: '',
@@ -20,7 +14,10 @@ function reducer(state: DocumentationState = initialState, action: Action): Docu
     case 'FETCH_SWAGGER_SUCCESS':
       return {
         ...state,
-        ...action.payload,
+        name: action.payload.info.title,
+        version: action.payload.info.version,
+        baseUrl: getBaseUrl(action.payload),
+        operations: getOperations(action.payload),
       };
     case 'RESET_APP':
       return initialState;

@@ -1,7 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import { AppThunk } from 'src/store';
 import * as types from './types';
-import { getBaseUrl, getOperations } from './utils';
 
 const LOADING_TIMEOUT = 600;
 
@@ -82,12 +81,7 @@ function readJsonFile(file: File): AppThunk<void> {
 function saveSwaggerDoc(data: SwaggerSchema): types.FETCH_SWAGGER_SUCCESS {
   return {
     type: 'FETCH_SWAGGER_SUCCESS',
-    payload: {
-      name: data.info.title,
-      version: data.info.version,
-      baseUrl: getBaseUrl(data),
-      operations: getOperations(data),
-    },
+    payload: data,
   };
 }
 
