@@ -1,8 +1,7 @@
-import { createSelector } from 'reselect';
-import { StoreState } from 'src/store';
+import memoizeOne from 'memoize-one';
 import fuzzysearch from 'src/utils/fuzzysearch';
 import { OperationDocumentation } from 'src/types/documentation';
-import { MenuRessource } from './types';
+import { MenuRessource, MenuState } from './types';
 
 function filterOperations(
   query: string,
@@ -68,6 +67,7 @@ function addOperationInRessource(
 }
 
 function getMenuRessources(operations: OperationDocumentation[]): MenuRessource[] {
+  console.log('GET MENU RESSOURCE');
   return operations.reduce(
     (ressources, operation) => {
       const ressourceName = getRessourceName(operation);
@@ -90,13 +90,18 @@ function getMenuRessources(operations: OperationDocumentation[]): MenuRessource[
   );
 }
 
-const selectOperations = createSelector(
-  (state: StoreState) => state.documentation.filterQuery,
-  (state: StoreState) => state.documentation.operations,
-  (filterQuery: string, operations: OperationDocumentation[]) =>
-    filterOperations(filterQuery, operations),
-);
+function updateFilter(filter: string): (state: MenuState) => MenuState {
+  return () => ({ filter });
+}
 
-const selectRessources = createSelector(selectOperations, getMenuRessources);
+function getDisplayedRessources_(
+  filter: string,
+  operations: OperationDocumentation[],
+): MenuRessource[] {
+  const displayedOperations = filterOperations(filter, operations);
+  return getMenuRessources(displayedOperations);
+}
 
-export { filterOperations, getMenuRessources, selectRessources };
+const getDisplayedRessources = memoizeOne(getDisplayedRessources_);
+
+export { updateFilter, filterOperations, getMenuRessources, getDisplayedRessources };
