@@ -39,20 +39,58 @@ body {
 
 .selection_enter {
   opacity: 0;
-  // transform: scale(1.1);
+  transform: scale(1.1);
 }
 .selection_enterActive {
   opacity: 1;
-  // transform: scale(1);
+  transform: scale(1);
   transition: 500ms;
   transition-delay: 250ms;
 }
 .selection_exit {
   opacity: 1;
-  // transform: scale(1);
+  transform: scale(1);
 }
 .selection_exitActive {
-  // transform: scale(0.9);
+  transform: scale(0.9);
+  opacity: 0;
+  transition: 300ms;
+}
+
+// MENU ANIMATIONS
+.documentation_enter > div:nth-child(1) {
+  transform: translateX(-100%);
+}
+.documentation_enterActive > div:nth-child(1) {
+  transform: translateX(0);
+  transition: 500ms;
+  transition-delay: 250ms;
+}
+.documentation_exit > div:nth-child(1) {
+  transform: translateX(0);
+}
+.documentation_exitActive > div:nth-child(1) {
+  transform: translateX(-100%);
+  transition: 300ms;
+}
+
+// DETAILS ANIMATIONS
+.documentation_enter > div:nth-child(2) {
+  opacity: 0;
+  transform: scale(1.1);
+}
+.documentation_enterActive > div:nth-child(2) {
+  opacity: 1;
+  transform: scale(1);
+  transition: 500ms;
+  transition-delay: 250ms;
+}
+.documentation_exit > div:nth-child(2) {
+  opacity: 1;
+  transform: scale(1);
+}
+.documentation_exitActive > div:nth-child(2) {
+  transform: scale(0.9);
   opacity: 0;
   transition: 300ms;
 }

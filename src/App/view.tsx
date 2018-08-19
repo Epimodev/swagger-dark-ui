@@ -20,6 +20,12 @@ const SELECTION_CLASSNAMES = {
   exit: style.selection_exit,
   exitActive: style.selection_exitActive,
 };
+const DOCUMENTATION_CLASSNAMES = {
+  enter: style.documentation_enter,
+  enterActive: style.documentation_enterActive,
+  exit: style.documentation_exit,
+  exitActive: style.documentation_exitActive,
+};
 
 class AppView extends Component<Props, State> {
   constructor(props: Props) {
@@ -63,7 +69,7 @@ class AppView extends Component<Props, State> {
                   <CSSTransition
                     in={status === 'LOADED'}
                     timeout={1000}
-                    classNames={SELECTION_CLASSNAMES}
+                    classNames={DOCUMENTATION_CLASSNAMES}
                     unmountOnExit
                   >
                     <Documentation pathname={location.pathname} match={match} />
