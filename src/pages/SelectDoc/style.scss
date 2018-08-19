@@ -19,7 +19,7 @@
   box-sizing: border-box;
   background-color: $cardBackground;
   border-radius: 5px;
-  overflow: auto;
+  @include momentumScroll;
 }
 
 .card_blurred {

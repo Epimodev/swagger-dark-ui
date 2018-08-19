@@ -1,4 +1,5 @@
 @import 'app-colors';
+@import 'mixins';
 
 .container {
   position: absolute;
@@ -8,8 +9,8 @@
   width: 320px;
   padding: 25px;
   box-sizing: border-box;
-  overflow: auto;
   background-color: $cardBackground;
+  @include momentumScroll;
 }
 
 .docName {

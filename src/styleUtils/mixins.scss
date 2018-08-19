@@ -25,3 +25,8 @@
   text-transform: uppercase;
   letter-spacing: 0.1em;
 }
+
+@mixin momentumScroll {
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}

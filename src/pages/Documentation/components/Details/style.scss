@@ -21,7 +21,7 @@ $padding: 15px;
   bottom: 0;
   left: 0;
   padding: 50px $padding $padding $padding;
-  overflow: auto;
+  @include momentumScroll;
 }
 
 .description {
