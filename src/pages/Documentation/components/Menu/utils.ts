@@ -101,6 +101,8 @@ function getDisplayedRessources_(
   return getMenuRessources(displayedOperations);
 }
 
-const getDisplayedRessources = memoizeOne(getDisplayedRessources_);
+const getDisplayedRessources = memoizeOne
+  ? memoizeOne(getDisplayedRessources_)
+  : getDisplayedRessources_;
 
 export { updateFilter, filterOperations, getMenuRessources, getDisplayedRessources };

@@ -152,7 +152,7 @@ function formatObjectProperties(properties: {
   }));
 }
 
-function formatSchema(definition: JsonDefinition): Schema {
+function formatSchema(definition: JsonDefinition | RefDefinition): Schema {
   switch (definition.type) {
     case 'string':
     case 'number':
@@ -175,6 +175,12 @@ function formatSchema(definition: JsonDefinition): Schema {
         items: definition.items
           ? formatSchema(definition.items)
           : { type: 'null', description: '' },
+      };
+    default:
+      return {
+        type: 'object',
+        description: '',
+        properties: [],
       };
   }
 }

@@ -522,6 +522,66 @@ describe('getOperations', () => {
     expect(tryGetOperations).toThrow(/\#\/definitions\/response_body/);
   });
 
+  test('Should create fake type with recursive $ref', () => {
+    const swaggerSchema: SwaggerSchema = {
+      ...SwaggerBaseSchema,
+      paths: {
+        '/gifs/search': {
+          get: {
+            operationId: 'search_get',
+            summary: 'Summary',
+            description: 'Description',
+            tags: [],
+            produces: [],
+            parameters: [],
+            responses: {
+              // tslint:disable-next-line object-literal-key-quotes
+              '200': {
+                description: 'Response description',
+                schema: {
+                  $ref: '#/definitions/response_body',
+                },
+                examples: {
+                  'application/json': 'Response example',
+                },
+              },
+            },
+          },
+        },
+      },
+      definitions: {
+        response_body: {
+          type: 'object',
+          properties: {
+            name: {
+              $ref: '#/definitions/validation',
+            },
+          },
+        },
+        validation: {
+          type: 'array',
+          items: {
+            type: 'string',
+          },
+        },
+      },
+    };
+
+    const apiOperations = utils.getOperations(swaggerSchema);
+    const operationResponses = apiOperations[0].responses;
+
+    expect(operationResponses[0].schema).toEqual({
+      type: 'object',
+      description: '',
+      properties: [
+        {
+          name: 'name',
+          schema: { type: 'object', description: '', properties: [] },
+        },
+      ],
+    });
+  });
+
   test('Should return 1 method with 2 responses', () => {
     const swaggerSchema: SwaggerSchema = {
       ...SwaggerBaseSchema,
