@@ -49,7 +49,7 @@ type ObjectDefinition = {
 
 type PrimitiveDefinition = {
   $ref?: undefined;
-  type: 'string' | 'integer' | 'number' | 'boolean';
+  type: 'string' | 'integer' | 'number' | 'boolean' | 'null';
   description?: string;
 };
 
