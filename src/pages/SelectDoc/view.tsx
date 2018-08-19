@@ -85,6 +85,13 @@ function SelectDocView(props: Props) {
           <h2 className={style.optionTitle}>Select one of thoses examples</h2>
           <div className={style.examplesContainer}>
             <DocExemple
+              value="tactill"
+              onClick={fetchApiExemple}
+              imageClassName={style.tactillIcon}
+              src="/assets/logo/tactill.svg"
+              alt="Tactill Logo"
+            />
+            <DocExemple
               value="peach"
               onClick={fetchApiExemple}
               imageClassName={style.peachIcon}
