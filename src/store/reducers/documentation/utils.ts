@@ -69,7 +69,7 @@ function getBodyDocumentation(
 
   if (bodyParam && bodyParam.schema) {
     const { example, ...schema } = bodyParam.schema;
-    const bodySchema = getSchema(schema, apiDoc);
+    const bodySchema = getSchema(schema, apiDoc, []);
     return {
       schema: bodySchema,
       example: example || null,
@@ -87,7 +87,7 @@ function formatResponses(
   return httpCodes.map(code => {
     const docResponse = docResponses[code];
 
-    const schema = getSchema(docResponse.schema, apiDoc);
+    const schema = getSchema(docResponse.schema, apiDoc, []);
     const example = getExample(docResponse);
 
     return {
@@ -130,29 +130,45 @@ function getRef($ref: string, apiDoc: SwaggerSchema): JsonDefinition {
   return definition;
 }
 
-function getSchema(definition: JsonDefinition | RefDefinition, apiDoc: SwaggerSchema): Schema {
+function getSchema(
+  definition: JsonDefinition | RefDefinition,
+  apiDoc: SwaggerSchema,
+  refStack: string[],
+): Schema {
   if (definition.$ref) {
+    if (refStack.indexOf(definition.$ref) >= 0) {
+      throw new Error(`Recursive $ref : ${refStack}`);
+    }
     const refDefinition = getRef(definition.$ref, apiDoc);
-    return formatSchema(refDefinition);
+    const newRefStack = [...refStack, definition.$ref];
+    return formatSchema(refDefinition, apiDoc, newRefStack);
   }
 
   if (definition.type) {
-    return formatSchema(definition);
+    return formatSchema(definition, apiDoc, refStack);
   }
 
   return { type: 'null', description: '' };
 }
 
-function formatObjectProperties(properties: {
-  [key: string]: JsonDefinition;
-}): { name: string; schema: Schema }[] {
+function formatObjectProperties(
+  properties: {
+    [key: string]: JsonDefinition;
+  },
+  apiDoc: SwaggerSchema,
+  refStack: string[],
+): { name: string; schema: Schema }[] {
   return Object.keys(properties).map(key => ({
     name: key,
-    schema: formatSchema(properties[key]),
+    schema: formatSchema(properties[key], apiDoc, refStack),
   }));
 }
 
-function formatSchema(definition: JsonDefinition | RefDefinition): Schema {
+function formatSchema(
+  definition: JsonDefinition | RefDefinition,
+  apiDoc: SwaggerSchema,
+  refStack: string[],
+): Schema {
   switch (definition.type) {
     case 'string':
     case 'number':
@@ -166,22 +182,20 @@ function formatSchema(definition: JsonDefinition | RefDefinition): Schema {
       return {
         type: definition.type,
         description: definition.description || '',
-        properties: definition.properties ? formatObjectProperties(definition.properties) : [],
+        properties: definition.properties
+          ? formatObjectProperties(definition.properties, apiDoc, refStack)
+          : [],
       };
     case 'array':
       return {
         type: definition.type,
         description: definition.description || '',
         items: definition.items
-          ? formatSchema(definition.items)
+          ? formatSchema(definition.items, apiDoc, refStack)
           : { type: 'null', description: '' },
       };
     default:
-      return {
-        type: 'object',
-        description: '',
-        properties: [],
-      };
+      return getSchema(definition, apiDoc, refStack);
   }
 }
 

@@ -522,7 +522,7 @@ describe('getOperations', () => {
     expect(tryGetOperations).toThrow(/\#\/definitions\/response_body/);
   });
 
-  test('Should create fake type with recursive $ref', () => {
+  test('Should get $ref in a $ref', () => {
     const swaggerSchema: SwaggerSchema = {
       ...SwaggerBaseSchema,
       paths: {
@@ -560,6 +560,7 @@ describe('getOperations', () => {
         },
         validation: {
           type: 'array',
+          description: 'validation list',
           items: {
             type: 'string',
           },
@@ -576,10 +577,67 @@ describe('getOperations', () => {
       properties: [
         {
           name: 'name',
-          schema: { type: 'object', description: '', properties: [] },
+          schema: {
+            type: 'array',
+            description: 'validation list',
+            items: { type: 'string', description: '' },
+          },
         },
       ],
     });
+  });
+
+  test('Should throw an error when there is a recursive $ref', () => {
+    const swaggerSchema: SwaggerSchema = {
+      ...SwaggerBaseSchema,
+      paths: {
+        '/gifs/search': {
+          get: {
+            operationId: 'search_get',
+            summary: 'Summary',
+            description: 'Description',
+            tags: [],
+            produces: [],
+            parameters: [],
+            responses: {
+              // tslint:disable-next-line object-literal-key-quotes
+              '200': {
+                description: 'Response description',
+                schema: {
+                  $ref: '#/definitions/response_body',
+                },
+                examples: {
+                  'application/json': 'Response example',
+                },
+              },
+            },
+          },
+        },
+      },
+      definitions: {
+        response_body: {
+          type: 'object',
+          properties: {
+            name: {
+              $ref: '#/definitions/validation',
+            },
+          },
+        },
+        validation: {
+          type: 'array',
+          description: 'validation list',
+          items: {
+            $ref: '#/definitions/response_body',
+          },
+        },
+      },
+    };
+
+    function tryGetOperations() {
+      utils.getOperations(swaggerSchema);
+    }
+
+    expect(tryGetOperations).toThrow(/Recursive \$ref/);
   });
 
   test('Should return 1 method with 2 responses', () => {
