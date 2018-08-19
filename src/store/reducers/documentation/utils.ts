@@ -194,8 +194,16 @@ function formatSchema(
           ? formatSchema(definition.items, apiDoc, refStack)
           : { type: 'null', description: '' },
       };
+    case 'null':
+      return {
+        type: definition.type,
+        description: definition.description || '',
+      };
     default:
-      return getSchema(definition, apiDoc, refStack);
+      if (definition.$ref) {
+        return getSchema(definition, apiDoc, refStack);
+      }
+      return { type: 'null', description: '' };
   }
 }
 
