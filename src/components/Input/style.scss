@@ -1,10 +1,14 @@
 @import "mixins";
 
+.container {
+  position: relative;
+  margin: 20px 0;
+}
+
 .input {
   @include resetInput;
   width: 100%;
   padding: 10px;
-  margin: 20px 0;
   border: 1px solid rgba(white, 0.2);
   background-color: rgba(black, 0.15);
   color: white;
@@ -14,4 +18,45 @@
   &::placeholder {
     color: rgba(white, 0.5);
   }
+}
+
+.clearButton {
+  @include resetButton;
+  position: absolute;
+  top: 0;
+  right: 10px;
+  bottom: 0;
+  width: 20px;
+  height: 20px;
+  margin: auto;
+  border-radius: 50%;
+  background-color: rgba(white, 0.2);
+}
+
+.clearButtonIcon {
+  position: absolute;
+  top: 1px;
+  right: 0;
+  bottom: 0;
+  left: 1px;
+  width: 9px;
+  height: 9px;
+  margin: auto;
+  color: rgba(white, 0.75);
+}
+
+.clearButton_enter {
+  transform: scale(0);
+}
+.clearButton_enterActive {
+  transform: scale(1);
+  transition: 200ms;
+}
+.clearButton_exit {
+  transform: scale(1);
+}
+.clearButton_exitActive {
+  transform: scale(0.5);
+  opacity: 0;
+  transition: 300ms;
 }
