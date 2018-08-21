@@ -73,7 +73,12 @@ function SelectDocView(props: Props) {
           <h2 className={style.optionTitle}>Write Swagger file url</h2>
           <div className={style.urlOptionContainer}>
             <div className={style.inputContainer}>
-              <Input placeholder="https://swagger-file.json" value={url} onChange={updateUrl} />
+              <Input
+                className={style.input}
+                placeholder="https://swagger-file.json"
+                value={url}
+                onChange={updateUrl}
+              />
             </div>
             <Button onClick={fetchUserUrl} disabled={isUrlInvalid}>
               LOAD FILE

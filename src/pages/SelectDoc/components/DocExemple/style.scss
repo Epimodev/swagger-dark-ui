@@ -1,4 +1,5 @@
 @import "mixins";
+@import "responsive";
 
 .container {
   @include resetButton;
@@ -9,6 +10,10 @@
   vertical-align: top;
   background-color: rgba(white, 0.08);
   border-radius: 5px;
+
+  @include phone {
+    margin: 0 15px 15px 15px;
+  }
 }
 
 .imageContainer {

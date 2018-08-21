@@ -1,5 +1,6 @@
 @import 'app-colors';
 @import 'mixins';
+@import 'responsive';
 
 .container {
   position: absolute;
@@ -20,6 +21,16 @@
   background-color: $cardBackground;
   border-radius: 5px;
   @include momentumScroll;
+
+  @media only screen and (max-width: 640px) {
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    border-radius: 0px;
+  }
+  @include phone {
+    padding: 15px 15px 0 15px;
+  }
 }
 
 .card_blurred {
@@ -52,6 +63,10 @@
   border-radius: 5px;
   cursor: pointer;
   transition: 200ms;
+
+  @include phone {
+    width: 280px;
+  }
 }
 
 .dropZone_isOver {
@@ -115,11 +130,25 @@
 .urlOptionContainer {
   display: flex;
   align-items: center;
+
+  @include phone {
+    display: block;
+    text-align: right;
+  }
 }
 
 .inputContainer {
   flex: 1;
   margin-right: 10px;
+  @include phone {
+    margin-right: 0;
+  }
+}
+
+.input {
+  @include phone {
+    margin-bottom: 10px;
+  }
 }
 
 .examplesContainer {

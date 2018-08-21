@@ -12,6 +12,7 @@ export const dropZoneErrorMessage: string;
 export const jsonIcon: string;
 export const urlOptionContainer: string;
 export const inputContainer: string;
+export const input: string;
 export const examplesContainer: string;
 export const tactillIcon: string;
 export const peachIcon: string;
