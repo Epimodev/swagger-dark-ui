@@ -12,6 +12,7 @@ export interface Props {
   docVersion: string;
   operations: OperationDocumentation[];
   pathname: string;
+  isTablet: boolean;
 }
 
 class Menu extends Component<Props, MenuState> {
@@ -28,13 +29,14 @@ class Menu extends Component<Props, MenuState> {
   }
 
   render() {
-    const { docName, docVersion, operations, pathname } = this.props;
+    const { docName, docVersion, operations, pathname, isTablet } = this.props;
     const { filter } = this.state;
     const ressources = getDisplayedRessources(filter, operations);
 
     return (
       <div className={style.container}>
-        {pathname === '/' && <Redirect to={`/operation/${ressources[0].operations[0].id}`} />}
+        {pathname === '/' &&
+          !isTablet && <Redirect to={`/operation/${ressources[0].operations[0].id}`} />}
         <div>
           <span className={style.docName}>{docName}</span>
           <span className={style.docVersion}>v{docVersion}</span>

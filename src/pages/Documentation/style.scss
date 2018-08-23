@@ -1,3 +1,5 @@
+@import "responsive";
+
 .detailsContainer {
   position: absolute;
   top: 25px;
@@ -6,4 +8,11 @@
   left: 345px;
   display: flex;
   justify-content: center;
+
+  @include tablet {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
 }

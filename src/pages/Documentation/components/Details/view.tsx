@@ -3,6 +3,8 @@ import { Redirect, match as Match } from 'react-router-dom';
 import { OperationDocumentation } from 'src/types/documentation';
 import Description from 'src/components/Description';
 import BodyDoc from 'src/components/BodyDoc';
+import Icon from 'src/components/Icon';
+import arrowIcon from 'src/icons/left-arrow.svg';
 import DetailsTitle from '../../components/DetailsTitle';
 import OperationPath from '../../components/OperationPath';
 import ParamsDoc from '../../components/ParamsDoc';
@@ -11,11 +13,12 @@ import * as style from './style.scss';
 
 export interface Props {
   match: Match<{ operationId: string }>;
+  isTablet: boolean;
   operation?: OperationDocumentation;
 }
 
 function Documentation(props: Props) {
-  const { operation } = props;
+  const { operation, isTablet } = props;
 
   if (!operation) {
     return <Redirect to="/" />;
@@ -41,6 +44,12 @@ function Documentation(props: Props) {
         )}
         <ResponsesDoc key={id} title="Responses" responses={responses} />
       </div>
+      {isTablet && (
+        <button className={style.backButton}>
+          <Icon href={arrowIcon} className={style.backButtonIcon} />
+          Endpoint list
+        </button>
+      )}
     </div>
   );
 }
