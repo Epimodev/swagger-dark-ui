@@ -1,5 +1,6 @@
 @import 'app-colors';
 @import 'mixins';
+@import 'responsive';
 
 .container {
   z-index: 10;
@@ -12,6 +13,13 @@
   box-sizing: border-box;
   background-color: $cardBackground;
   @include momentumScroll;
+
+  @include tablet {
+    width: 100%;
+  }
+  @include phone {
+    padding: 15px;
+  }
 }
 
 .docName {
@@ -21,4 +29,8 @@
 .docVersion {
   margin-left: 10px;
   color: $lightText;
+}
+
+.input {
+  max-width: 400px;
 }

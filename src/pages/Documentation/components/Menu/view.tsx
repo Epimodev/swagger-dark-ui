@@ -41,7 +41,12 @@ class Menu extends Component<Props, MenuState> {
           <span className={style.docName}>{docName}</span>
           <span className={style.docVersion}>v{docVersion}</span>
         </div>
-        <Input value={filter} onChange={this.handleFilterChange} placeholder="Filter endpoints" />
+        <Input
+          className={style.input}
+          value={filter}
+          onChange={this.handleFilterChange}
+          placeholder="Filter endpoints"
+        />
         {ressources.map(ressource => (
           <Ressource key={ressource.name} {...ressource} />
         ))}
