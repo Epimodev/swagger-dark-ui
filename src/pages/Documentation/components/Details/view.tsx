@@ -1,5 +1,5 @@
 import { createElement } from 'react';
-import { Redirect, match as Match } from 'react-router-dom';
+import { Redirect, Link, match as Match } from 'react-router-dom';
 import { OperationDocumentation } from 'src/types/documentation';
 import Description from 'src/components/Description';
 import BodyDoc from 'src/components/BodyDoc';
@@ -45,10 +45,10 @@ function Documentation(props: Props) {
         <ResponsesDoc key={id} title="Responses" responses={responses} />
       </div>
       {isTablet && (
-        <button className={style.backButton}>
+        <Link to="/" className={style.backButton}>
           <Icon href={arrowIcon} className={style.backButtonIcon} />
           Endpoint list
-        </button>
+        </Link>
       )}
     </div>
   );

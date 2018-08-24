@@ -48,7 +48,6 @@ $padding: 15px;
 }
 
 .backButton {
-  @include resetButton;
   @include uppercase;
   position: absolute;
   left: 15px;
@@ -60,6 +59,7 @@ $padding: 15px;
   color: white;
   background-color: rgba(white, 0.07);
   border-radius: 3px;
+  text-decoration: none;
 }
 
 .backButtonIcon {
