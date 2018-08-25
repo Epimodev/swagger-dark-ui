@@ -3,8 +3,12 @@ import { MenuRessource } from '../../types';
 import Operation from '../Operation';
 import * as style from './style.scss';
 
-function Ressource(props: MenuRessource) {
-  const { name, operations } = props;
+interface Props extends MenuRessource {
+  isTablet: boolean;
+}
+
+function Ressource(props: Props) {
+  const { name, operations, isTablet } = props;
 
   return (
     <div className={style.container}>
@@ -12,7 +16,7 @@ function Ressource(props: MenuRessource) {
       <div className={style.operations}>
         <hr className={style.operationsLine} />
         {operations.map(operation => (
-          <Operation key={operation.id} {...operation} />
+          <Operation key={operation.id} {...operation} isTablet={isTablet} />
         ))}
       </div>
     </div>

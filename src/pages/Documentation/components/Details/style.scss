@@ -29,6 +29,11 @@ $padding: 15px;
   left: 0;
   padding: 50px $padding $padding $padding;
   @include momentumScroll;
+
+  @include tablet {
+    padding-bottom: 70px;
+    box-sizing: border-box;
+  }
 }
 
 .description {
@@ -56,8 +61,8 @@ $padding: 15px;
   padding: 0 15px;
   display: flex;
   align-items: center;
-  color: white;
-  background-color: rgba(white, 0.07);
+  color: $lightText;
+  background-color: rgba(#213A54, 0.9);
   border-radius: 3px;
   text-decoration: none;
 }

@@ -10,6 +10,10 @@
   transition: 150ms;
 }
 
+.container_tablet {
+  opacity: 0.85;
+}
+
 .container_active {
   opacity: 1;
   animation: activated 250ms;

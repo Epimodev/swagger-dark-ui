@@ -48,7 +48,7 @@ class Menu extends Component<Props, MenuState> {
           placeholder="Filter endpoints"
         />
         {ressources.map(ressource => (
-          <Ressource key={ressource.name} {...ressource} />
+          <Ressource key={ressource.name} {...ressource} isTablet={isTablet} />
         ))}
       </div>
     );

@@ -47,7 +47,7 @@ function Documentation(props: Props) {
       {isTablet && (
         <Link to="/" className={style.backButton}>
           <Icon href={arrowIcon} className={style.backButtonIcon} />
-          Endpoint list
+          Back
         </Link>
       )}
     </div>
