@@ -36,7 +36,7 @@ class ResponsesDoc extends Component<Props, State> {
     return (
       <Fragment>
         <div className={style.title}>{title}</div>
-        <div className={style.container}>
+        <div>
           <div className={style.codeList}>
             {responses.map(({ code }, index) => (
               <CodeTab
