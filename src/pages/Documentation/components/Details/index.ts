@@ -7,9 +7,15 @@ interface StoreProps {
   operation: OperationDocumentation | undefined;
 }
 
+// variable use to keep details content during out animation
+let lastOperationId = '';
+
 function mapStateToProps(state: StoreState, props: Props): StoreProps {
   const operations = state.documentation ? state.documentation.operations : [];
-  const operation = operations.find(({ id }) => id === props.match.params.operationId);
+  const operationId = props.match ? props.match.params.operationId : lastOperationId;
+  lastOperationId = operationId;
+
+  const operation = operations.find(({ id }) => id === operationId);
 
   return {
     operation,

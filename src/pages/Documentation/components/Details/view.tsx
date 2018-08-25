@@ -12,7 +12,7 @@ import ResponsesDoc from '../../components/ResponsesDoc';
 import * as style from './style.scss';
 
 export interface Props {
-  match: Match<{ operationId: string }>;
+  match: Match<{ operationId: string }> | null;
   isTablet: boolean;
   operation?: OperationDocumentation;
 }

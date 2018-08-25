@@ -1,6 +1,7 @@
 @import "responsive";
 
 .detailsContainer {
+  z-index: 10;
   position: absolute;
   top: 25px;
   right: 25px;
@@ -15,4 +16,38 @@
     bottom: 0;
     left: 0;
   }
+}
+
+.menu_enter {
+  transform: translateX(-100%);
+  opacity: 0.8;
+}
+.menu_enterActive {
+  transform: translateX(0);
+  opacity: 1;
+  transition: 400ms;
+}
+.menu_exit {
+  transform: translateX(0);
+  opacity: 1;
+}
+.menu_exitActive {
+  transform: translateX(-100%);
+  opacity: 0.8;
+  transition: 400ms;
+}
+
+.details_enter {
+  transform: translateX(100%);
+}
+.details_enterActive {
+  transform: translateX(0);
+  transition: 400ms;
+}
+.details_exit {
+  transform: translateX(0);
+}
+.details_exitActive {
+  transform: translateX(100%);
+  transition: 400ms;
 }

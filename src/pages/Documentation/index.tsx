@@ -1,4 +1,5 @@
 import { createElement, Component } from 'react';
+import { CSSTransition } from 'react-transition-group';
 import { Route } from 'react-router-dom';
 import { injectReducer } from 'src/store';
 import documentationReducer from 'src/store/reducers/documentation';
@@ -16,6 +17,20 @@ interface Props {
 interface State {
   isTablet: boolean;
 }
+
+const MENU_CLASSNAMES = {
+  enter: style.menu_enter,
+  enterActive: style.menu_enterActive,
+  exit: style.menu_exit,
+  exitActive: style.menu_exitActive,
+};
+
+const DETAILS_CLASSNAMES = {
+  enter: style.details_enter,
+  enterActive: style.details_enterActive,
+  exit: style.details_exit,
+  exitActive: style.details_exitActive,
+};
 
 class Documentation extends Component<Props, State> {
   constructor(props: Props) {
@@ -51,19 +66,27 @@ class Documentation extends Component<Props, State> {
 
     return (
       <div>
-        <Route
-          path="/"
-          exact={isTablet}
-          render={() => <Menu pathname={pathname} isTablet={isTablet} />}
-        />
-        <Route
-          path="/operation/:operationId"
-          render={({ match }) => (
-            <div className={style.detailsContainer}>
-              <Details match={match} isTablet={isTablet} />
-            </div>
+        <Route path="/" exact={isTablet}>
+          {({ match }) => (
+            <CSSTransition in={!!match} timeout={1000} classNames={MENU_CLASSNAMES} unmountOnExit>
+              <Menu pathname={pathname} isTablet={isTablet} />
+            </CSSTransition>
           )}
-        />
+        </Route>
+        <Route path="/operation/:operationId">
+          {({ match }) => (
+            <CSSTransition
+              in={!!match}
+              timeout={10000}
+              classNames={DETAILS_CLASSNAMES}
+              unmountOnExit
+            >
+              <div className={style.detailsContainer}>
+                <Details match={match} isTablet={isTablet} />
+              </div>
+            </CSSTransition>
+          )}
+        </Route>
       </div>
     );
   }
