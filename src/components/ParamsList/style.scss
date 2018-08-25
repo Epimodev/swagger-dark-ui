@@ -1,5 +1,6 @@
 @import "app-colors";
 @import "mixins";
+@import "responsive";
 
 .container {
   border: 1px solid rgba(white, 0.25);
@@ -8,10 +9,24 @@
 
 .row {
   display: flex;
+  align-items: center;
   padding: 10px;
   color: $lightText;
   &:nth-child(even) {
     background-color: rgba(black, 0.08);
+  }
+
+  @include phone {
+    padding: 5px 10px;
+  }
+}
+
+.mainInfo {
+  display: flex;
+  flex: 1;
+
+  @include phone {
+    flex-direction: column;
   }
 }
 
@@ -23,6 +38,11 @@
 .cell_type {
   width: 80px;
   padding: 0 10px;
+
+  @include phone {
+    padding: 0;
+    font-size: 12px;
+  }
 }
 
 .cell_required {

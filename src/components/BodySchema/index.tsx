@@ -15,12 +15,10 @@ function BodySchema(props: Props) {
   return (
     <div className={style.container}>
       {schemaLines.map((line, index) => {
-        const paddingLeft = line.indentLevel * 10;
+        const paddingLeft = line.indentLevel * 10 + 10;
         return (
-          <div key={getLineKey(line, index)} className={style.row}>
-            <div className={style.cell_label} style={{ paddingLeft }}>
-              {line.label}
-            </div>
+          <div key={getLineKey(line, index)} className={style.row} style={{ paddingLeft }}>
+            <div className={style.cell_label}>{line.label}</div>
             <div className={style.cell_type}>
               <TypeLabel type={line.type}>{line.typeLabel}</TypeLabel>
             </div>

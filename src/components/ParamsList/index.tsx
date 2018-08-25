@@ -18,9 +18,11 @@ class ParamsList extends PureComponent<Props> {
       <div className={containerClass}>
         {params.map(param => (
           <div key={param.name} className={style.row}>
-            <div className={style.cell_name}>{param.name}</div>
-            <div className={style.cell_type}>
-              <TypeLabel type={param.type}>{param.type}</TypeLabel>
+            <div className={style.mainInfo}>
+              <div className={style.cell_name}>{param.name}</div>
+              <div className={style.cell_type}>
+                <TypeLabel type={param.type}>{param.type}</TypeLabel>
+              </div>
             </div>
             {param.required ? (
               <div className={style.cell_required}>Required</div>
