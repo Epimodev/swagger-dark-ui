@@ -7,8 +7,10 @@
   }
   a {
     position: relative;
-    color: $cyan;
+    color: $blue;
+    opacity: 0.85;
     text-decoration: none;
+    transition: 200ms;
 
     &::after {
       content: "";
@@ -17,12 +19,15 @@
       left: 0;
       right: 0;
       height: 1px;
-      background-color: $cyan;
+      background-color: $blue;
       opacity: 0;
       transform: translateY(-10px) scaleX(0.7);
       transition: 200ms;
     }
 
+    &:hover {
+      opacity: 1;
+    }
     &:hover::after {
       opacity: 1;
       transform: translateY(0) scaleX(1);
