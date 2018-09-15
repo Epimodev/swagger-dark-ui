@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios';
+import { fetchJson } from 'src/utils/fetch';
 import { AppThunk } from 'src/store';
 import * as types from './types';
 
@@ -15,11 +15,10 @@ function fetchApiDocumentation(url: string): AppThunk<void> {
   return dispatch => {
     let finished = false;
 
-    axios
-      .get(url)
-      .then((response: AxiosResponse<SwaggerSchema>) => {
+    fetchJson<SwaggerSchema>(url)
+      .then(response => {
         finished = true;
-        dispatch(saveSwaggerDoc(response.data));
+        dispatch(saveSwaggerDoc(response));
       })
       .catch(error => {
         finished = true;
