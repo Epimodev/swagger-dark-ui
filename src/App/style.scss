@@ -29,12 +29,6 @@ body {
   bottom: 0;
   left: 0;
   background: $backgroundGradian;
-  opacity: 0;
-  transition: 1000ms;
-}
-
-.background_enabled {
-  opacity: 1;
 }
 
 .selection_enter {

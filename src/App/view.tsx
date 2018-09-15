@@ -1,7 +1,6 @@
 import { createElement, Component, Fragment, ComponentType } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
-import * as classnames from 'classnames';
 import SelectDoc from 'src/pages/SelectDoc';
 import * as style from './style.scss';
 
@@ -44,14 +43,11 @@ class AppView extends Component<Props, State> {
   render() {
     const { status } = this.props;
     const { displayed, documentation: Documentation } = this.state;
-    const backgroundClassName = classnames(style.background, {
-      [style.background_enabled]: displayed,
-    });
 
     return (
       <Router>
         <div className={style.container}>
-          <div className={backgroundClassName} />
+          <div className={style.background} />
           {status === 'ERROR' && <div>Loading error</div>}
           <Route path="/">
             {({ match, location }) => (
