@@ -56,7 +56,6 @@
     "webpackbar": "^2.6.2"
   },
   "dependencies": {
-    "axios": "^0.18.0",
     "classnames": "^2.2.6",
     "memoize-one": "^4.0.0",
     "prismjs": "^1.15.0",
