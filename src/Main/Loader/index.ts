@@ -1,30 +1,6 @@
 import * as style from './style.scss';
 
-const appElement = document.getElementById('app');
-const loaderContainerElement = document.createElement('div');
-const loaderElement = createLoader();
-
-export function initBackground() {
-  loaderContainerElement.className = style.background;
-  loaderContainerElement.appendChild(loaderElement);
-  document.body.insertBefore(loaderContainerElement, appElement);
-
-  setTimeout(() => {
-    loaderContainerElement.className = `${style.background} ${style.background_enabled}`;
-  }, 0);
-}
-
-export function showLoader() {
-  loaderElement.className = style.mainLoader;
-}
-
-export function hideLoader() {
-  loaderElement.className = `${style.mainLoader} ${style.mainLoader_hidden}`;
-}
-
-export function removeBackground() {}
-
-function createLoader() {
+function createSpinnerElement() {
   const mainLoader = document.createElement('div');
   const loaderContainer = document.createElement('div');
   const loader = document.createElement('div');
@@ -37,3 +13,47 @@ function createLoader() {
 
   return mainLoader;
 }
+
+class Loader {
+  appElement = document.getElementById('app');
+  containerElement = document.createElement('div');
+  spinner: HTMLDivElement | null = null;
+  BACKGROUND_ANIMATION_DURATION = 1000;
+  SPINNER_ANIMATION_DURATION = 500;
+
+  constructor() {
+    this.containerElement.className = style.background;
+    document.body.insertBefore(this.containerElement, this.appElement);
+
+    setTimeout(() => {
+      this.containerElement.className = `${style.background} ${style.background_enabled}`;
+    }, 0);
+  }
+
+  showSpinner() {
+    this.spinner = this.spinner ? this.spinner : createSpinnerElement();
+    this.spinner.className = `${style.mainLoader} ${style.mainLoader_hidden}`;
+
+    this.containerElement.appendChild(this.spinner);
+
+    setTimeout(() => {
+      this.spinner!.className = style.mainLoader;
+    }, 0);
+  }
+
+  remove() {
+    if (this.spinner) {
+      this.spinner.className = `${style.mainLoader} ${style.mainLoader_hidden}`;
+      setTimeout(() => {
+        if (this.spinner && this.spinner.parentElement) {
+          this.spinner.parentElement.removeChild(this.spinner);
+        }
+        if (this.containerElement.parentElement) {
+          this.containerElement.parentElement.removeChild(this.containerElement);
+        }
+      }, this.SPINNER_ANIMATION_DURATION);
+    }
+  }
+}
+
+export default Loader;

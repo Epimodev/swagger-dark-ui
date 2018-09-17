@@ -1,16 +1,16 @@
-import * as MainLoader from './Main/Loader';
+import MainLoader from './Main/Loader';
 
+const loader = new MainLoader();
 let mainLoaded = false;
 
-MainLoader.initBackground();
 setTimeout(() => {
   if (!mainLoaded) {
-    MainLoader.showLoader();
+    loader.showSpinner();
   }
 }, 1200);
 
 import('./Main').then(module => {
   mainLoaded = true;
-  MainLoader.hideLoader();
+  loader.remove();
   module.renderApp();
 });
